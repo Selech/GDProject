@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PlayerControl : MonoBehaviour {
@@ -9,9 +9,12 @@ public class PlayerControl : MonoBehaviour {
 	public KeyCode left;
 	public KeyCode right;
 	public float speed;
+	public KeyCode shoot;
 
 	public GameObject ship;
 	public GameObject target;
+
+	public GameObject bullet;
 
 	// Use this for initialization
 	void Start () {
@@ -68,6 +71,11 @@ public class PlayerControl : MonoBehaviour {
 				target.transform.Translate(new Vector3(-0.12f,0,0));
 				ship.transform.Rotate(-Vector3.back * 5);
 			}
+		}
+
+		if(Input.GetKeyDown(shoot)){
+			Instantiate(bullet, ship.transform.position - (new Vector3(0.5f, 
+			           (ship.transform.position.y - target.transform.position.y) * 0.5f, 0f)), new Quaternion());
 		}
 	}
 
