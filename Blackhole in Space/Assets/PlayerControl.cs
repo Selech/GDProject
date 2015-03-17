@@ -9,12 +9,14 @@ public class PlayerControl : MonoBehaviour {
 	public KeyCode left;
 	public KeyCode right;
 	public float speed;
-	public KeyCode shoot;
+	public KeyCode shootBullet;
+	public KeyCode shootDoubleBullets;
 
 	public GameObject ship;
 	public GameObject target;
 
 	public GameObject bullet;
+	public GameObject doubleBullet;
 
 	// Use this for initialization
 	void Start () {
@@ -73,9 +75,24 @@ public class PlayerControl : MonoBehaviour {
 			}
 		}
 
-		if(Input.GetKeyDown(shoot)){
+		// Shooting a bullet
+		if(Input.GetKeyDown(shootBullet)){
 			Instantiate(bullet, ship.transform.position - (new Vector3(0.5f, 
 			           (ship.transform.position.y - target.transform.position.y) * 0.5f, 0f)), new Quaternion());
+		}
+
+		// Shooting double bullets
+		if(Input.GetKeyDown(shootDoubleBullets)){
+			
+			// Bullet on the right side of the ship
+			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y + 0.5f, 
+			         (ship.transform.position.y - target.transform.position.y) * 0.3f, 0f)), new Quaternion());
+			
+			// Bullet on the left side of the ship
+			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y - 0.5f, 
+			         (ship.transform.position.y - target.transform.position.y) * 0.3f, 0f)), new Quaternion());
+
+			print("Ship rotation: " + ship.transform.rotation);
 		}
 	}
 

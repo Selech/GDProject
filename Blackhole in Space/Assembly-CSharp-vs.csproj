@@ -50,6 +50,7 @@
      <Compile Include="Assets\AsteroidsGenerator.cs" />
      <Compile Include="Assets\BlackHoleScript.cs" />
      <Compile Include="Assets\BulletMovement.cs" />
+     <Compile Include="Assets\DoubleBulletMovement.cs" />
      <Compile Include="Assets\PlayerControl.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
