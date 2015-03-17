@@ -1,0 +1,48 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{7AA81749-3949-207C-198E-05C1E4D602DC}") = "Blackhole in Space", "Assembly-CSharp-vs.csproj", "{C8623A51-408D-D50E-F48C-6A0F117F9C41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8623A51-408D-D50E-F48C-6A0F117F9C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8623A51-408D-D50E-F48C-6A0F117F9C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8623A51-408D-D50E-F48C-6A0F117F9C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8623A51-408D-D50E-F48C-6A0F117F9C41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+<<<<<<< HEAD
+<<<<<<< HEAD
+																			GlobalSection(MonoDevelopProperties) = preSolution
+=======
+																								GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> 4b772c94637503917eea3af4437d9dbaef4c373b
+=======
+																					GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> PowerUpDoubleGun
+		StartupItem = Assembly-CSharp.csproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.inheritsSet = null
+		$1.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $2
+		$2.inheritsSet = Mono
+		$2.inheritsScope = text/x-csharp
+		$2.scope = text/x-csharp
+		$0.TextStylePolicy = $3
+		$3.FileWidth = 120
+		$3.TabWidth = 4
+		$3.IndentWidth = 4
+		$3.EolMarker = Unix
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/plain
+		$3.scope = text/plain
+	EndGlobalSection
+
+EndGlobal

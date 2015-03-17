@@ -1,8 +1,10 @@
 ﻿<Properties>
 <<<<<<< HEAD
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PlayerControl.cs">
     <Files>
-      <File FileName="Assets\PlayerControl.cs" Line="135" Column="1" />
+      <File FileName="Assets\PlayerControl.cs" Line="76" Column="25" />
 =======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/RandomPowerup.cs">
@@ -14,6 +16,13 @@
       <File FileName="Assets/RandomPowerup.cs" Line="22" Column="1" />
       <File FileName="Assets/PowerupScript.cs" Line="24" Column="57" />
 >>>>>>> 4b772c94637503917eea3af4437d9dbaef4c373b
+=======
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PlayerControl.cs">
+    <Files>
+      <File FileName="Assets\PlayerControl.cs" Line="135" Column="1" />
+      <File FileName="Assets\PlayerControl.cs" Line="93" Column="76" />
+>>>>>>> PowerUpDoubleGun
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
