@@ -49,8 +49,15 @@
      <Compile Include="Assets\AsteroidScript.cs" />
      <Compile Include="Assets\AsteroidsGenerator.cs" />
      <Compile Include="Assets\BlackHoleScript.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\BulletMovement.cs" />
+=======
+     <Compile Include="Assets\CheckQuaternion.cs" />
+>>>>>>> 4b772c94637503917eea3af4437d9dbaef4c373b
      <Compile Include="Assets\PlayerControl.cs" />
+     <Compile Include="Assets\PowerupGenerator.cs" />
+     <Compile Include="Assets\PowerupScript.cs" />
+     <Compile Include="Assets\RandomPowerup.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>
