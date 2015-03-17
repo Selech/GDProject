@@ -22,7 +22,7 @@ public class PowerupScript : MonoBehaviour {
 		if (slot1 == null) {
 			slot1 = powerup;
 			powerup.transform.position = new Vector3(-5.45f,4,0);
-			powerup.rigidbody.isKinematic = true;	
+			powerup.GetComponent<Rigidbody>().isKinematic = true;	
 		}
 
 		else if (slot1 == null) {

@@ -38,13 +38,13 @@ public class PlayerControl : MonoBehaviour {
 		if (Input.GetKey (up)) {
 			Vector3 direction = ship.transform.position - target.transform.position;
 			print (direction);
-			rigidbody.AddForce(-direction*1.5f,ForceMode.Force);
+			GetComponent<Rigidbody>().AddForce(-direction*1.5f,ForceMode.Force);
 		}
 		
 		if (Input.GetKey (down)) {
 			Vector3 direction = ship.transform.position - target.transform.position;
 			print (direction);
-			rigidbody.AddForce(direction,ForceMode.Force);
+			GetComponent<Rigidbody>().AddForce(direction,ForceMode.Force);
 		}
 		
 		if (Input.GetKey (left)) {
@@ -116,19 +116,19 @@ public class PlayerControl : MonoBehaviour {
 
 	public void physicsControl(){
 		if (Input.GetKey (up)) {
-			rigidbody.AddForce(new Vector3(0,speed,0),ForceMode.Force);
+			GetComponent<Rigidbody>().AddForce(new Vector3(0,speed,0),ForceMode.Force);
 		}
 
 		if (Input.GetKey (down)) {
-			rigidbody.AddForce(new Vector3(0,-speed,0),ForceMode.Force);
+			GetComponent<Rigidbody>().AddForce(new Vector3(0,-speed,0),ForceMode.Force);
 		}
 
 		if (Input.GetKey (left)) {
-			rigidbody.AddForce(new Vector3(-speed,0,0),ForceMode.Force);
+			GetComponent<Rigidbody>().AddForce(new Vector3(-speed,0,0),ForceMode.Force);
 		}
 
 		if (Input.GetKey (right)) {
-			rigidbody.AddForce(new Vector3(speed,0,0),ForceMode.Force);
+			GetComponent<Rigidbody>().AddForce(new Vector3(speed,0,0),ForceMode.Force);
 		}
 	}
 }

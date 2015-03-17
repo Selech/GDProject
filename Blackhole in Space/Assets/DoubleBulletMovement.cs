@@ -17,12 +17,12 @@ public class DoubleBulletMovement : MonoBehaviour {
 		Vector3 direction = player.transform.position - player.target.transform.position;
 		
 		
-		this.transform.rigidbody.AddForce (-direction * force);
+		this.transform.GetComponent<Rigidbody>().AddForce (-direction * force);
 		
 		
 		if (this.transform.position.x < -9) 
 		{
-			float yPos = rigidbody.transform.position.y;
+			float yPos = GetComponent<Rigidbody>().transform.position.y;
 			this.transform.position = new Vector3 (8, yPos, 0);
 		}
 	}
