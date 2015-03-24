@@ -16,5 +16,6 @@ public class AsteroidScript : MonoBehaviour {
 		//print ();
 		this.transform.position = Vector3.MoveTowards (this.transform.position, target, 0.1f); 
 
+		this.transform.Rotate (0f,4f,0);
 	}
 }

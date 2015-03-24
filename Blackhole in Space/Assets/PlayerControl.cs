@@ -26,9 +26,9 @@ public class PlayerControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		transform.position = Vector3.MoveTowards (transform.position,new Vector3(0,0,0),0.01f); 
-
-		asteroidsControl ();
-		//physicsControl ();
+		
+		//asteroidsControl ();
+		physicsControl ();
 		//translateControl ();
 	}
 
@@ -53,12 +53,13 @@ public class PlayerControl : MonoBehaviour {
 			if (PlayerNumber == 1 && (target.transform.position.y - ship.transform.position.y > -1)){
 				target.transform.Translate (new Vector3 (-0.12f, 0, 0));
 				ship.transform.Rotate (Vector3.back * 5);
+				ship.transform.Rotate (0,3f,0);
 			}
 			
 			if(PlayerNumber == 2 && (target.transform.position.y - ship.transform.position.y < 1) ){
 				target.transform.Translate(new Vector3(0.12f,0,0));
 				ship.transform.Rotate (Vector3.back * 5);
-
+				ship.transform.Rotate (0,-3f,0);
 			}
 		}
 		
@@ -66,12 +67,14 @@ public class PlayerControl : MonoBehaviour {
 			if(PlayerNumber == 1 && (target.transform.position.y - ship.transform.position.y < 1)){
 				target.transform.Translate(new Vector3(0.12f,0,0));
 				ship.transform.Rotate(-Vector3.back * 5);
+				ship.transform.Rotate (0,-3f,0);
 
 			}
 
 			if(PlayerNumber == 2 && (target.transform.position.y - ship.transform.position.y > -1)){
 				target.transform.Translate(new Vector3(-0.12f,0,0));
 				ship.transform.Rotate(-Vector3.back * 5);
+				ship.transform.Rotate (0,3f,0);
 			}
 		}
 
@@ -115,20 +118,31 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	public void physicsControl(){
-		if (Input.GetKey (up)) {
+		//print ("Physics controls");
+
+		if (Input.GetKey (right)) {
 			GetComponent<Rigidbody>().AddForce(new Vector3(0,speed,0),ForceMode.Force);
 		}
 
-		if (Input.GetKey (down)) {
+		if (Input.GetKey (left)) {
 			GetComponent<Rigidbody>().AddForce(new Vector3(0,-speed,0),ForceMode.Force);
 		}
 
-		if (Input.GetKey (left)) {
-			GetComponent<Rigidbody>().AddForce(new Vector3(-speed,0,0),ForceMode.Force);
+		if (Input.GetKey (up)) {
+			if(PlayerNumber == 1){
+				GetComponent<Rigidbody>().AddForce(new Vector3(-speed,0,0),ForceMode.Force);
+			}
+			if(PlayerNumber == 2){
+				GetComponent<Rigidbody>().AddForce(new Vector3(speed,0,0),ForceMode.Force);
+			} 
 		}
 
-		if (Input.GetKey (right)) {
-			GetComponent<Rigidbody>().AddForce(new Vector3(speed,0,0),ForceMode.Force);
-		}
+		if (Input.GetKey (down)) {
+			if(PlayerNumber == 1){
+				GetComponent<Rigidbody>().AddForce(new Vector3(speed*0.5f,0,0),ForceMode.Force);
+			}
+			if(PlayerNumber == 2){
+				GetComponent<Rigidbody>().AddForce(new Vector3(-speed*0.5f,0,0),ForceMode.Force);
+			} 		}
 	}
 }
