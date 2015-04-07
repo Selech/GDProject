@@ -16,18 +16,16 @@ public class BulletMovement : MonoBehaviour {
 
 			Vector3 direction = player.transform.position - player.target.transform.position;
 
-
 			this.transform.GetComponent<Rigidbody>().AddForce (-direction * force);
-
-
-		if (this.transform.position.x < -9) 
-		{
-			float yPos = GetComponent<Rigidbody>().transform.position.y;
-			this.transform.position = new Vector3 (8, yPos, 0);
-		}
 	}
 
 	void OnCollisionEnter(Collision target){
-		if(target.gameObject.tag != "Player") Destroy (this.gameObject);
+		if (target.gameObject.name == "Left") {
+			print ("hit");
+			this.transform.position = new Vector3 (18, this.transform.position.y, 0);
+		} 
+		if (target.gameObject.name == "Right") {
+			this.transform.position = new Vector3 (-18, this.transform.position.y, 0);
+		} 
 	}
 }

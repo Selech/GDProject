@@ -21,13 +21,13 @@ public class PowerupGenerator : MonoBehaviour {
 		rightCount--;
 		
 		if (leftCount == 0) {
-			Instantiate(random,new Vector3(-10.0f,Random.Range(-4.5f,4.5f),0),new Quaternion(0,0.7f,-0.7f,0));
+			Instantiate(random,new Vector3(-18.0f,Random.Range(-4.5f,4.5f),0),new Quaternion(0,0.7f,-0.7f,0));
 			leftCount = Random.Range (200,300);
 			
 		}
 		
 		if (rightCount == 0) {
-			Instantiate(random,new Vector3(10.0f,Random.Range(-4.5f,4.5f),0),new Quaternion(0,0.7f,-0.7f,0));
+			Instantiate(random,new Vector3(18.0f,Random.Range(-4.5f,4.5f),0),new Quaternion(0,0.7f,-0.7f,0));
 			rightCount = Random.Range (200,300);
 			
 		}
