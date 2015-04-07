@@ -3140,3 +3140,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aaa0dca5b9db45048003c647dabee89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLeft: {fileID: 900077284}
+  playerRight: {fileID: 720402179}
