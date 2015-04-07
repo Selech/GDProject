@@ -154,11 +154,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &511370036
+--- !u!1 &511370036 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: bdc8bfc4c931949c0bbdcb306a2f5b21, type: 3}
   m_PrefabInternal: {fileID: 572167395}
---- !u!4 &511370037
+--- !u!4 &511370037 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: bdc8bfc4c931949c0bbdcb306a2f5b21, type: 3}
   m_PrefabInternal: {fileID: 572167395}
@@ -1649,6 +1649,7 @@ GameObject:
   - 124: {fileID: 1495345142}
   - 81: {fileID: 1495345141}
   - 114: {fileID: 1495345146}
+  - 111: {fileID: 1495345147}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1735,6 +1736,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLeft: {fileID: 900077284}
   playerRight: {fileID: 720402179}
+--- !u!111 &1495345147
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1495345140}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 0432d2a2a28824c189864a830188569e, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1764048378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,7 +1906,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1978006464
+--- !u!1 &1978006464 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: bdc8bfc4c931949c0bbdcb306a2f5b21, type: 3}
   m_PrefabInternal: {fileID: 1871278831}
@@ -1906,7 +1922,7 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: bdc8bfc4c931949c0bbdcb306a2f5b21, type: 3}
---- !u!4 &1978006469
+--- !u!4 &1978006469 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: bdc8bfc4c931949c0bbdcb306a2f5b21, type: 3}
   m_PrefabInternal: {fileID: 1871278831}

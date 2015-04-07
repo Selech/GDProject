@@ -18,4 +18,12 @@ public class AsteroidScript : MonoBehaviour {
 
 		this.transform.Rotate (4f,4f,0);
 	}
+
+	void OnCollisionEnter(Collision other){
+		if (other.gameObject.tag == "Player") {
+			//print ("SHIIIIT");
+			Camera.main.GetComponent<Animation>().Play("AsteroidsShake");
+		}
+
+	}
 }

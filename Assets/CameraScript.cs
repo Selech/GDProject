@@ -13,8 +13,8 @@ public class CameraScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.transform.position = new Vector3 (playerLeft.transform.position.x + playerRight.transform.position.x,0,-10);
-
-		this.GetComponent<Camera>().orthographicSize = 4 + (Vector3.Distance (playerLeft.transform.position, playerRight.transform.position) / 12f);
+//		this.transform.position = new Vector3 (playerLeft.transform.position.x + playerRight.transform.position.x,0,-10);
+//
+//		this.GetComponent<Camera>().orthographicSize = 4 + (Vector3.Distance (playerLeft.transform.position, playerRight.transform.position) / 12f);
 	}
 }
