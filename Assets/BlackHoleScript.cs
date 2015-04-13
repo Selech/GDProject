@@ -15,7 +15,7 @@ public class BlackHoleScript : MonoBehaviour {
 	void Update () {
 		if(playerLeft.activeSelf && playerRight.activeSelf){
 
-			if ((playerLeft.transform.position.x - this.transform.position.x > -2.5f) || (playerRight.transform.position.x - this.transform.position.x < 2.5f)) {
+			if ((playerLeft.transform.position.x - this.transform.position.x > -2f) || (playerRight.transform.position.x - this.transform.position.x < 2f)) {
 				Time.timeScale = 0.5F;
 			} else {
 				Time.timeScale = 1.0F;

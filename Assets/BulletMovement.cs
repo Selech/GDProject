@@ -21,11 +21,10 @@ public class BulletMovement : MonoBehaviour {
 
 	void OnCollisionEnter(Collision target){
 		if (target.gameObject.name == "Left") {
-			print ("hit");
-			this.transform.position = new Vector3 (18, this.transform.position.y, 0);
+			this.transform.position = new Vector3 (9f, this.transform.position.y, 0);
 		} 
 		if (target.gameObject.name == "Right") {
-			this.transform.position = new Vector3 (-18, this.transform.position.y, 0);
+			this.transform.position = new Vector3 (-9f, this.transform.position.y, 0);
 		} 
 	}
 }

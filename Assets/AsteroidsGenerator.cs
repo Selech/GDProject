@@ -21,13 +21,15 @@ public class AsteroidsGenerator : MonoBehaviour {
 		rightCount--;
 
 		if (leftCount == 0) {
-			Instantiate(asteroid,new Vector3(-10.0f,Random.Range(-4.5f,4.5f),0),new Quaternion(0,0,0.7f,0.7f));
+			GameObject left = (GameObject) Instantiate(asteroid,new Vector3(-10.0f,Random.Range(-4.5f,4.5f),0),new Quaternion(0,0,0.7f,0.7f));
+			left.GetComponentInChildren<AsteroidScript>().scale = new Vector3(0.5f,0.5f,0.5f);
 			leftCount = Random.Range (200,300);
 
 		}
 
 		if (rightCount == 0) {
-			Instantiate(asteroid,new Vector3(10.0f,Random.Range(-4.5f,4.5f),0),new Quaternion(0,0,0.7f,0.7f));
+			GameObject right = (GameObject) Instantiate(asteroid,new Vector3(10.0f,Random.Range(-4.5f,4.5f),0),new Quaternion(0,0,0.7f,0.7f));
+			right.GetComponentInChildren<AsteroidScript>().scale = new Vector3(0.5f,0.5f,0.5f);
 			rightCount = Random.Range (200,300);
 
 		}
