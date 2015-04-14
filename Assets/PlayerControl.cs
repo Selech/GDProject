@@ -18,9 +18,14 @@ public class PlayerControl : MonoBehaviour {
 	public GameObject bullet;
 	public GameObject doubleBullet;
 
+	private bool isMoving;
+	private bool isSpeedingUp;
+	private AudioSource audioSrc;
+
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+	{
+		audioSrc = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -30,6 +35,40 @@ public class PlayerControl : MonoBehaviour {
 		//asteroidsControl ();
 		physicsControl ();
 		//translateControl ();
+
+		flightSound();
+	}
+
+	public void flightSound()
+	{
+		if(isMoving)
+		{
+			if(isSpeedingUp == false)
+			{
+				audioSrc.time = 0;
+				isSpeedingUp = true;
+			}
+
+			if (audioSrc.time == 0)
+			{
+				audioSrc.Play();
+			}
+			else if (audioSrc.time > 1.405f)
+			{
+				audioSrc.time = 0.85f;
+			}
+		}
+		else if (audioSrc.time != 0 && audioSrc.time < 1.4f)
+		{
+			isSpeedingUp = false;
+			audioSrc.time = 1.4f;
+			audioSrc.Play();
+		}
+
+		if (audioSrc.time == 2.548f)
+		{
+			audioSrc.time = 0;
+		}
 	}
 
 	public void physicsControl(){
@@ -52,7 +91,6 @@ public class PlayerControl : MonoBehaviour {
 			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y - 0.5f, 
 			                                                                 (ship.transform.position.y - target.transform.position.y) * 0.3f, 0f)), new Quaternion());
 			
-			print("Ship rotation: " + ship.transform.rotation);
 		}
 
 		if (Input.GetKey (right)) {
@@ -78,7 +116,13 @@ public class PlayerControl : MonoBehaviour {
 			}
 			if(PlayerNumber == 2){
 				GetComponent<Rigidbody>().AddForce(new Vector3(-speed*0.5f,0,0),ForceMode.Force);
-			} 		}
+			} 		
+		}
+
+		// For Sound
+		if(Input.GetKey (right) || Input.GetKey (left) || Input.GetKey (up) || Input.GetKey (down)) 
+			 isMoving = true;
+		else isMoving = false;
 	}
 
 	public void asteroidsControl(){
