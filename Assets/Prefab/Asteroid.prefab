@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scale: {x: 0, y: 0, z: 0}
+  explosion: {fileID: 8300000, guid: 3c16fd0f2f10144d195a4e1257900122, type: 3}
 --- !u!136 &13621596
 CapsuleCollider:
   m_ObjectHideFlags: 1

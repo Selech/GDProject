@@ -5,6 +5,7 @@ public class AsteroidScript : MonoBehaviour {
 
 	Vector3 target = new Vector3(0.0f,0.0f,0.0f);
 	public Vector3 scale;
+	public AudioClip explosion;
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +33,9 @@ public class AsteroidScript : MonoBehaviour {
 			left.GetComponent<ParticleSystem>().startSize = scale.x / 2;
 			left.GetComponent<ParticleSystem>().Play();
 			left.transform.position = Vector3.MoveTowards (this.transform.position, target, -1.5f); 
+
+			AudioSource.PlayClipAtPoint (explosion, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+
 
 //			GameObject right = (GameObject) Instantiate(this.gameObject,this.transform.position,new Quaternion(0,0,0.7f,0.7f));
 //			right.GetComponent<AsteroidScript>().scale = scale /2 ;

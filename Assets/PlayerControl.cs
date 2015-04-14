@@ -21,6 +21,7 @@ public class PlayerControl : MonoBehaviour {
 	private bool isMoving;
 	private bool isSpeedingUp;
 	private AudioSource audioSrc;
+	public AudioClip shot;
 
 	// Use this for initialization
 	void Start () 
@@ -76,13 +77,14 @@ public class PlayerControl : MonoBehaviour {
 
 		//Single bullet
 		if(Input.GetKeyDown(shootBullet)){
+			AudioSource.PlayClipAtPoint (shot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+
 			Instantiate(bullet, ship.transform.position - (new Vector3(0.5f, 
 			                                                           (ship.transform.position.y - target.transform.position.y) * 0.5f, 0f)), new Quaternion());
 		}
 
 		//Double bullet
 		if(Input.GetKeyDown(shootDoubleBullets)){
-			
 			// Bullet on the right side of the ship
 			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y + 0.5f, 
 			                                                                 (ship.transform.position.y - target.transform.position.y) * 0.3f, 0f)), new Quaternion());

@@ -6,6 +6,8 @@ public class BlackHoleScript : MonoBehaviour {
 	public GameObject playerLeft;
 	public GameObject playerRight;
 
+	public AudioClip slurp;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -26,6 +28,8 @@ public class BlackHoleScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision other){
+		AudioSource.PlayClipAtPoint (slurp, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+
 		Destroy(other.gameObject);
 	}
 }

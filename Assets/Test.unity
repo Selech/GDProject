@@ -114,6 +114,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 720402180}
   m_RootOrder: 1
+--- !u!1001 &310084960
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 487076, guid: 3710377bf7e3a41e78476fb0249fc7a9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -8.76441669
+      objectReference: {fileID: 0}
+    - target: {fileID: 487076, guid: 3710377bf7e3a41e78476fb0249fc7a9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: .10937243
+      objectReference: {fileID: 0}
+    - target: {fileID: 487076, guid: 3710377bf7e3a41e78476fb0249fc7a9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 6.33398438
+      objectReference: {fileID: 0}
+    - target: {fileID: 487076, guid: 3710377bf7e3a41e78476fb0249fc7a9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487076, guid: 3710377bf7e3a41e78476fb0249fc7a9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487076, guid: 3710377bf7e3a41e78476fb0249fc7a9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: .707106829
+      objectReference: {fileID: 0}
+    - target: {fileID: 487076, guid: 3710377bf7e3a41e78476fb0249fc7a9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: .707106709
+      objectReference: {fileID: 0}
+    - target: {fileID: 487076, guid: 3710377bf7e3a41e78476fb0249fc7a9, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3710377bf7e3a41e78476fb0249fc7a9, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &404526608
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,6 +341,7 @@ MonoBehaviour:
   target: {fileID: 248020818}
   bullet: {fileID: 0}
   doubleBullet: {fileID: 0}
+  shot: {fileID: 0}
 --- !u!82 &720402183
 AudioSource:
   m_ObjectHideFlags: 0
@@ -409,6 +452,7 @@ MonoBehaviour:
   target: {fileID: 1366158315}
   bullet: {fileID: 100000, guid: 8b86e80efffbf7b4ea4e20a8d9a4ca96, type: 2}
   doubleBullet: {fileID: 100000, guid: ff27e7c7b17ff864c923af8afd5290c6, type: 2}
+  shot: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
 --- !u!4 &900077286
 Transform:
   m_ObjectHideFlags: 0
@@ -3312,3 +3356,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLeft: {fileID: 900077284}
   playerRight: {fileID: 720402179}
+  slurp: {fileID: 8300000, guid: db01e8cb4becc41ee9cf579a7a1b15a1, type: 3}
