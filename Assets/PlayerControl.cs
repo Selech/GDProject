@@ -41,7 +41,6 @@ public class PlayerControl : MonoBehaviour {
 
 	public void flightSound()
 	{
-		Debug.Log("Time: "+audioSrc.time);
 		if(isMoving)
 		{
 			if(isSpeedingUp == false)
