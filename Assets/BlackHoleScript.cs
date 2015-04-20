@@ -39,14 +39,14 @@ public class BlackHoleScript : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter(Collision other){
+	void OnCollisionEnter(Collision other)
+	{
 		AudioSource.PlayClipAtPoint (slurp, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+		string namz = other.collider.name;
 
-		// Set Ship to dying
-		if (other.collider.name == "Ship")
-		{
-			other.gameObject.GetComponent<PlayerControl>().isDying = true;
-		}
+		// Set Ship or Astoroid to dying
+		if (namz == "Ship") { other.gameObject.GetComponent<PlayerControl>().isDying = true; }
+		else if(namz == "Asteroid(Clone)") { other.gameObject.GetComponent<AsteroidScript>().isDying = true; }
 		else
 		{
 			Destroy(other.gameObject);

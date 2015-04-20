@@ -65,11 +65,13 @@ public class PlayerControl : MonoBehaviour {
 			{
 				VictoryScreen.transform.Find("pfxRed").gameObject.SetActive(true);
 				VictoryScreen.transform.Find("Image (RED in MIddle)").gameObject.SetActive(true);
+				VictoryScreen.transform.Find("Text (Red is Victorious)").gameObject.SetActive(true);
 			}
 			else
 			{
 				VictoryScreen.transform.Find("pfxRed").gameObject.SetActive(true);
 				VictoryScreen.transform.Find("Image (Green in MIddle)").gameObject.SetActive(true);
+				VictoryScreen.transform.Find("Text (Green is Victorious)").gameObject.SetActive(true);
 			}
 		}
 	}

@@ -11,15 +11,19 @@ public class BulletMovement : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-			player = GameObject.Find("Ship").GetComponent<PlayerControl>();
+	void Update () 
+	{
+		player = GameObject.Find("Ship").GetComponent<PlayerControl>();
 
+		if(player != null)
+		{
 			Vector3 direction = player.transform.position - player.target.transform.position;
-
 			this.transform.GetComponent<Rigidbody>().AddForce (-direction * force);
+		}
 	}
 
-	void OnCollisionEnter(Collision target){
+	void OnCollisionEnter(Collision target)
+	{
 		if (target.gameObject.name == "Left") {
 			this.transform.position = new Vector3 (9f, this.transform.position.y, 0);
 		} 
