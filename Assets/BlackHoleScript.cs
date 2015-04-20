@@ -14,16 +14,28 @@ public class BlackHoleScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if(playerLeft.activeSelf && playerRight.activeSelf){
+	void Update () 
+	{
+		CheckForSlowmotion();
+	}
 
-			if ((playerLeft.transform.position.x - this.transform.position.x > -2f) || (playerRight.transform.position.x - this.transform.position.x < 2f)) {
-				Time.timeScale = 0.5F;
-			} else {
-				Time.timeScale = 1.0F;
-				
+	/**
+	 * When a player is near this blackhole everything slows down.
+	 **/
+	void CheckForSlowmotion()
+	{
+		if(playerLeft != null && playerRight != null)
+		{
+			if(playerLeft.activeSelf && playerRight.activeSelf)
+			{
+				if ((playerLeft.transform.position.x - this.transform.position.x > -2f) || (playerRight.transform.position.x - this.transform.position.x < 2f)) {
+					Time.timeScale = 0.3F;
+				} else {
+					Time.timeScale = 1.0F;
+					
+				}
+				Time.fixedDeltaTime = 0.02F * Time.timeScale;
 			}
-			Time.fixedDeltaTime = 0.02F * Time.timeScale;
 		}
 	}
 
