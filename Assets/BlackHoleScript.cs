@@ -42,6 +42,14 @@ public class BlackHoleScript : MonoBehaviour {
 	void OnCollisionEnter(Collision other){
 		AudioSource.PlayClipAtPoint (slurp, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
-		Destroy(other.gameObject);
+		// Set Ship to dying
+		if (other.collider.name == "Ship")
+		{
+			other.gameObject.GetComponent<PlayerControl>().isDying = true;
+		}
+		else
+		{
+			Destroy(other.gameObject);
+		}
 	}
 }

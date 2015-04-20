@@ -22,6 +22,7 @@ public class PlayerControl : MonoBehaviour {
 	private bool isSpeedingUp;
 	private AudioSource audioSrc;
 	public AudioClip shot;
+	public bool isDying = false;
 
 	// Use this for initialization
 	void Start () 
@@ -30,14 +31,32 @@ public class PlayerControl : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		transform.position = Vector3.MoveTowards (transform.position, new Vector3 (0, 0, 0), 0.005f); 
-		
-		//asteroidsControl ();
-		physicsControl ();
-		//translateControl ();
+	void Update () 
+	{
+		if(isDying == false)
+		{
+			transform.position = Vector3.MoveTowards (transform.position, new Vector3 (0, 0, 0), 0.005f); 
+			
+			//asteroidsControl ();
+			physicsControl ();
+			//translateControl ();
+			
+			flightSound();
+		}
+		else
+		{
+			AnimateDeath();
+		}
+	}
 
-		flightSound();
+	void AnimateDeath()
+	{
+		float scaleSpeed = 0.02f;
+		ship.transform.localScale -= new Vector3(scaleSpeed, scaleSpeed, scaleSpeed);
+		if(ship.transform.localScale.x < 0.0f)
+		{
+			Destroy(GameObject.Find(ship.transform.parent.gameObject.name));
+		}
 	}
 
 	public void flightSound()
