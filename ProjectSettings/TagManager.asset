@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet
   - Bounderies
+  - Environment
   layers:
   - Default
   - TransparentFX
@@ -40,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Particle
+    uniqueID: 704923071
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour {
 	public int PlayerNumber;
@@ -17,6 +18,7 @@ public class PlayerControl : MonoBehaviour {
 
 	public GameObject bullet;
 	public GameObject doubleBullet;
+	public GameObject VictoryScreen; 
 
 	private bool isMoving;
 	private bool isSpeedingUp;
@@ -56,6 +58,19 @@ public class PlayerControl : MonoBehaviour {
 		if(ship.transform.localScale.x < 0.0f)
 		{
 			Destroy(GameObject.Find(ship.transform.parent.gameObject.name));
+
+			VictoryScreen.SetActive(true);
+
+			if(ship.transform.parent.gameObject.name == "Ship")
+			{
+				VictoryScreen.transform.Find("pfxRed").gameObject.SetActive(true);
+				VictoryScreen.transform.Find("Image (RED in MIddle)").gameObject.SetActive(true);
+			}
+			else
+			{
+				VictoryScreen.transform.Find("pfxRed").gameObject.SetActive(true);
+				VictoryScreen.transform.Find("Image (Green in MIddle)").gameObject.SetActive(true);
+			}
 		}
 	}
 
