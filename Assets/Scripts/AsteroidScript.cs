@@ -7,6 +7,7 @@ public class AsteroidScript : MonoBehaviour {
 	public Vector3 scale;
 	public AudioClip explosion;
 	public bool isDying = false;
+	public GameObject blastEffect;
 
 	// Use this for initialization
 	void Start () {
@@ -47,6 +48,10 @@ public class AsteroidScript : MonoBehaviour {
 
 			if(this.gameObject.GetComponent<AsteroidScript>().scale.x > 0.25)
 			{
+				// Explosion Effect
+				Instantiate(blastEffect, other.collider.gameObject.transform.parent.position, new Quaternion());
+
+				// Smaller Asteroid
 				GameObject left = (GameObject) Instantiate(this.gameObject,this.transform.position,new Quaternion(0,0,0.7f,0.7f));
 				left.GetComponent<AsteroidScript>().scale = scale /2 ;
 				left.GetComponent<ParticleSystem>().startSize = scale.x / 2;
