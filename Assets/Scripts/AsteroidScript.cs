@@ -42,7 +42,7 @@ public class AsteroidScript : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "Player" || other.gameObject.tag == "Bullet(Clone)") 
 		{
-			other.collider.gameObject.transform.position = Vector3.MoveTowards (other.collider.gameObject.transform.position, target, 0.5f);
+			other.collider.gameObject.transform.parent.position = Vector3.MoveTowards (other.collider.gameObject.transform.position, target, 0.5f);
 			Camera.main.GetComponent<Animation>().Play("AsteroidsShake");
 
 			if(this.gameObject.GetComponent<AsteroidScript>().scale.x > 0.25)

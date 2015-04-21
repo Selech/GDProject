@@ -14,6 +14,10 @@ public class PlayerControl : MonoBehaviour {
 	public KeyCode shootBullet;
 	public KeyCode shootDoubleBullets;
 
+	public GameObject NuzzleFireGun;
+	public GameObject NuzzleFireLasor;
+	public GameObject NuzzleFireKanon;
+
 	public GameObject ship;
 	public GameObject spawnPointFront;
 	public float spawnPointFrontX;
@@ -110,6 +114,19 @@ public class PlayerControl : MonoBehaviour {
 		}
 	}
 
+	public void ShowNuzzleFireParticles(GameObject gObj)
+	{
+		// Left Nuzzle Fire
+		ParticleSystem psLeft = gObj.transform.FindChild("left").GetComponent<ParticleSystem>();
+		psLeft.Clear();
+		psLeft.Play();
+		
+		// Right Nuzzle Fire
+		ParticleSystem psRight = gObj.transform.FindChild("right").GetComponent<ParticleSystem>();
+		psRight.Clear();
+		psRight.Play();
+	}
+
 	public void physicsControl()
 	{
 		//Single bullet
@@ -122,6 +139,7 @@ public class PlayerControl : MonoBehaviour {
 				Vector3 pos = ship.transform.position - (new Vector3(0.5f + spawnPointFrontX, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.5f, 0f));
 				GameObject bul = Instantiate(bullet, pos, new Quaternion()) as GameObject;
 				bul.GetComponent<BulletMovement>().force = shootBulletSpeed;
+				ShowNuzzleFireParticles(NuzzleFireGun);
 			}
 		}
 
