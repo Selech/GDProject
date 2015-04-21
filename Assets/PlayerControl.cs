@@ -10,11 +10,13 @@ public class PlayerControl : MonoBehaviour {
 	public KeyCode left;
 	public KeyCode right;
 	public float speed;
+	public float shootBulletSpeed;
 	public KeyCode shootBullet;
 	public KeyCode shootDoubleBullets;
 
 	public GameObject ship;
-	public GameObject target;
+	public GameObject spawnPointFront;
+	public float spawnPointFrontX;
 
 	public GameObject bullet;
 	public GameObject doubleBullet;
@@ -55,10 +57,10 @@ public class PlayerControl : MonoBehaviour {
 	{
 		float scaleSpeed = 0.02f;
 		ship.transform.localScale -= new Vector3(scaleSpeed, scaleSpeed, scaleSpeed);
+
 		if(ship.transform.localScale.x < 0.0f)
 		{
 			Destroy(GameObject.Find(ship.transform.parent.gameObject.name));
-
 			VictoryScreen.SetActive(true);
 
 			if(ship.transform.parent.gameObject.name == "Ship")
@@ -69,7 +71,7 @@ public class PlayerControl : MonoBehaviour {
 			}
 			else
 			{
-				VictoryScreen.transform.Find("pfxRed").gameObject.SetActive(true);
+				VictoryScreen.transform.Find("pfxGreen").gameObject.SetActive(true);
 				VictoryScreen.transform.Find("Image (Green in MIddle)").gameObject.SetActive(true);
 				VictoryScreen.transform.Find("Text (Green is Victorious)").gameObject.SetActive(true);
 			}
@@ -108,29 +110,33 @@ public class PlayerControl : MonoBehaviour {
 		}
 	}
 
-	public void physicsControl(){
-		//print ("Physics controls");
-
+	public void physicsControl()
+	{
 		//Single bullet
-		if(Input.GetKeyDown(shootBullet)){
+		if(Input.GetKeyDown(shootBullet))
+		{
 			AudioSource.PlayClipAtPoint (shot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
-			Instantiate(bullet, ship.transform.position - (new Vector3(0.5f, 
-			                                                           (ship.transform.position.y - target.transform.position.y) * 0.5f, 0f)), new Quaternion());
+			if(ship != null)
+			{
+				Vector3 pos = ship.transform.position - (new Vector3(0.5f + spawnPointFrontX, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.5f, 0f));
+				GameObject bul = Instantiate(bullet, pos, new Quaternion()) as GameObject;
+				bul.GetComponent<BulletMovement>().force = shootBulletSpeed;
+			}
 		}
 
 		//Double bullet
-		if(Input.GetKeyDown(shootDoubleBullets)){
+		if(Input.GetKeyDown(shootDoubleBullets))
+		{
 			// Bullet on the right side of the ship
 			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y + 0.5f, 
-			                                                                 (ship.transform.position.y - target.transform.position.y) * 0.3f, 0f)), new Quaternion());
+			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
 			
 			// Bullet on the left side of the ship
 			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y - 0.5f, 
-			                                                                 (ship.transform.position.y - target.transform.position.y) * 0.3f, 0f)), new Quaternion());
+			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
 			
 		}
-
 		if (Input.GetKey (right)) {
 			GetComponent<Rigidbody>().AddForce(new Vector3(0,speed,0),ForceMode.Force);
 		}
@@ -167,64 +173,64 @@ public class PlayerControl : MonoBehaviour {
 		//transform.rotation = Vector3.RotateTowards(transform.position,target.transform.position,2f,2f);
 		
 		if (Input.GetKey (up)) {
-			Vector3 direction = ship.transform.position - target.transform.position;
+			Vector3 direction = ship.transform.position - spawnPointFront.transform.position;
 			print (direction);
 			GetComponent<Rigidbody>().AddForce(-direction*1.5f,ForceMode.Force);
 		}
 		
 		if (Input.GetKey (down)) {
-			Vector3 direction = ship.transform.position - target.transform.position;
+			Vector3 direction = ship.transform.position - spawnPointFront.transform.position;
 			print (direction);
 			GetComponent<Rigidbody>().AddForce(direction,ForceMode.Force);
 		}
 		
 		if (Input.GetKey (left)) {
-			print (target.transform.position.y - ship.transform.position.y);
+			print (spawnPointFront.transform.position.y - ship.transform.position.y);
 			
-			if (PlayerNumber == 1 && (target.transform.position.y - ship.transform.position.y > -1)){
-				target.transform.Translate (new Vector3 (-0.12f, 0, 0));
+			if (PlayerNumber == 1 && (spawnPointFront.transform.position.y - ship.transform.position.y > -1)){
+				spawnPointFront.transform.Translate (new Vector3 (-0.12f, 0, 0));
 				ship.transform.Rotate (Vector3.back * 5);
 				ship.transform.Rotate (0,3f,0);
 			}
 			
-			if(PlayerNumber == 2 && (target.transform.position.y - ship.transform.position.y < 1) ){
-				target.transform.Translate(new Vector3(0.12f,0,0));
+			if(PlayerNumber == 2 && (spawnPointFront.transform.position.y - ship.transform.position.y < 1) ){
+				spawnPointFront.transform.Translate(new Vector3(0.12f,0,0));
 				ship.transform.Rotate (Vector3.back * 5);
 				ship.transform.Rotate (0,-3f,0);
 			}
 		}
 		
 		if (Input.GetKey (right) ) {
-			if(PlayerNumber == 1 && (target.transform.position.y - ship.transform.position.y < 1)){
-				target.transform.Translate(new Vector3(0.12f,0,0));
+			if(PlayerNumber == 1 && (spawnPointFront.transform.position.y - ship.transform.position.y < 1)){
+				spawnPointFront.transform.Translate(new Vector3(0.12f,0,0));
 				ship.transform.Rotate(-Vector3.back * 5);
 				ship.transform.Rotate (0,-3f,0);
 				
 			}
 			
-			if(PlayerNumber == 2 && (target.transform.position.y - ship.transform.position.y > -1)){
-				target.transform.Translate(new Vector3(-0.12f,0,0));
+			if(PlayerNumber == 2 && (spawnPointFront.transform.position.y - ship.transform.position.y > -1)){
+				spawnPointFront.transform.Translate(new Vector3(-0.12f,0,0));
 				ship.transform.Rotate(-Vector3.back * 5);
 				ship.transform.Rotate (0,3f,0);
 			}
 		}
 		
 		// Shooting a bullet
-		if(Input.GetKeyDown(shootBullet)){
-			Instantiate(bullet, ship.transform.position - (new Vector3(0.5f, 
-			                                                           (ship.transform.position.y - target.transform.position.y) * 0.5f, 0f)), new Quaternion());
-		}
+//		if(Input.GetKeyDown(shootBullet)){
+//			Instantiate(bullet, ship.transform.position - (new Vector3(0.5f, 0, 0f)), new Quaternion());
+//			bullet.GetComponent<BulletMovement>().force = shootBulletSpeed;
+//		}
 		
 		// Shooting double bullets
 		if(Input.GetKeyDown(shootDoubleBullets)){
 			
 			// Bullet on the right side of the ship
 			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y + 0.5f, 
-			                                                                 (ship.transform.position.y - target.transform.position.y) * 0.3f, 0f)), new Quaternion());
+			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
 			
 			// Bullet on the left side of the ship
 			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y - 0.5f, 
-			                                                                 (ship.transform.position.y - target.transform.position.y) * 0.3f, 0f)), new Quaternion());
+			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
 			
 			print("Ship rotation: " + ship.transform.rotation);
 		}

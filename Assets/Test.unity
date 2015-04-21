@@ -109,7 +109,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 248020818}
   m_LocalRotation: {x: -.707106888, y: -.707106769, z: -1.15202333e-07, w: -1.15202319e-07}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: -0, z: 0}
   m_LocalScale: {x: .200000033, y: .200000033, z: .200000003}
   m_Children: []
   m_Father: {fileID: 720402180}
@@ -222,7 +222,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1730623922}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -341,7 +341,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1730623922}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -373,7 +373,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: RED IS VICTORIOUS
+  m_Text: GREEN IS VICTORIOUS
 --- !u!222 &563616488
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -483,7 +483,7 @@ Rigidbody:
   m_Drag: 1
   m_AngularDrag: .0500000007
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
@@ -493,25 +493,27 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 720402179}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3abc0304c40bc4cbe9a94332283afc2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerNumber: 2
-  up: 273
-  down: 274
-  left: 276
-  right: 275
+  up: 275
+  down: 276
+  left: 274
+  right: 273
   speed: 10
-  shootBullet: 0
+  shootBulletSpeed: -5
+  shootBullet: 108
   shootDoubleBullets: 0
   ship: {fileID: 511370036}
-  target: {fileID: 248020818}
-  bullet: {fileID: 0}
+  spawnPointFront: {fileID: 248020818}
+  spawnPointFrontX: -1
+  bullet: {fileID: 100000, guid: 8b86e80efffbf7b4ea4e20a8d9a4ca96, type: 2}
   doubleBullet: {fileID: 0}
-  VictoryScreen: {fileID: 0}
-  shot: {fileID: 0}
+  VictoryScreen: {fileID: 1730623921}
+  shot: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
   isDying: 0
 --- !u!82 &720402183
 AudioSource:
@@ -681,10 +683,12 @@ MonoBehaviour:
   left: 115
   right: 119
   speed: 10
+  shootBulletSpeed: 5
   shootBullet: 49
   shootDoubleBullets: 50
   ship: {fileID: 1978006464}
-  target: {fileID: 1366158315}
+  spawnPointFront: {fileID: 1366158315}
+  spawnPointFrontX: 0
   bullet: {fileID: 100000, guid: 8b86e80efffbf7b4ea4e20a8d9a4ca96, type: 2}
   doubleBullet: {fileID: 100000, guid: ff27e7c7b17ff864c923af8afd5290c6, type: 2}
   VictoryScreen: {fileID: 1730623921}
@@ -2072,7 +2076,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1366158315}
   m_LocalRotation: {x: -.707106888, y: -.707106769, z: -1.15202333e-07, w: -1.15202319e-07}
-  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalPosition: {x: -.5, y: 0, z: -0}
   m_LocalScale: {x: .200000033, y: .200000033, z: .200000003}
   m_Children: []
   m_Father: {fileID: 900077286}
@@ -2383,6 +2387,10 @@ Prefab:
     - target: {fileID: 19814230, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}
       propertyPath: InitialModule.startLifetime.scalar
       value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19895262, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}
+      propertyPath: InitialModule.startColor.minColor.rgba
+      value: 4284243199
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}

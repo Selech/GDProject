@@ -15,11 +15,11 @@ public class BulletMovement : MonoBehaviour {
 	{
 		player = GameObject.Find("Ship").GetComponent<PlayerControl>();
 
-		if(player != null)
-		{
-			Vector3 direction = player.transform.position - player.target.transform.position;
-			this.transform.GetComponent<Rigidbody>().AddForce (-direction * force);
-		}
+			Vector3 direction = player.transform.position - player.spawnPointFront.transform.position;
+		print("----");
+		print (force);
+		print (new Vector3(-force,0,0).ToString());
+		this.transform.GetComponent<Rigidbody>().AddForce (new Vector3(-force,0,0));
 	}
 
 	void OnCollisionEnter(Collision target)

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class DoubleBulletMovement : MonoBehaviour {
@@ -14,7 +14,7 @@ public class DoubleBulletMovement : MonoBehaviour {
 	void Update () {
 		player = GameObject.Find("Ship").GetComponent<PlayerControl>();
 		
-		Vector3 direction = player.transform.position - player.target.transform.position;
+		Vector3 direction = player.transform.position - player.spawnPointFront.transform.position;
 		
 		
 		this.transform.GetComponent<Rigidbody>().AddForce (-direction * force);
