@@ -19,19 +19,31 @@ public class BulletMovement : MonoBehaviour {
 
 	void OnCollisionEnter(Collision target)
 	{
+		// Going out the screen at LEFT
 		if (target.gameObject.name == "Left") {
 			this.transform.position = new Vector3 (9f, this.transform.position.y, 0);
 		} 
-		if (target.gameObject.name == "Right") {
+		// Going out the screen at RIGHT
+		else if (target.gameObject.name == "Right") {
 			this.transform.position = new Vector3 (-9f, this.transform.position.y, 0);
 		} 
+
+		// Re-apply force (of some reason)
 		this.transform.GetComponent<Rigidbody>().AddForce (new Vector3(-(force * speed * 2),0,0));
 
+		// Remove Bullet colliding with bullet
 		if(target.collider.gameObject.tag == "Bullet")
 		{
 			Instantiate(bulletCollissionExplosion,this.transform.position,new Quaternion());
-			
 			Destroy(this.gameObject);
+		}
+
+		// Push PLAYER back
+		if (target.gameObject.tag == "Player")
+		{
+			target.gameObject.GetComponent<Rigidbody>().AddForce (((target.gameObject.name=="Ship")?600:-600),0,0);
+			Instantiate(bulletCollissionExplosion, transform.position, new Quaternion());
+			Destroy(this.gameObject); // Remove bullet
 		}
 	}
 }
