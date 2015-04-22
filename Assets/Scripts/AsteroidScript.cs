@@ -44,10 +44,10 @@ public class AsteroidScript : MonoBehaviour {
 		string nameOfHit = other.collider.gameObject.tag;
 
 		// Move player backwards
-		if (other.gameObject.tag == "Player") 
+		if (nameOfHit == "Player") 
 		{
 			other.collider.gameObject.transform.parent.position = Vector3.MoveTowards (other.collider.gameObject.transform.position, target, 0.5f);
-			other.gameObject.transform.GetComponent<Rigidbody>().AddForce (other.collider.gameObject.transform.position.x,0,0);
+			other.collider.gameObject.transform.parent.GetComponent<Rigidbody>().AddForce (other.collider.gameObject.transform.position.x,0,0);
 			Camera.main.GetComponent<Animation>().Play("AsteroidsShake");
 		}
 

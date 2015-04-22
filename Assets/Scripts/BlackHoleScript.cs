@@ -28,7 +28,7 @@ public class BlackHoleScript : MonoBehaviour {
 		{
 			if(playerLeft.activeSelf && playerRight.activeSelf)
 			{
-				if ((playerLeft.transform.position.x - this.transform.position.x > -1.4f) || (playerRight.transform.position.x - this.transform.position.x < 1.4f)) {
+				if ((playerLeft.transform.position.x - this.transform.position.x > -1.0f) || (playerRight.transform.position.x - this.transform.position.x < 1.0f)) {
 					Time.timeScale = 0.3F;
 				} else {
 					Time.timeScale = 1.0F;
@@ -46,7 +46,7 @@ public class BlackHoleScript : MonoBehaviour {
 
 		// Set Ship or Astoroid to dying
 		if (namz == "Ship") { other.gameObject.GetComponent<PlayerControl>().isDying = true; }
-		else if(namz == "Asteroid(Clone)") { other.gameObject.GetComponent<AsteroidScript>().isDying = true; }
+		else if(namz == "Asteroid(Clone)" || namz == "Asteroid(Clone)(Clone)") { other.gameObject.GetComponent<AsteroidScript>().isDying = true; }
 		else
 		{
 			Destroy(other.gameObject);
