@@ -41,14 +41,11 @@ public class PlayerControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		transform.position = Vector3.MoveTowards (transform.position, new Vector3 (0, 0, 0), 0.005f); 
+
 		if(isDying == false)
 		{
-			transform.position = Vector3.MoveTowards (transform.position, new Vector3 (0, 0, 0), 0.005f); 
-			
-			//asteroidsControl ();
 			physicsControl ();
-			//translateControl ();
-			
 			flightSound();
 		}
 		else
@@ -60,7 +57,7 @@ public class PlayerControl : MonoBehaviour {
 	void AnimateDeath()
 	{
 		float scaleSpeed = 0.02f;
-		ship.transform.localScale -= new Vector3(scaleSpeed, scaleSpeed, scaleSpeed);
+		ship.transform.localScale -= new Vector3(scaleSpeed*1.2f, scaleSpeed*2, scaleSpeed);
 
 		if(ship.transform.localScale.x < 0.0f)
 		{
