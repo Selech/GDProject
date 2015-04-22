@@ -558,7 +558,7 @@ MonoBehaviour:
   ship: {fileID: 511370036}
   spawnPointFront: {fileID: 248020818}
   spawnPointFrontX: -1
-  bullet: {fileID: 100000, guid: 8b86e80efffbf7b4ea4e20a8d9a4ca96, type: 2}
+  bullet: {fileID: 100490, guid: 8b86e80efffbf7b4ea4e20a8d9a4ca96, type: 2}
   doubleBullet: {fileID: 0}
   VictoryScreen: {fileID: 1730623921}
   shot: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
@@ -748,7 +748,7 @@ MonoBehaviour:
   ship: {fileID: 1978006464}
   spawnPointFront: {fileID: 1366158315}
   spawnPointFrontX: 0
-  bullet: {fileID: 100000, guid: 8b86e80efffbf7b4ea4e20a8d9a4ca96, type: 2}
+  bullet: {fileID: 162948, guid: db93a111ebaee4d398711be5221d1856, type: 2}
   doubleBullet: {fileID: 100000, guid: ff27e7c7b17ff864c923af8afd5290c6, type: 2}
   VictoryScreen: {fileID: 1730623921}
   shot: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
@@ -2606,7 +2606,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22453992, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 22453992, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}
       propertyPath: m_AnchoredPosition.x

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class AsteroidScript : MonoBehaviour {
@@ -41,7 +41,7 @@ public class AsteroidScript : MonoBehaviour {
 	void OnCollisionEnter(Collision other)
 	{
 		// Push Player backwards
-		string nameOfHit = other.collider.gameObject.name.Replace("(Clone)", "");
+		string nameOfHit = other.collider.gameObject.tag;
 
 		// Move player backwards
 		if (other.gameObject.tag == "Player") 

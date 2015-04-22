@@ -963,7 +963,7 @@ ParticleSystem:
       minMaxState: 0
     separateAxis: 0
     inWorldSpace: 0
-    dampen: .100000001
+    dampen: .0500000007
   SizeBySpeedModule:
     enabled: 0
     curve:
