@@ -3,18 +3,17 @@ using System.Collections;
 
 public class BulletMovement : MonoBehaviour {
 	public float force;
+	public float speed = 5; 
 	private PlayerControl player;	
 
 	// Use this for initialization
 	void Start () {
-		//this.transform.rigidbody.AddForce (new Vector3 (-force, 0f, 0f));
+		this.transform.GetComponent<Rigidbody>().AddForce (new Vector3(-(force * speed),0,0));
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		player = GameObject.Find("Ship").GetComponent<PlayerControl>();
-		this.transform.GetComponent<Rigidbody>().AddForce (new Vector3(-force,0,0));
 	}
 
 	void OnCollisionEnter(Collision target)
@@ -25,5 +24,6 @@ public class BulletMovement : MonoBehaviour {
 		if (target.gameObject.name == "Right") {
 			this.transform.position = new Vector3 (-9f, this.transform.position.y, 0);
 		} 
+		this.transform.GetComponent<Rigidbody>().AddForce (new Vector3(-(force * speed * 2),0,0));
 	}
 }
