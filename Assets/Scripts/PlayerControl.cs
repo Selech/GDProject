@@ -47,6 +47,7 @@ public class PlayerControl : MonoBehaviour {
 		{
 			physicsControl ();
 			flightSound();
+			checkShooting();
 		}
 		else
 		{
@@ -126,32 +127,6 @@ public class PlayerControl : MonoBehaviour {
 
 	public void physicsControl()
 	{
-		//Single bullet
-		if(Input.GetKeyDown(shootBullet))
-		{
-			AudioSource.PlayClipAtPoint (shot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
-
-			if(ship != null)
-			{
-				Vector3 pos = ship.transform.position - (new Vector3(0.5f + spawnPointFrontX, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.5f, 0f));
-				GameObject bul = Instantiate(bullet, pos, new Quaternion()) as GameObject;
-				bul.GetComponent<BulletMovement>().force = shootBulletSpeed;
-				ShowNuzzleFireParticles(NuzzleFireGun);
-			}
-		}
-
-		//Double bullet
-		if(Input.GetKeyDown(shootDoubleBullets))
-		{
-			// Bullet on the right side of the ship
-			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y + 0.5f, 
-			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
-			
-			// Bullet on the left side of the ship
-			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y - 0.5f, 
-			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
-			
-		}
 		if (Input.GetKey (right)) {
 			GetComponent<Rigidbody>().AddForce(new Vector3(0,speed,0),ForceMode.Force);
 		}
@@ -266,6 +241,38 @@ public class PlayerControl : MonoBehaviour {
 		
 		if (Input.GetKey (right)) {
 			transform.Translate(new Vector3(speed,0,0));
+		}
+	}
+
+	public void checkShooting()
+	{
+		//Single bullet
+		if(Input.GetKeyDown(shootBullet))
+		{
+			AudioSource.PlayClipAtPoint (shot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+			
+			if(ship != null)
+			{
+				Vector3 pos = ship.transform.position - (new Vector3(0.5f + spawnPointFrontX, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.5f, 0f));
+				GameObject bul = Instantiate(bullet, pos, new Quaternion()) as GameObject;
+				bul.GetComponent<BulletMovement>().force = shootBulletSpeed;
+				ShowNuzzleFireParticles(NuzzleFireGun);
+			}
+			
+			// Push back
+			GetComponent<Rigidbody>().AddForce (((name=="Ship")?200:-200),0,0);
+		}
+		
+		//Double bullet
+		if(Input.GetKeyDown(shootDoubleBullets))
+		{
+			// Bullet on the right side of the ship
+			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y + 0.5f, 
+			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
+			
+			// Bullet on the left side of the ship
+			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y - 0.5f, 
+			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
 		}
 	}
 }
