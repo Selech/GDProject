@@ -32,6 +32,8 @@ public class PlayerControl : MonoBehaviour {
 	public AudioClip shot;
 	public bool isDying = false;
 
+	private float rotationSpeed = 4f;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -53,6 +55,13 @@ public class PlayerControl : MonoBehaviour {
 		{
 			AnimateDeath();
 		}
+
+		print (transform.localRotation);
+
+		if (transform.localRotation.x < 0f)
+						transform.Rotate (new Vector3 (1.5f, 0f));
+		if (transform.localRotation.x > 0f)
+						transform.Rotate (new Vector3 (-1.5f, 0f));
 	}
 
 	void AnimateDeath()
@@ -129,10 +138,12 @@ public class PlayerControl : MonoBehaviour {
 	{
 		if (Input.GetKey (right)) {
 			GetComponent<Rigidbody>().AddForce(new Vector3(0,speed,0),ForceMode.Force);
+			transform.Rotate (new Vector3 (rotationSpeed, 0f));
 		}
 
 		if (Input.GetKey (left)) {
 			GetComponent<Rigidbody>().AddForce(new Vector3(0,-speed,0),ForceMode.Force);
+			transform.Rotate (new Vector3 (-rotationSpeed, 0f));
 		}
 
 		if (Input.GetKey (up)) {
