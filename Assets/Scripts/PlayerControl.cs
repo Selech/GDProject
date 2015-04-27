@@ -32,7 +32,7 @@ public class PlayerControl : MonoBehaviour {
 	public AudioClip shot;
 	public bool isDying = false;
 
-	private float rotationSpeed = 4f;
+	private float rotationSpeed = 2.0f;
 
 	// Use this for initialization
 	void Start () 
