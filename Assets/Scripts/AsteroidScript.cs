@@ -8,16 +8,17 @@ public class AsteroidScript : MonoBehaviour {
 	public AudioClip explosion;
 	public bool isDying = false;
 	public GameObject blastEffect;
+	public GameObject blastEffectSmall;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		this.transform.localScale = scale;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		
 		this.transform.position = Vector3.MoveTowards (this.transform.position, target, 0.05f); 
 		this.transform.Rotate (4f,4f,0);
 
@@ -57,7 +58,7 @@ public class AsteroidScript : MonoBehaviour {
 			{
 				// Explosion Effect
 				Instantiate(blastEffect, transform.position, new Quaternion());
-				
+
 				// Smaller Asteroid
 				GameObject left = (GameObject) Instantiate(this.gameObject,this.transform.position,new Quaternion(0,0,0.7f,0.7f));
 				left.GetComponent<AsteroidScript>().scale = scale /2 ;
@@ -65,7 +66,13 @@ public class AsteroidScript : MonoBehaviour {
 				left.GetComponent<ParticleSystem>().Play();
 				left.transform.position = Vector3.MoveTowards (this.transform.position, target, -1.5f); 
 			}
-			
+			else
+			{
+				// Explosion Effect
+				Instantiate(blastEffectSmall, transform.position, new Quaternion());
+			}
+
+
 			// Play Sound
 			AudioSource.PlayClipAtPoint (explosion, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 

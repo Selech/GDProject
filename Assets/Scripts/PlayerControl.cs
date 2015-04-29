@@ -2,7 +2,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class PlayerControl : MonoBehaviour {
+public class PlayerControl : MonoBehaviour 
+{
 	public int PlayerNumber;
 
 	public KeyCode up;
@@ -31,23 +32,60 @@ public class PlayerControl : MonoBehaviour {
 	private AudioSource audioSrc;
 	public AudioClip shot;
 	public bool isDying = false;
+	public bool isBeingSuckedIntoBlackHole = false;
+
+	public int numCollectedPowerups	= 0;
+	public int numCollectedBluePowerups = 0;
+	public int numCollectedYellowPowerups = 0;
+	public int numCollectedPurplePowerups = 0;
+
+	public Text txtCollectedPowerups;
+	public Text txtCollectedBluePowerups;	
+	public Text txtCollectedYellowPowerups;
+	public Text txtCollectedPurplePowerups;
+	public Text txtOpponentScore;
+
+	public GameObject absorbEffectBlue;
+	public GameObject absorbEffectYellow;
+	public GameObject absorbEffectPurple;
+	public AudioClip absorbEffectBlue_mp3;
+	public AudioClip absorbEffectYellow_mp3;
+	public AudioClip absorbEffectPurple_mp3;
 
 	private float rotationSpeed = 2.0f;
 
 	// Use this for initialization
 	void Start () 
 	{
+		// Save reference to Flight Sound Audio Source
 		audioSrc = GetComponent<AudioSource>();
+	}
+
+	void UpdateScores()
+	{
+			if (this.name.Replace("(Clone)", "") == "Ship")
+			{
+				txtOpponentScore.text = LocalDB.Player2_Score.ToString();
+			}
+			else
+			{
+				txtOpponentScore.text = LocalDB.Player1_Score.ToString();
+			}
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		// Update Scores
+		UpdateScores();
+
+		// Drag towards Black Hole
 		transform.position = Vector3.MoveTowards (transform.position, new Vector3 (0, 0, 0), 0.005f); 
 
+		// Physics when not being sucked into blackhole
 		if(isDying == false)
 		{
-			physicsControl ();
+			physicsControl();
 			flightSound();
 			checkShooting();
 		}
@@ -56,12 +94,9 @@ public class PlayerControl : MonoBehaviour {
 			AnimateDeath();
 		}
 
-		print (transform.localRotation);
-
-		if (transform.localRotation.x < 0f)
-						transform.Rotate (new Vector3 (1.5f, 0f));
-		if (transform.localRotation.x > 0f)
-						transform.Rotate (new Vector3 (-1.5f, 0f));
+		// Rotate Spaceship when moving
+		if (transform.localRotation.x < 0f) transform.Rotate (new Vector3 (1.5f, 0f));
+		if (transform.localRotation.x > 0f) transform.Rotate (new Vector3 (-1.5f, 0f));
 	}
 
 	void AnimateDeath()
@@ -170,24 +205,73 @@ public class PlayerControl : MonoBehaviour {
 		else isMoving = false;
 	}
 
-	public void asteroidsControl(){
-		//transform.rotation = Vector3.RotateTowards(transform.position,target.transform.position,2f,2f);
+	void OnCollisionEnter(Collision other)
+	{
+		string name = other.collider.name.Replace("(Clone)", "");
+
+		CollisionWithPowerUp(other, name);
+		CollisionWithBlackHole(other, name);
+	}
+
+	private void CollisionWithBlackHole(Collision other, string nameOfCollider)
+	{
+		if(nameOfCollider == "TheBlackhole")
+		{
+			if(isBeingSuckedIntoBlackHole == false)
+			{
+				isBeingSuckedIntoBlackHole = true;
+
+				if (this.name.Replace("(Clone)", "") == "Ship")
+				{
+					LocalDB.Player2_Score = LocalDB.Player2_Score + 1;
+				}
+				else
+				{
+					LocalDB.Player1_Score = LocalDB.Player1_Score + 1;
+				}
+
+				UpdateScores();
+			}
+		}
+	}
+
+	private void CollisionWithPowerUp(Collision other, string name)
+	{
+		int ranNum = (name == "PowerUpRandom") ? Random.Range(1, 4) : 0;
 		
-		if (Input.GetKey (up)) {
+		if (name == "PowerUpBlue" || ranNum == 1)
+		{
+			Instantiate(absorbEffectBlue, transform.position, new Quaternion());
+			AudioSource.PlayClipAtPoint (absorbEffectBlue_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+		}
+		else if (name == "PowerUpYellow" || ranNum == 2)
+		{
+			Instantiate(absorbEffectYellow, transform.position, new Quaternion());
+			AudioSource.PlayClipAtPoint (absorbEffectYellow_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+		}
+		else if (name == "PowerUpPurple" || ranNum == 3)
+		{
+			Instantiate(absorbEffectPurple, transform.position, new Quaternion());
+			AudioSource.PlayClipAtPoint (absorbEffectPurple_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+		}
+	}
+
+	public void asteroidsControl()
+	{
+		if (Input.GetKey (up)) 
+		{
 			Vector3 direction = ship.transform.position - spawnPointFront.transform.position;
-			print (direction);
 			GetComponent<Rigidbody>().AddForce(-direction*1.5f,ForceMode.Force);
 		}
 		
-		if (Input.GetKey (down)) {
+		if (Input.GetKey (down)) 
+		{
 			Vector3 direction = ship.transform.position - spawnPointFront.transform.position;
-			print (direction);
-			GetComponent<Rigidbody>().AddForce(direction,ForceMode.Force);
+			GetComponent<Rigidbody>().AddForce(direction, ForceMode.Force);
 		}
 		
-		if (Input.GetKey (left)) {
-			print (spawnPointFront.transform.position.y - ship.transform.position.y);
-			
+		if (Input.GetKey (left)) 
+		{
 			if (PlayerNumber == 1 && (spawnPointFront.transform.position.y - ship.transform.position.y > -1)){
 				spawnPointFront.transform.Translate (new Vector3 (-0.12f, 0, 0));
 				ship.transform.Rotate (Vector3.back * 5);
@@ -216,12 +300,6 @@ public class PlayerControl : MonoBehaviour {
 			}
 		}
 		
-		// Shooting a bullet
-//		if(Input.GetKeyDown(shootBullet)){
-//			Instantiate(bullet, ship.transform.position - (new Vector3(0.5f, 0, 0f)), new Quaternion());
-//			bullet.GetComponent<BulletMovement>().force = shootBulletSpeed;
-//		}
-		
 		// Shooting double bullets
 		if(Input.GetKeyDown(shootDoubleBullets)){
 			
@@ -232,12 +310,11 @@ public class PlayerControl : MonoBehaviour {
 			// Bullet on the left side of the ship
 			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y - 0.5f, 
 			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
-			
-			print("Ship rotation: " + ship.transform.rotation);
 		}
 	}
 
-	public void translateControl(){
+	public void translateControl()
+	{
 		if (Input.GetKey (up)) {
 			transform.Translate(new Vector3(0,speed,0));
 		}
