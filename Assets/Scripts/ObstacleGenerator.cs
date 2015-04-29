@@ -6,8 +6,8 @@ public class ObstacleGenerator : MonoBehaviour {
 	int leftCount;
 	int rightCount;
 	
-	int lowerRandomNum = 40;
-	int upperRandomNum = 200;
+	int lowerRandomNum = 10;
+	int upperRandomNum = 50;
 	
 	public GameObject asteroid;
 	public GameObject toilet;
@@ -44,14 +44,10 @@ public class ObstacleGenerator : MonoBehaviour {
 		int spawnNum = Random.Range(1,4);
 		GameObject obstacle = null;
 
-		if (spawnNum == 1)
+		if (spawnNum == 1 || spawnNum == 2)
 		{
 			obstacle = (GameObject) Instantiate(asteroid,new Vector3(xPos,Random.Range(-4.5f,4.5f),0),new Quaternion(0,0,0.7f,0.7f));
 			obstacle.GetComponentInChildren<AsteroidScript>().scale = new Vector3(0.5f,0.5f,0.5f);
-		}
-		else if (spawnNum == 2)
-		{
-			obstacle = (GameObject) Instantiate(toilet,new Vector3(xPos,Random.Range(-4.5f,4.5f),0),new Quaternion(0,0,0.7f,0.7f));
 		}
 		else if (spawnNum == 3)
 		{

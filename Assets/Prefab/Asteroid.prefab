@@ -12,9 +12,9 @@ GameObject:
   - 23: {fileID: 2338600}
   - 114: {fileID: 11456108}
   - 54: {fileID: 5464152}
-  - 136: {fileID: 13621596}
   - 198: {fileID: 19825276}
   - 199: {fileID: 19999266}
+  - 135: {fileID: 13599882}
   m_Layer: 9
   m_Name: Asteroid
   m_TagString: Environment
@@ -29,7 +29,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187076}
   m_LocalRotation: {x: 0, y: 0, z: .707106829, w: .707106709}
-  m_LocalPosition: {x: -8.76441669, y: .10937243, z: 6.33398438}
+  m_LocalPosition: {x: 11.8306665, y: -3.84768748, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,8 +96,8 @@ MonoBehaviour:
   isDying: 0
   blastEffect: {fileID: 182548, guid: 939a703f01d9a4610afb9a587caa3f44, type: 2}
   blastEffectSmall: {fileID: 128368, guid: 61c9294f893d149bc90eb3b0e8b1dac8, type: 2}
---- !u!136 &13621596
-CapsuleCollider:
+--- !u!135 &13599882
+SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -105,10 +105,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .980000019
-  m_Height: 4.0999999
-  m_Direction: 1
-  m_Center: {x: -.00503146602, y: -.000906944158, z: .00128552318}
+  serializedVersion: 2
+  m_Radius: .899999976
+  m_Center: {x: -.13956596, y: -.0298312567, z: .0388979912}
 --- !u!198 &19825276
 ParticleSystem:
   m_ObjectHideFlags: 1

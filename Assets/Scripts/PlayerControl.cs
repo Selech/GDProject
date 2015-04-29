@@ -348,7 +348,7 @@ public class PlayerControl : MonoBehaviour
 			}
 			
 			// Push back
-			GetComponent<Rigidbody>().AddForce (((name=="Ship")?200:-200),0,0);
+			GetComponent<Rigidbody>().AddForce (((name=="Ship")?100:-100),0,0);
 		}
 		
 		//Double bullet
