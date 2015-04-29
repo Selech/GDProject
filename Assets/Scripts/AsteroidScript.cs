@@ -3,7 +3,7 @@ using System.Collections;
 
 public class AsteroidScript : MonoBehaviour {
 
-	Vector3 target = new Vector3(0.0f,Random.Range(-5.0f, 5.0f),0.0f);
+	Vector3 target; 
 	public Vector3 scale;
 	public AudioClip explosion;
 	public bool isDying = false;
@@ -13,6 +13,7 @@ public class AsteroidScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		this.target = new Vector3(0.0f,Random.Range(-5.0f, 5.0f),0.0f);
 		this.transform.localScale = scale * Random.Range(1.1f, 1.5f);
 	}
 	

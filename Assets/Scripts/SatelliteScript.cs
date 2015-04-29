@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SatelliteScript : MonoBehaviour {
 
-	Vector3 target = new Vector3(0.0f,Random.Range(-5.0f, 5.0f),0.0f);
+	Vector3 target;
 	public Vector3 scale;
 	public AudioClip explosion;
 	public bool isDying = false;
@@ -16,8 +16,10 @@ public class SatelliteScript : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		this.transform.localScale = scale;
+		this.target = new Vector3(0.0f,Random.Range(-5.0f, 5.0f),0.0f);
 	}
 	
 	// Update is called once per frame

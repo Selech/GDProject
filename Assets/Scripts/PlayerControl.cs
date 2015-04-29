@@ -45,6 +45,11 @@ public class PlayerControl : MonoBehaviour
 	public Text txtCollectedPurplePowerups;
 	public Text txtOpponentScore;
 
+	public GameObject assJetWhite;
+	public GameObject assJetBlue;
+	public GameObject assJetYellow;
+	public GameObject assJetPurple;
+
 	public GameObject absorbEffectBlue;
 	public GameObject absorbEffectYellow;
 	public GameObject absorbEffectPurple;
@@ -238,22 +243,36 @@ public class PlayerControl : MonoBehaviour
 	private void CollisionWithPowerUp(Collision other, string name)
 	{
 		int ranNum = (name == "PowerUpRandom") ? Random.Range(1, 4) : 0;
-		
+
 		if (name == "PowerUpBlue" || ranNum == 1)
 		{
+			hideJetasses();
+			assJetBlue.SetActive(true);
 			Instantiate(absorbEffectBlue, transform.position, new Quaternion());
 			AudioSource.PlayClipAtPoint (absorbEffectBlue_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 		}
 		else if (name == "PowerUpYellow" || ranNum == 2)
 		{
+			hideJetasses();
+			assJetYellow.SetActive(true);
 			Instantiate(absorbEffectYellow, transform.position, new Quaternion());
 			AudioSource.PlayClipAtPoint (absorbEffectYellow_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 		}
 		else if (name == "PowerUpPurple" || ranNum == 3)
 		{
+			hideJetasses();
+			assJetPurple.SetActive(true);
 			Instantiate(absorbEffectPurple, transform.position, new Quaternion());
 			AudioSource.PlayClipAtPoint (absorbEffectPurple_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 		}
+	}
+
+	private void hideJetasses()
+	{
+		assJetBlue.SetActive(false);
+		assJetWhite.SetActive(false);
+		assJetYellow.SetActive(false);
+		assJetPurple.SetActive(false);
 	}
 
 	public void asteroidsControl()
