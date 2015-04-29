@@ -6,30 +6,26 @@ public class LocalDB : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-
+		// Reset Score when Game is opened anew.
+		CheckScoreReset();
 	}
 
-	public static void initialize()
+	public static void CheckScoreReset()
 	{
-		print (SessionExists);
-		if (SessionExists == "continue")
-		{
-			SessionExists = "notToContinue";
-		}
-		else if (SessionExists == "notToContinue")
+		if (SessionStarted == false)
 		{
 			Player1_Score = 0;
 			Player2_Score = 0;
+
+			SessionStarted = true;
 		}
 	}
 
-	/**
-	 * Return 1 if a session exists and otherwise 0.
-	 **/
-	public static string SessionExists
+	private static bool sessionStarted = false;
+	private static bool SessionStarted
 	{
-		get { return PlayerPrefs.GetString("SessionExists"); }
-		set { PlayerPrefs.SetString("SessionExists", value); }
+		get { return sessionStarted; }
+		set { sessionStarted = value; }
 	}
 
 	public static int Player1_Score

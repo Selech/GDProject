@@ -63,14 +63,14 @@ public class PlayerControl : MonoBehaviour
 
 	void UpdateScores()
 	{
-			if (this.name.Replace("(Clone)", "") == "Ship")
-			{
-				txtOpponentScore.text = LocalDB.Player2_Score.ToString();
-			}
-			else
-			{
-				txtOpponentScore.text = LocalDB.Player1_Score.ToString();
-			}
+		if (this.name.Replace("(Clone)", "") == "Ship")
+		{
+			txtOpponentScore.text = LocalDB.Player1_Score.ToString();
+		}
+		else
+		{
+			txtOpponentScore.text = LocalDB.Player2_Score.ToString();
+		}
 	}
 	
 	// Update is called once per frame
