@@ -13,6 +13,7 @@ public class ToiletScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		this.transform.Rotate (new Vector3(Random.Range(0,360), Random.Range(0,360), Random.Range(0,360)));
 		this.target = new Vector3(0.0f,Random.Range(-5.0f, 5.0f),0.0f);
 		this.transform.localScale = scale * Random.Range(1.1f, 1.5f);
 	}

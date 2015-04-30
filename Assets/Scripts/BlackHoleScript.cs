@@ -7,16 +7,29 @@ public class BlackHoleScript : MonoBehaviour {
 	public GameObject playerLeft;
 	public GameObject playerRight;
 
+	public ParticleSystem pfxSuckingLeft;
+	public ParticleSystem pfxSuckingRight;
+	
+
 	public int greenScoreNum = 0;
 	public int redScoreNum = 0;
 	public Text greenScore;
 	public Text redScore;
-
+	
+	private float slowMoDist = 1.3f;
 	public AudioClip slurp;
+	private AudioSource audioSrc;
 
 	// Use this for initialization
 	void Start () 
 	{
+		// Save reference to Flight Sound Audio Source
+		audioSrc = GetComponent<AudioSource>();
+
+		// Dont suck at start..
+		pfxSuckingLeft.enableEmission = false;
+		pfxSuckingRight.enableEmission = false;
+
 		greenScore.text = "0";
 		redScore.text = "0";
 	}
@@ -36,14 +49,54 @@ public class BlackHoleScript : MonoBehaviour {
 		{
 			if(playerLeft.activeSelf && playerRight.activeSelf)
 			{
-				if ((playerLeft.transform.position.x - this.transform.position.x > -1.0f) || (playerRight.transform.position.x - this.transform.position.x < 1.0f)) {
+				ZTween.use(transform.root.gameObject).scaleTo(new Vector3(1f, 10f, 0.05f), 0.01f, Easing.elasticIn);
+
+				bool isSuckedOnLeft = (playerLeft.transform.position.x - this.transform.position.x > -slowMoDist);
+				bool isSuckedOnRight = (playerRight.transform.position.x - this.transform.position.x < slowMoDist);
+				
+				if (isSuckedOnLeft || isSuckedOnRight) 
+				{
+					// Slow down time
 					Time.timeScale = 0.3F;
-				} else {
+
+					// Show pfx if 
+					if(isSuckedOnLeft)
+					{
+						Vector3 pos = pfxSuckingLeft.transform.position;
+						pos.y = playerLeft.transform.position.y;
+						pfxSuckingLeft.transform.position = pos;
+						pfxSuckingLeft.enableEmission = true;
+					}
+					if(isSuckedOnRight) 
+					{
+						Vector3 pos = pfxSuckingRight.transform.position;
+						pos.y = playerRight.transform.position.y;
+						pfxSuckingRight.transform.position = pos;
+						pfxSuckingRight.enableEmission = true;
+					}
+					// Play Vacuum Cleaner sound
+					VacuumCleanerSound();
+
+					// Scales an object
+					ZTween.use(transform.root.gameObject).scaleTo(new Vector3(1f, 10f, 0.25f), 0.2f, Easing.elasticOut);
+				} 
+				else 
+				{
+					if(isSuckedOnLeft == false) pfxSuckingLeft.enableEmission = false;
+					if(isSuckedOnRight == false) pfxSuckingRight.enableEmission = false;
+
 					Time.timeScale = 1.0F;
-					
 				}
 				Time.fixedDeltaTime = 0.02F * Time.timeScale;
 			}
+		}
+	}
+
+	public void VacuumCleanerSound()
+	{
+		if (audioSrc.time == 0)
+		{
+			audioSrc.Play();
 		}
 	}
 
