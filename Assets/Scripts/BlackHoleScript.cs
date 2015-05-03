@@ -75,7 +75,7 @@ public class BlackHoleScript : MonoBehaviour {
 						pfxSuckingRight.enableEmission = true;
 					}
 					// Play Vacuum Cleaner sound
-					VacuumCleanerSound();
+					VacuumCleanerSound(true);
 
 					// Scales an object
 					ZTween.use(transform.root.gameObject).scaleTo(new Vector3(1f, 10f, 0.25f), 0.2f, Easing.elasticOut);
@@ -84,6 +84,9 @@ public class BlackHoleScript : MonoBehaviour {
 				{
 					if(isSuckedOnLeft == false) pfxSuckingLeft.enableEmission = false;
 					if(isSuckedOnRight == false) pfxSuckingRight.enableEmission = false;
+					
+					// Stop Vacuum Cleaner sound
+					VacuumCleanerSound(false);
 
 					Time.timeScale = 1.0F;
 				}
@@ -92,9 +95,14 @@ public class BlackHoleScript : MonoBehaviour {
 		}
 	}
 
-	public void VacuumCleanerSound()
+	public void VacuumCleanerSound(bool start)
 	{
-		if (audioSrc.time == 0)
+		if (start == false) 
+		{
+			audioSrc.time = 0;
+			audioSrc.Stop();
+		}
+		else if (audioSrc.time == 0)
 		{
 			audioSrc.Play();
 		}

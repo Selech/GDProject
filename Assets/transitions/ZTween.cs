@@ -264,7 +264,8 @@ class ZTween {
 			return this;
 		}
 
-		public ZTweenGetterSetterSequence valueTo(float value, float duration = 0, Func<float, float> transition = null) {
+		public ZTweenGetterSetterSequence valueTo(float value, float duration, Func<float, float> transition) {
+
 			addStep(new ZTweenStepValueTo(targetGet, targetSet, value, duration, getTransition(transition)));
 			return this;
 		}
@@ -291,7 +292,7 @@ class ZTween {
 			return this;
 		}
 
-		public ZTweenGameObjectSequence scaleTo(Vector3 scale, float duration = 0, Func<float, float> transition = null) {
+		public ZTweenGameObjectSequence scaleTo(Vector3 scale, float duration, Func<float, float> transition) {
 			addStep(new ZTweenStepScaleTo(targetGameObject, scale, duration, getTransition(transition)));
 			return this;
 		}
@@ -301,7 +302,7 @@ class ZTween {
 			return this;
 		}
 
-		public ZTweenGameObjectSequence moveTo(Vector3 scale, float duration = 0, Func<float, float> transition = null) {
+		public ZTweenGameObjectSequence moveTo(Vector3 scale, float duration, Func<float, float> transition) {
 			addStep(new ZTweenStepPositionTo(targetGameObject, scale, duration, getTransition(transition)));
 			return this;
 		}
