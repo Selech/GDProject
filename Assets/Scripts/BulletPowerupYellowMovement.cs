@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletMovement : MonoBehaviour {
+public class BulletPowerupYellowMovement: MonoBehaviour {
 	public float force;
 	public float speed = 5; 
 	private PlayerControl player;	
 	public GameObject bulletCollissionExplosion;
+	bool isCountingDown = false;
+	int countDownNum = 0;
+	public GameObject electroMineSmall;
+	public GameObject electroMineMedium;
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +19,25 @@ public class BulletMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		checkCoolDown ();
+	}
+
+	void checkCoolDown()
+	{
+		if(countDownNum == 0)
+		{
+
+		}
+		else if(countDownNum > 0)
+		{
+			countDownNum--;
+		}
+	}
+
+	void initializeCountDown ()
+	{
+		isCountingDown = true;
+		countDownNum = Mathf.RoundToInt (Random.Range (40.0f, 40.0f));
 	}
 
 	void OnCollisionEnter(Collision target)
@@ -22,10 +45,12 @@ public class BulletMovement : MonoBehaviour {
 		// Going out the screen at LEFT
 		if (target.gameObject.name == "Left") {
 			this.transform.position = new Vector3 (9f, this.transform.position.y, 0);
+			initializeCountDown();
 		} 
 		// Going out the screen at RIGHT
 		else if (target.gameObject.name == "Right") {
 			this.transform.position = new Vector3 (-9f, this.transform.position.y, 0);
+			initializeCountDown();
 		} 
 
 		// Re-apply force (of some reason)

@@ -59,6 +59,9 @@ public class PlayerControl : MonoBehaviour
 
 	private float rotationSpeed = 2.0f;
 
+	public int paralyzeTime = 0;
+	public ParticleSystem PfxParalysed;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -176,38 +179,53 @@ public class PlayerControl : MonoBehaviour
 
 	public void physicsControl()
 	{
-		if (Input.GetKey (right)) {
-			GetComponent<Rigidbody>().AddForce(new Vector3(0,speed,0),ForceMode.Force);
-			transform.Rotate (new Vector3 (rotationSpeed, 0f));
-		}
+		//print (paralyzeTime);
+		if (paralyzeTime > 0) 
+		{
+			paralyzeTime--;
+			// Show paralysed effect
+			PfxParalysed.Play();
+			PfxParalysed.enableEmission = true;
+		} 
+		else 
+		{
+			// Don't show paralysed	
+			PfxParalysed.enableEmission = false;
 
-		if (Input.GetKey (left)) {
-			GetComponent<Rigidbody>().AddForce(new Vector3(0,-speed,0),ForceMode.Force);
-			transform.Rotate (new Vector3 (-rotationSpeed, 0f));
-		}
-
-		if (Input.GetKey (up)) {
-			if(PlayerNumber == 1){
-				GetComponent<Rigidbody>().AddForce(new Vector3(-speed,0,0),ForceMode.Force);
+			// Calculate movement
+			if (Input.GetKey (right)) {
+				GetComponent<Rigidbody>().AddForce(new Vector3(0,speed,0),ForceMode.Force);
+				transform.Rotate (new Vector3 (rotationSpeed, 0f));
 			}
-			if(PlayerNumber == 2){
-				GetComponent<Rigidbody>().AddForce(new Vector3(speed,0,0),ForceMode.Force);
-			} 
-		}
-
-		if (Input.GetKey (down)) {
-			if(PlayerNumber == 1){
-				GetComponent<Rigidbody>().AddForce(new Vector3(speed*0.5f,0,0),ForceMode.Force);
+			
+			if (Input.GetKey (left)) {
+				GetComponent<Rigidbody>().AddForce(new Vector3(0,-speed,0),ForceMode.Force);
+				transform.Rotate (new Vector3 (-rotationSpeed, 0f));
 			}
-			if(PlayerNumber == 2){
-				GetComponent<Rigidbody>().AddForce(new Vector3(-speed*0.5f,0,0),ForceMode.Force);
-			} 		
+			
+			if (Input.GetKey (up)) {
+				if(PlayerNumber == 1){
+					GetComponent<Rigidbody>().AddForce(new Vector3(-speed,0,0),ForceMode.Force);
+				}
+				if(PlayerNumber == 2){
+					GetComponent<Rigidbody>().AddForce(new Vector3(speed,0,0),ForceMode.Force);
+				} 
+			}
+			
+			if (Input.GetKey (down)) {
+				if(PlayerNumber == 1){
+					GetComponent<Rigidbody>().AddForce(new Vector3(speed*0.5f,0,0),ForceMode.Force);
+				}
+				if(PlayerNumber == 2){
+					GetComponent<Rigidbody>().AddForce(new Vector3(-speed*0.5f,0,0),ForceMode.Force);
+				} 		
+			}
+			
+			// For Sound
+			if(Input.GetKey (right) || Input.GetKey (left) || Input.GetKey (up) || Input.GetKey (down)) 
+				isMoving = true;
+			else isMoving = false;
 		}
-
-		// For Sound
-		if(Input.GetKey (right) || Input.GetKey (left) || Input.GetKey (up) || Input.GetKey (down)) 
-			 isMoving = true;
-		else isMoving = false;
 	}
 
 	void OnCollisionEnter(Collision other)
