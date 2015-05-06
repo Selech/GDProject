@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: e58a84c5e82c31042a8493bda176a6e4
-timeCreated: 1430766838
+timeCreated: 1430769268
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bulletCollissionExplosion: {fileID: 128368, guid: 61c9294f893d149bc90eb3b0e8b1dac8,
+      type: 2}
+  - electroMineSmall: {fileID: 159288, guid: 3934e93ade40efa48a9a701a4adf1c3e, type: 2}
+  - electroMineMedium: {fileID: 180818, guid: 5a4c5b68b05c17c46ad6393d0b304afe, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -45,8 +45,6 @@ public class ToiletScript : MonoBehaviour {
 	{
 		// Push Player backwards
 		string nameOfHit = other.collider.gameObject.tag;
-
-		// Move player backwards
 		if (other.gameObject.tag == "Player") 
 		{
 			other.gameObject.GetComponent<Rigidbody>().AddForce (((other.gameObject.name=="Ship")?400:-400),0,0);
@@ -57,9 +55,7 @@ public class ToiletScript : MonoBehaviour {
 		if (nameOfHit == "Bullet" || other.gameObject.tag == "Player")
 		{
 			// Smaller Asteroid
-			GameObject left = (GameObject) Instantiate(this.gameObject,this.transform.position,new Quaternion(0,0,0.7f,0.7f));
-			left.GetComponent<ParticleSystem>().Play();
-			left.transform.position = Vector3.MoveTowards (this.transform.position, target, -1.5f); 
+			GetComponent<ParticleSystem>().Play();
 			
 			// Explosion Effect
 			Instantiate(blastEffectSmall, transform.position, new Quaternion());

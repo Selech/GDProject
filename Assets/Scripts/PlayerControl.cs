@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class PlayerControl : MonoBehaviour 
 {
 	public int PlayerNumber;
+	public GameObject opponent;
 
 	public KeyCode up;
 	public KeyCode down;
@@ -13,16 +14,19 @@ public class PlayerControl : MonoBehaviour
 	public float speed;
 	public float shootBulletSpeed;
 	public KeyCode shootBullet;
+	public KeyCode shootSecondaryBullet;
 	public KeyCode shootDoubleBullets;
 
 	public GameObject NuzzleFireGun;
-	public GameObject NuzzleFireLasor;
-	public GameObject NuzzleFireKanon;
+	public GameObject NuzzleFirePowerUpYellow;
+	public GameObject NuzzleFirePowerUpBlue;
 
 	public GameObject ship;
 	public GameObject spawnPointFront;
 	public float spawnPointFrontX;
 
+	public int currentShotLevel = 1;
+	public string currentShotType;
 	public GameObject bullet;
 	public GameObject doubleBullet;
 	public GameObject VictoryScreen; 
@@ -50,6 +54,10 @@ public class PlayerControl : MonoBehaviour
 	public GameObject assJetYellow;
 	public GameObject assJetPurple;
 
+	public GameObject bulletPowerUpYellow;
+	public GameObject bulletPowerUpBlue;
+	public GameObject bulletPowerUpPurple;
+	
 	public GameObject absorbEffectBlue;
 	public GameObject absorbEffectYellow;
 	public GameObject absorbEffectPurple;
@@ -58,6 +66,7 @@ public class PlayerControl : MonoBehaviour
 	public AudioClip absorbEffectPurple_mp3;
 
 	private float rotationSpeed = 2.0f;
+
 
 	public int paralyzeTime = 0;
 	public ParticleSystem PfxParalysed;
@@ -164,19 +173,6 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	public void ShowNuzzleFireParticles(GameObject gObj)
-	{
-		// Left Nuzzle Fire
-		ParticleSystem psLeft = gObj.transform.FindChild("left").GetComponent<ParticleSystem>();
-		psLeft.Clear();
-		psLeft.Play();
-		
-		// Right Nuzzle Fire
-		ParticleSystem psRight = gObj.transform.FindChild("right").GetComponent<ParticleSystem>();
-		psRight.Clear();
-		psRight.Play();
-	}
-
 	public void physicsControl()
 	{
 		//print (paralyzeTime);
@@ -258,6 +254,25 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
+	private void ImprovePowerUpShot(string shotType)
+	{
+		// Change Powerup Type if not the current + reset level
+		if (currentShotType != shotType)
+		{
+			currentShotType = shotType;
+			currentShotLevel = 0;
+		}
+
+		// Improve level of Powerup
+		if (currentShotType == shotType)
+		{
+			if(currentShotLevel < 3)
+			{
+				currentShotLevel++;
+			}
+		}
+	}
+
 	private void CollisionWithPowerUp(Collision other, string name)
 	{
 		int ranNum = (name == "PowerUpRandom") ? Random.Range(1, 4) : 0;
@@ -268,6 +283,7 @@ public class PlayerControl : MonoBehaviour
 			assJetBlue.SetActive(true);
 			Instantiate(absorbEffectBlue, transform.position, new Quaternion());
 			AudioSource.PlayClipAtPoint (absorbEffectBlue_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+			ImprovePowerUpShot("PowerUpBlue");
 		}
 		else if (name == "PowerUpYellow" || ranNum == 2)
 		{
@@ -275,6 +291,7 @@ public class PlayerControl : MonoBehaviour
 			assJetYellow.SetActive(true);
 			Instantiate(absorbEffectYellow, transform.position, new Quaternion());
 			AudioSource.PlayClipAtPoint (absorbEffectYellow_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+			ImprovePowerUpShot("PowerUpYellow");
 		}
 		else if (name == "PowerUpPurple" || ranNum == 3)
 		{
@@ -282,6 +299,7 @@ public class PlayerControl : MonoBehaviour
 			assJetPurple.SetActive(true);
 			Instantiate(absorbEffectPurple, transform.position, new Quaternion());
 			AudioSource.PlayClipAtPoint (absorbEffectPurple_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+			ImprovePowerUpShot("PowerUpPurple");
 		}
 	}
 
@@ -336,18 +354,6 @@ public class PlayerControl : MonoBehaviour
 				ship.transform.Rotate (0,3f,0);
 			}
 		}
-		
-		// Shooting double bullets
-		if(Input.GetKeyDown(shootDoubleBullets)){
-			
-			// Bullet on the right side of the ship
-			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y + 0.5f, 
-			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
-			
-			// Bullet on the left side of the ship
-			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y - 0.5f, 
-			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
-		}
 	}
 
 	public void translateControl()
@@ -371,21 +377,48 @@ public class PlayerControl : MonoBehaviour
 
 	public void checkShooting()
 	{
-		//Single bullet
+			//Single bullet
 		if(Input.GetKeyDown(shootBullet))
 		{
+			// Shot Sound
 			AudioSource.PlayClipAtPoint (shot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 			
-			if(ship != null)
-			{
-				Vector3 pos = ship.transform.position - (new Vector3(0.5f + spawnPointFrontX, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.5f, 0f));
-				GameObject bul = Instantiate(bullet, pos, new Quaternion()) as GameObject;
-				bul.GetComponent<BulletMovement>().force = shootBulletSpeed;
-				ShowNuzzleFireParticles(NuzzleFireGun);
-			}
+			// NuzzleFire
+			Vector3 pos = ship.transform.position - (new Vector3(0.5f + spawnPointFrontX, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.5f, 0f));
+			GameObject bul = Instantiate(bullet, pos, new Quaternion()) as GameObject;
+			BulletMovement bMov = bul.GetComponent<BulletMovement>();
+			if(bMov != null) bMov.force = shootBulletSpeed;
+			ShowNuzzleFireParticles(NuzzleFireGun);
 			
 			// Push back
 			GetComponent<Rigidbody>().AddForce (((name=="Ship")?100:-100),0,0);
+		}
+		
+		// Secondary Bullet
+		if(Input.GetKeyDown(shootSecondaryBullet))
+		{
+			if (currentShotType == "PowerUpBlue")
+			{
+				// NuzzleFire
+				ShowNuzzleFireParticles(NuzzleFirePowerUpBlue);
+			}
+			else if (currentShotType == "PowerUpYellow")
+			{
+				// Bullet on the right side of the ship
+				Vector3 position = ship.transform.position - (new Vector3((float)ship.transform.rotation.y, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f));
+				Instantiate(bulletPowerUpYellow, position, new Quaternion());
+				bulletPowerUpYellow.GetComponent<BulletPowerupYellowMovement>().playerScript = this;
+				
+				// NuzzleFire
+				ShowNuzzleFireParticles(NuzzleFirePowerUpYellow);
+			}
+			else if (currentShotType == "PowerUpPurple")
+			{
+				// NuzzleFire
+				//Vector3 position = ship.transform.position - (new Vector3((float)ship.transform.rotation.y, (ship.transform.Find("Pointer").gameObject.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f));
+				GameObject gObj = Instantiate(bulletPowerUpPurple, transform.root.gameObject.transform.position, new Quaternion()) as GameObject;
+				gObj.GetComponent<BulletPowerUpPurple>().playerScript = this;
+			}
 		}
 		
 		//Double bullet
@@ -399,5 +432,18 @@ public class PlayerControl : MonoBehaviour
 			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y - 0.5f, 
 			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
 		}
+	}
+
+	public void ShowNuzzleFireParticles(GameObject gObj)
+	{
+		// Left Nuzzle Fire
+		ParticleSystem psLeft = gObj.transform.FindChild("left").GetComponent<ParticleSystem>();
+		psLeft.Clear();
+		psLeft.Play();
+		
+		// Right Nuzzle Fire
+		ParticleSystem psRight = gObj.transform.FindChild("right").GetComponent<ParticleSystem>();
+		psRight.Clear();
+		psRight.Play();
 	}
 }

@@ -44,19 +44,18 @@ public class ObstacleGenerator : MonoBehaviour {
 	
 	void SpawnObstacle(float xPos)
 	{
-		int spawnNum = Random.Range(1,5);
 		GameObject obstacle = null;
 
-		if (spawnNum == 1 || spawnNum == 2) 
+		if (Random.value > 0.5) 
+		{
+			obstacle = (GameObject)Instantiate (satellite, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
+		}  
+		else if (Random.value > 0.5) 
 		{
 			obstacle = (GameObject)Instantiate (asteroid, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion (0, 0, 0.7f, 0.7f));
 			obstacle.GetComponentInChildren<AsteroidScript> ().scale = new Vector3 (0.5f, 0.5f, 0.5f);
-		} 
-		else if (spawnNum == 3) 
-		{
-			obstacle = (GameObject)Instantiate (satellite, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
-		} 
-		else if (spawnNum == 4) 
+		}
+		else
 		{
 			obstacle = (GameObject)Instantiate (toilet, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
 		}

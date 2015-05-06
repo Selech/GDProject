@@ -1,8 +1,42 @@
 fileFormatVersion: 2
 guid: 3abc0304c40bc4cbe9a94332283afc2b
+timeCreated: 1430807408
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - NuzzleFireGun: {instanceID: 0}
+  - NuzzleFireLasor: {instanceID: 0}
+  - NuzzleFireKanon: {instanceID: 0}
+  - ship: {instanceID: 0}
+  - spawnPointFront: {instanceID: 0}
+  - bullet: {instanceID: 0}
+  - doubleBullet: {instanceID: 0}
+  - VictoryScreen: {instanceID: 0}
+  - shot: {instanceID: 0}
+  - txtCollectedPowerups: {instanceID: 0}
+  - txtCollectedBluePowerups: {instanceID: 0}
+  - txtCollectedYellowPowerups: {instanceID: 0}
+  - txtCollectedPurplePowerups: {instanceID: 0}
+  - txtOpponentScore: {instanceID: 0}
+  - assJetWhite: {instanceID: 0}
+  - assJetBlue: {instanceID: 0}
+  - assJetYellow: {instanceID: 0}
+  - assJetPurple: {instanceID: 0}
+  - bulletPowerUpYellow: {fileID: 162948, guid: a7f63bcf53915b047bbe74e7b2c8a155,
+      type: 2}
+  - bulletPowerUpBlue: {fileID: 162948, guid: a7f63bcf53915b047bbe74e7b2c8a155, type: 2}
+  - bulletPowerUpPurple: {fileID: 162948, guid: a7f63bcf53915b047bbe74e7b2c8a155,
+      type: 2}
+  - absorbEffectBlue: {instanceID: 0}
+  - absorbEffectYellow: {instanceID: 0}
+  - absorbEffectPurple: {instanceID: 0}
+  - absorbEffectBlue_mp3: {instanceID: 0}
+  - absorbEffectYellow_mp3: {instanceID: 0}
+  - absorbEffectPurple_mp3: {instanceID: 0}
+  - PfxParalysed: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 
