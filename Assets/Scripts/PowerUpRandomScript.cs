@@ -23,7 +23,8 @@ public class PowerUpRandomScript : MonoBehaviour {
 
 	public void pushAway(float force)
 	{
-		GetComponent<Rigidbody>().AddForce (force,0,0);
+		// (speed * (1 / (1-(1-Time.timeScale))))
+		GetComponent<Rigidbody>().AddForce (force, 0, 0);
 	}
 
 	// Update is called once per frame

@@ -9,13 +9,16 @@ public class BulletPowerUpPurple : MonoBehaviour
 	GameObject ship2 = null;
 
 	public PlayerControl playerScript;
-
+	
+	public ParticleSystem bulletPowerUpPurpleEntryBlast;
+	public ParticleSystem bulletPowerUpPurpleEntryRing;
+	public ParticleSystem bulletPowerUpPurpleEntryStripes;
+	public ParticleSystem bulletPowerUpPurpleEntryCloud;
+	public ParticleSystem bulletPowerUpPurpleBeamAcross;
 	public GameObject bulletPowerUpPurpleBeamLeft;
 	public GameObject bulletPowerUpPurpleBeamRight;
 	public GameObject bulletPowerUpPurpleHit;
 	public GameObject bulletPowerUpPurpleEntry;
-	public GameObject bulletPowerUpPurpleBeamAcross;
-	public GameObject bulletPowerUpPurpleEntryBlast;
 
 	public AudioClip sfxShot;
 	public AudioSource sfxChargingShot;
@@ -26,7 +29,6 @@ public class BulletPowerUpPurple : MonoBehaviour
 
 	void Update()
 	{
-		print (Time.timeScale);
 		sfxChargingShot.pitch = Time.timeScale;
 	}
 
@@ -46,6 +48,11 @@ public class BulletPowerUpPurple : MonoBehaviour
 		
 		// Shot level
 		shotLevel = playerScript.currentShotLevel;
+
+		// Charge effects
+		bulletPowerUpPurpleEntryRing.Play();
+		bulletPowerUpPurpleEntryStripes.Play();
+		bulletPowerUpPurpleEntryCloud.Play();
 
 		// Beam on other side
 		if(ship != null && ship2 != null)
@@ -70,8 +77,12 @@ public class BulletPowerUpPurple : MonoBehaviour
 		// Player references
 		GameObject opponent = (atRight) ? ship : ship2;
 
-		if(opponent)
+		if(opponent != null)
 		{
+			// Effect on shot-start
+			bulletPowerUpPurpleEntryBlast.Play();
+			bulletPowerUpPurpleBeamAcross.Play();
+
 			// Positions
 			Vector3 position 	= transform.root.gameObject.transform.position;
 			if(firstShoot == false) {position.y += Random.Range(0.0f, 1.5f) - 0.7f;}
@@ -87,18 +98,15 @@ public class BulletPowerUpPurple : MonoBehaviour
 			if (firstShoot == false)
 			{
 				// Blast Pfx
-				GameObject gObj = (Instantiate(bulletPowerUpPurpleEntryBlast, position, new Quaternion())) as GameObject;
+				ParticleSystem gObj = (Instantiate(bulletPowerUpPurpleEntryBlast, position, new Quaternion())) as ParticleSystem;
 				gObj.GetComponent<ParticleSystem>().Play();
-				gObj.GetComponent<ParticleSystem>().Emit(150);
-				
+
 				// Sound
 				AudioSource.PlayClipAtPoint (sfxShot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 				
 				// Beam Across (Shown in front of ship and towards edge)
-				GameObject gObj2 = (Instantiate(bulletPowerUpPurpleBeamAcross, new Vector3(position.x + ((atRight) ? (8.5f) : -(8.5f)), position.y + 1.0f, 0), new Quaternion())) as GameObject;
+				ParticleSystem gObj2 = (Instantiate(bulletPowerUpPurpleBeamAcross, new Vector3(position.x + ((atRight) ? (8.5f) : -(8.5f)), position.y + 1.0f, 0), new Quaternion())) as ParticleSystem;
 				gObj2.GetComponent<ParticleSystem>().Play();
-				gObj2.GetComponent<ParticleSystem>().Emit(150);
-				//if(atRight) {transform.root.gameObject.transform.Rotate(new Vector3(0, 0, 180));}
 			}
 			
 			// Hit or no hit

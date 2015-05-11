@@ -66,9 +66,7 @@ public class PlayerControl : MonoBehaviour
 	public AudioClip absorbEffectPurple_mp3;
 
 	private float rotationSpeed = 2.0f;
-
-
-	public int paralyzeTime = 0;
+	public float paralyzeTime = 0;
 	public ParticleSystem PfxParalysed;
 
 	// Use this for initialization
@@ -105,21 +103,18 @@ public class PlayerControl : MonoBehaviour
 			physicsControl();
 			flightSound();
 			checkShooting();
+
 		}
 		else
 		{
 			AnimateDeath();
 		}
-
-		// Rotate Spaceship when moving
-		if (transform.localRotation.x < 0f) transform.Rotate (new Vector3 (1.5f, 0f));
-		if (transform.localRotation.x > 0f) transform.Rotate (new Vector3 (-1.5f, 0f));
 	}
 
 	void AnimateDeath()
 	{
 		float scaleSpeed = 0.02f;
-		ship.transform.localScale -= new Vector3(scaleSpeed*1.2f, scaleSpeed*2, scaleSpeed);
+		ship.transform.localScale -= new Vector3((scaleSpeed*1.2f) * Time.timeScale, (scaleSpeed*2) * Time.timeScale, (scaleSpeed) * Time.timeScale);
 
 		if(ship.transform.localScale.x < 0.0f)
 		{
@@ -178,7 +173,7 @@ public class PlayerControl : MonoBehaviour
 		//print (paralyzeTime);
 		if (paralyzeTime > 0) 
 		{
-			paralyzeTime--;
+			paralyzeTime -= Time.timeScale;
 			// Show paralysed effect
 			PfxParalysed.Play();
 			PfxParalysed.enableEmission = true;
@@ -188,15 +183,24 @@ public class PlayerControl : MonoBehaviour
 			// Don't show paralysed	
 			PfxParalysed.enableEmission = false;
 
+			// Check rotation
+			float maxRotation = 0.4f;
+			if (Input.GetKey (right) && transform.localRotation.x < maxRotation) transform.Rotate (new Vector3 (rotationSpeed, 0f));
+			else if (Input.GetKey (left) && transform.localRotation.x > -maxRotation) transform.Rotate (new Vector3 (-rotationSpeed, 0f));
+			else
+			{
+				// Rotate Back
+				if (transform.localRotation.x > 0) transform.Rotate (new Vector3 (-rotationSpeed, 0f));
+				else if (transform.localRotation.x < 0) transform.Rotate (new Vector3 (rotationSpeed, 0f));
+			}
+
 			// Calculate movement
 			if (Input.GetKey (right)) {
 				GetComponent<Rigidbody>().AddForce(new Vector3(0,speed,0),ForceMode.Force);
-				transform.Rotate (new Vector3 (rotationSpeed, 0f));
 			}
 			
 			if (Input.GetKey (left)) {
 				GetComponent<Rigidbody>().AddForce(new Vector3(0,-speed,0),ForceMode.Force);
-				transform.Rotate (new Vector3 (-rotationSpeed, 0f));
 			}
 			
 			if (Input.GetKey (up)) {
@@ -356,25 +360,6 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	public void translateControl()
-	{
-		if (Input.GetKey (up)) {
-			transform.Translate(new Vector3(0,speed,0));
-		}
-		
-		if (Input.GetKey (down)) {
-			transform.Translate(new Vector3(0,-speed,0));
-		}
-		
-		if (Input.GetKey (left)) {
-			transform.Translate(new Vector3(-speed,0,0));
-		}
-		
-		if (Input.GetKey (right)) {
-			transform.Translate(new Vector3(speed,0,0));
-		}
-	}
-
 	public void checkShooting()
 	{
 			//Single bullet
@@ -391,7 +376,8 @@ public class PlayerControl : MonoBehaviour
 			ShowNuzzleFireParticles(NuzzleFireGun);
 			
 			// Push back
-			GetComponent<Rigidbody>().AddForce (((name=="Ship")?100:-100),0,0);
+			float xForce = ((name=="Ship")?100:-100) * (1 / (1-(1-Time.timeScale)));
+			GetComponent<Rigidbody>().AddForce (xForce, 0, 0);
 		}
 		
 		// Secondary Bullet
@@ -399,8 +385,9 @@ public class PlayerControl : MonoBehaviour
 		{
 			if (currentShotType == "PowerUpBlue")
 			{
-				// NuzzleFire
-				ShowNuzzleFireParticles(NuzzleFirePowerUpBlue);
+				// Bullet on the right side of the ship
+				GameObject gObj = Instantiate(bulletPowerUpBlue, transform.position, new Quaternion()) as GameObject;
+				gObj.GetComponent<BulletPowerUpBlue>().SpawnBullets(currentShotLevel, this);
 			}
 			else if (currentShotType == "PowerUpYellow")
 			{
@@ -415,7 +402,6 @@ public class PlayerControl : MonoBehaviour
 			else if (currentShotType == "PowerUpPurple")
 			{
 				// NuzzleFire
-				//Vector3 position = ship.transform.position - (new Vector3((float)ship.transform.rotation.y, (ship.transform.Find("Pointer").gameObject.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f));
 				GameObject gObj = Instantiate(bulletPowerUpPurple, transform.root.gameObject.transform.position, new Quaternion()) as GameObject;
 				gObj.GetComponent<BulletPowerUpPurple>().playerScript = this;
 			}
@@ -432,6 +418,12 @@ public class PlayerControl : MonoBehaviour
 			Instantiate(doubleBullet, ship.transform.position - (new Vector3((float)ship.transform.rotation.y - 0.5f, 
 			                                                                 (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f)), new Quaternion());
 		}
+	}
+
+	public void showBlueNuzzleFire()
+	{
+		// NuzzleFire
+		ShowNuzzleFireParticles(NuzzleFirePowerUpBlue);
 	}
 
 	public void ShowNuzzleFireParticles(GameObject gObj)

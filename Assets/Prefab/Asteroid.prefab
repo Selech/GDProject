@@ -73,7 +73,7 @@ Rigidbody:
   m_GameObject: {fileID: 187076}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 10
+  m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -96,6 +96,7 @@ MonoBehaviour:
   isDying: 0
   blastEffect: {fileID: 182548, guid: 939a703f01d9a4610afb9a587caa3f44, type: 2}
   blastEffectSmall: {fileID: 128368, guid: 61c9294f893d149bc90eb3b0e8b1dac8, type: 2}
+  speed: 150
 --- !u!135 &13599882
 SphereCollider:
   m_ObjectHideFlags: 1

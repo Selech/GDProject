@@ -20,6 +20,8 @@ public class BlackHoleScript : MonoBehaviour {
 	public AudioClip slurp;
 	private AudioSource audioSrc;
 
+	bool isUltraSlowMotion = false;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -45,6 +47,13 @@ public class BlackHoleScript : MonoBehaviour {
 	 **/
 	void CheckForSlowmotion()
 	{
+		// Ulta slowmotion (Set if player is dead)
+		if(isUltraSlowMotion)
+		{
+			Time.timeScale = 0.05F;
+		}
+
+		// Slowmotion if close to black hole
 		if(playerLeft != null && playerRight != null)
 		{
 			if(playerLeft.activeSelf && playerRight.activeSelf)
@@ -110,18 +119,24 @@ public class BlackHoleScript : MonoBehaviour {
 
 	void OnCollisionEnter(Collision other)
 	{
-		AudioSource.PlayClipAtPoint (slurp, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+		// Play Shoot sound
+		Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered>();
+		scr.playSound1();
+
+		// Name of collider
 		string namz = other.gameObject.name;
 
 		// Set Ship or Astoroid to dying
 		if (namz == "Ship") 
 		{ 
 			other.gameObject.GetComponent<PlayerControl>().isDying = true;
+			isUltraSlowMotion = true;
 			Destroy(playerRight);
 		}
 		else if (namz == "Ship2")
 		{
 			other.gameObject.GetComponent<PlayerControl>().isDying = true;
+			isUltraSlowMotion = true;
 			Destroy(playerLeft);
 		}
 		else if(namz == "Asteroid(Clone)" || namz == "Asteroid(Clone)(Clone)") 
@@ -135,6 +150,10 @@ public class BlackHoleScript : MonoBehaviour {
 		else if (namz == "PowerUpRandom(Clone)")
 		{
 			other.gameObject.GetComponent<PowerUpRandomScript>().isDying = true; 
+		}
+		else if (namz == "Toilet(Clone)")
+		{
+			other.gameObject.GetComponent<ToiletScript>().isDying = true; 
 		}
 		else
 		{
