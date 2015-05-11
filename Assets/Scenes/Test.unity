@@ -13618,8 +13618,8 @@ MonoBehaviour:
   ship: {fileID: 1978006464}
   spawnPointFront: {fileID: 1366158315}
   spawnPointFrontX: 0
-  currentShotLevel: 2
-  currentShotType: PowerUpYellow
+  currentShotLevel: 0
+  currentShotType: 
   bullet: {fileID: 162948, guid: db93a111ebaee4d398711be5221d1856, type: 2}
   doubleBullet: {fileID: 100000, guid: ff27e7c7b17ff864c923af8afd5290c6, type: 2}
   VictoryScreen: {fileID: 1730623921}

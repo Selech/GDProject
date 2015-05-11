@@ -56,7 +56,7 @@ public class ElectroMineScript : MonoBehaviour {
 				explosionStrength = 350.0f;
 				paralyzeTimez = 60;
 				emmitAmount = 200;
-				lifeTime = Random.Range(2125, 2350);
+				lifeTime = Random.Range(125, 350);
 				traverseVeritcally();
 			}
 		}

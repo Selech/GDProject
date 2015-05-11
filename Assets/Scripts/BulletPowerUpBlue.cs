@@ -34,9 +34,6 @@ public class BulletPowerUpBlue: MonoBehaviour
 		// Player references
 		ship = GameObject.Find ("Ship");
 		ship2 = GameObject.Find ("Ship2");
-		
-		// Save if at right
-		atRight = Camera.main.WorldToScreenPoint (transform.root.gameObject.transform.position).x > Screen.width / 2;
 	}
 
 	// Use this for initialization
@@ -85,12 +82,15 @@ public class BulletPowerUpBlue: MonoBehaviour
 		}
 		
 		// Position
+		atRight = Camera.main.WorldToScreenPoint (pControl.transform.root.gameObject.transform.position).x > Screen.width / 2;
 		Vector3 shipPos = pControl.transform.root.gameObject.transform.position;
 		Vector3 pos = new Vector3(((atRight) ? shipPos.x + 0.5f : shipPos.x - 0.5f), shipPos.y, shipPos.z);
 		transform.position = pos;
 
 		// Force + Angle
+		print ("isright?: "+atRight);
 		float sloMoMultiplier = ((atRight) ? 1 : -1) * (speed * (1 / (1-(1-Time.timeScale))));
+//		print ("jaa...:"+sloMoMultiplier);
 		float yRange = Random.Range(-shootAngle, shootAngle);
 		transform.root.gameObject.transform.GetComponent<Rigidbody>().AddForce (new Vector3(sloMoMultiplier, yRange, 0));
 	}
@@ -116,6 +116,7 @@ public class BulletPowerUpBlue: MonoBehaviour
 		// Move Behavior
 		if(swappedSide == true)
 		{
+//			print ("no");
 			// Seek
 			if(ship != null && ship2 != null)
 			{
