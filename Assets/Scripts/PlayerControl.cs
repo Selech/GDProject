@@ -50,6 +50,9 @@ public class PlayerControl : MonoBehaviour
 	public Text txtOpponentScore;
 
 	public GameObject assJetWhite;
+	public GameObject assJetWhiteDots;
+	public GameObject assJetWhiteLineA;
+	public GameObject assJetWhiteLineB;
 	public GameObject assJetBlue;
 	public GameObject assJetYellow;
 	public GameObject assJetPurple;
@@ -69,9 +72,14 @@ public class PlayerControl : MonoBehaviour
 	public float paralyzeTime = 0;
 	public ParticleSystem PfxParalysed;
 
+	bool atRight;
+
 	// Use this for initialization
 	void Start () 
 	{
+		// At right?
+		atRight = Camera.main.WorldToScreenPoint (transform.root.gameObject.transform.position).x > Screen.width / 2;
+
 		// Save reference to Flight Sound Audio Source
 		audioSrc = GetComponent<AudioSource>();
 	}
@@ -113,8 +121,13 @@ public class PlayerControl : MonoBehaviour
 
 	void AnimateDeath()
 	{
+		// Shrink
 		float scaleSpeed = 0.02f;
-		ship.transform.localScale -= new Vector3((scaleSpeed*1.2f) * Time.timeScale, (scaleSpeed*2) * Time.timeScale, (scaleSpeed) * Time.timeScale);
+		ship.transform.localScale -= new Vector3((scaleSpeed*1.2f) * Time.timeScale, (scaleSpeed*0.8f) * Time.timeScale, (scaleSpeed) * Time.timeScale);
+
+		// Move a little
+		float moveSpeed = 0.005f;
+		ship.transform.position = new Vector3(ship.transform.position.x + ((atRight) ? -moveSpeed : moveSpeed), ship.transform.position.y, ship.transform.position.z);
 
 		if(ship.transform.localScale.x < 0.0f)
 		{
@@ -255,6 +268,12 @@ public class PlayerControl : MonoBehaviour
 
 				UpdateScores();
 			}
+
+			// Stop Jet
+			this.hideJetasses();
+			this.assJetWhiteDots.SetActive(false);
+			this.assJetWhiteLineA.SetActive(false);
+			this.assJetWhiteLineB.SetActive(false);
 		}
 	}
 

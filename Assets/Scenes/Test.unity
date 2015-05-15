@@ -9696,6 +9696,9 @@ MonoBehaviour:
   txtCollectedPurplePowerups: {fileID: 831252368}
   txtOpponentScore: {fileID: 300390169}
   assJetWhite: {fileID: 426518612}
+  assJetWhiteDots: {fileID: 1232507940}
+  assJetWhiteLineA: {fileID: 1089104330}
+  assJetWhiteLineB: {fileID: 1813757847}
   assJetBlue: {fileID: 147513883}
   assJetYellow: {fileID: 861724713}
   assJetPurple: {fileID: 930107675}
@@ -13636,6 +13639,9 @@ MonoBehaviour:
   txtCollectedPurplePowerups: {fileID: 1874804080}
   txtOpponentScore: {fileID: 31171624}
   assJetWhite: {fileID: 1588167322}
+  assJetWhiteDots: {fileID: 1307639944}
+  assJetWhiteLineA: {fileID: 759242543}
+  assJetWhiteLineB: {fileID: 801837912}
   assJetBlue: {fileID: 699559625}
   assJetYellow: {fileID: 1040651389}
   assJetPurple: {fileID: 241740631}

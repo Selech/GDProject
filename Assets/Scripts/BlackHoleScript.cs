@@ -21,10 +21,21 @@ public class BlackHoleScript : MonoBehaviour {
 	private AudioSource audioSrc;
 
 	bool isUltraSlowMotion = false;
+	bool isDeathZooming = false;
+	GameObject playerDying = null;
+
+	float originalOrthographicZoom = 5;
+	float limitOrthoGraphicZoom = 2;
+	float zoomSpeed = 1.2f;
+	float currentDifIn;
+	float currentDifOut;
 
 	// Use this for initialization
 	void Start () 
 	{
+		// Set zoom difference
+		currentDifIn = currentDifOut = 5;
+
 		// Save reference to Flight Sound Audio Source
 		audioSrc = GetComponent<AudioSource>();
 
@@ -40,6 +51,49 @@ public class BlackHoleScript : MonoBehaviour {
 	void Update () 
 	{
 		CheckForSlowmotion();
+		CheckForDeathZooming();
+	}
+
+	void CheckForDeathZooming ()
+	{
+		// Focus Camera on Ship
+		if (isDeathZooming == true && playerDying != null)
+		{
+			// Focus Camera on Ship
+			if(Camera.main.orthographicSize > limitOrthoGraphicZoom)
+			{
+				currentDifIn = currentDifIn / zoomSpeed; 
+				Camera.main.orthographicSize -= currentDifIn * Time.timeScale;
+
+			}
+			else
+			{
+				Camera.main.orthographicSize = limitOrthoGraphicZoom;
+			}
+
+			// Zoom to correct X and Y
+			Vector3 playerPos = new Vector3 (playerDying.transform.position.x, playerDying.transform.position.y, -20);
+			Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, playerPos, 0.2f * Time.timeScale);
+
+			//ZTween.use(Camera.main.transform.gameObject).moveTo(new Vector3(playerDying.transform.position.x, playerDying.transform.position.y, -20), 0.2f, Easing.expoOut);
+		}
+		else
+		{
+			// Focus Camera on Ship
+			if(Camera.main.orthographicSize < originalOrthographicZoom)
+			{
+				currentDifOut = currentDifOut / zoomSpeed; 
+				Camera.main.orthographicSize += currentDifOut * Time.timeScale;
+			}
+			else
+			{
+				Camera.main.orthographicSize = originalOrthographicZoom;
+			}
+
+			// Zoom to correct X and Y
+			Vector3 pos = new Vector3 (0, 0, -20);
+			Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, pos, 0.2f * Time.timeScale);
+		}
 	}
 
 	/**
@@ -50,7 +104,7 @@ public class BlackHoleScript : MonoBehaviour {
 		// Ulta slowmotion (Set if player is dead)
 		if(isUltraSlowMotion)
 		{
-			Time.timeScale = 0.05F;
+			Time.timeScale = 0.1F;
 		}
 
 		// Slowmotion if close to black hole
@@ -131,12 +185,16 @@ public class BlackHoleScript : MonoBehaviour {
 		{ 
 			other.gameObject.GetComponent<PlayerControl>().isDying = true;
 			isUltraSlowMotion = true;
+			isDeathZooming = true;
+			playerDying = other.gameObject;
 			Destroy(playerRight);
 		}
 		else if (namz == "Ship2")
 		{
 			other.gameObject.GetComponent<PlayerControl>().isDying = true;
 			isUltraSlowMotion = true;
+			isDeathZooming = true;
+			playerDying = other.gameObject;
 			Destroy(playerLeft);
 		}
 		else if(namz == "Asteroid(Clone)" || namz == "Asteroid(Clone)(Clone)") 

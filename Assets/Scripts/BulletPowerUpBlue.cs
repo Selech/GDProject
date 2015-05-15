@@ -88,9 +88,7 @@ public class BulletPowerUpBlue: MonoBehaviour
 		transform.position = pos;
 
 		// Force + Angle
-		print ("isright?: "+atRight);
 		float sloMoMultiplier = ((atRight) ? 1 : -1) * (speed * (1 / (1-(1-Time.timeScale))));
-//		print ("jaa...:"+sloMoMultiplier);
 		float yRange = Random.Range(-shootAngle, shootAngle);
 		transform.root.gameObject.transform.GetComponent<Rigidbody>().AddForce (new Vector3(sloMoMultiplier, yRange, 0));
 	}
