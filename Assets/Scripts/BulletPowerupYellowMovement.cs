@@ -3,20 +3,31 @@ using System.Collections;
 
 public class BulletPowerupYellowMovement: MonoBehaviour 
 {
-	public float force;
-	public float speed = 5; 
+	public float speed; 
 	public PlayerControl playerScript;	
 	public GameObject bulletCollissionExplosion;
-	bool isCountingDown = false;
-	int countDownNum = 0;
+	float countDownNum = 0;
 	public GameObject electroMineSmall;
 	public GameObject electroMineMedium;
+	bool swappedSide;
+	int mineLevel;
 
 	// Use this for initialization
 	void Start () 
 	{
+		// Get mine level
+		mineLevel = (playerScript == null) ? 1 : playerScript.currentShotLevel;
+
+		// Force
 		bool atRight = Camera.main.WorldToScreenPoint(transform.root.gameObject.transform.position).x > Screen.width / 2;
-		this.transform.GetComponent<Rigidbody>().AddForce (new Vector3(((atRight) ? 1 : -1) * (force * speed),0,0));
+		float sloMoMultiplier = ((atRight) ? 1 : -1) * (speed * (1 / (1-(1-Time.timeScale))));
+		transform.root.gameObject.transform.GetComponent<Rigidbody>().AddForce (new Vector3(sloMoMultiplier, 0, 0));
+
+		// Play Shoot sound
+		Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered>();
+		if (mineLevel == 1) 		scr.playSound1();
+		else if (mineLevel == 2) 	scr.playSound2();
+		else if (mineLevel == 3) 	scr.playSound3();
 	}
 	
 	// Update is called once per frame
@@ -30,7 +41,6 @@ public class BulletPowerupYellowMovement: MonoBehaviour
 		if(playerScript != null)
 		{
 			Vector3 position = transform.root.gameObject.transform.position;
-			int mineLevel = playerScript.currentShotLevel;
 			GameObject elec = Instantiate((mineLevel == 1) ? electroMineSmall : electroMineMedium, position, new Quaternion()) as GameObject;
 			elec.GetComponent<ElectroMineScript>().mineLevel = mineLevel;
 			Destroy(transform.root.gameObject);
@@ -39,66 +49,63 @@ public class BulletPowerupYellowMovement: MonoBehaviour
 
 	void checkCoolDown()
 	{
-		if(isCountingDown)
+		if(swappedSide == true)
 		{
-			if(countDownNum == 0)
+			if(countDownNum < 0)
 			{
 				SpawnElectroMine();
 			}
 
 			if(countDownNum >= 0)
 			{
-				countDownNum--;
+				countDownNum -= Time.timeScale;
 			}
 		}
 	}
 
 	void initializeCountDown ()
 	{
-		isCountingDown = true;
 		countDownNum = Mathf.RoundToInt (Random.Range (20.0f, 80.0f));
 	}
 
 	void OnCollisionEnter(Collision target)
 	{
+		// Name of collided target	
+		string targetName = target.gameObject.name;
+		string targetTag = target.gameObject.tag;
+		
 		if(swappedSide == false)
 		{
 			// Going out the screen at LEFT
-			if (target.gameObject.name == "Left") {
-				swappedSide = true;
-				this.transform.position = new Vector3 (9f, this.transform.position.y, 0);
-				initializeCountDown();
-			} 
-			// Going out the screen at RIGHT
-			else if (target.gameObject.name == "Right") {
-				swappedSide = true;
-				this.transform.position = new Vector3 (-9f, this.transform.position.y, 0);
-				initializeCountDown();
-			} 
+			if(targetName == "Left" || targetName == "Right")
+			{
+				// Position at left edge or right depending on where it left the screen
+				if (targetName == "Left") 
+				{
+					swappedSide = true;
+					this.transform.position = new Vector3 (9f, this.transform.position.y, 0);
+					initializeCountDown();
+				} 
+				// Going out the screen at RIGHT
+				else if (targetName == "Right")
+				{
+					swappedSide = true;
+					this.transform.position = new Vector3 (-9f, this.transform.position.y, 0);
+					initializeCountDown();
+				} 
+				
+				// Re-apply force (of some reason)
+				bool atRight = Camera.main.WorldToScreenPoint(transform.root.gameObject.transform.position).x > Screen.width / 2;
+				float sloMoMultiplier = ((atRight) ? -1 : 1) * (speed * (1 / (1-(1-Time.timeScale))));
+				transform.root.gameObject.transform.GetComponent<Rigidbody>().AddForce(	new Vector3(sloMoMultiplier, 0, 0)	);
+			}
 		}
-		else if (target.gameObject.name != "Right" && target.gameObject.name != "Left")
+
+		// Remove Bullet colliding with bullet
+		if(targetTag == "Bullet" || targetTag == "Player")
 		{
-			// Remove Bullet colliding with bullet
-			if(target.collider.gameObject.tag == "Bullet")
-			{
-				Instantiate(bulletCollissionExplosion,this.transform.position,new Quaternion());
-			}
-			
-			// Push PLAYER back
-			if (target.gameObject.tag == "Player")
-			{
-				target.gameObject.GetComponent<Rigidbody>().AddForce (((target.gameObject.name=="Ship")?600:-600),0,0);
-				Instantiate(bulletCollissionExplosion, transform.position, new Quaternion());
-			}
-
-			// Remove this yellow powerup bullet
-			Destroy(this.gameObject);
+			SpawnElectroMine();
+			Destroy(transform.root.gameObject);
 		}
-
-		// Re-apply force (of some reason)
-		bool atRight = Camera.main.WorldToScreenPoint(transform.root.gameObject.transform.position).x > Screen.width / 2;
-		this.transform.GetComponent<Rigidbody>().AddForce(	new Vector3(	(	((atRight) ? -1 : 1) * (force * speed)), 0, 0)	);
 	}
-
-	bool swappedSide;
 }

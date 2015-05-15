@@ -17,11 +17,8 @@ public class RandomPowerup : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter(Collision other){
-
-		other.gameObject.GetComponent<PowerupScript> ().PickupPowerup (this.gameObject);
+	void OnCollisionEnter(Collision other)
+	{
 		picked = true;
-
-		//Destroy (this.gameObject);
 	}
 }

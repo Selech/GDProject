@@ -21,9 +21,9 @@ TagManager:
   - Bullets
   - ElectroMines
   - Player
-  - 
-  - 
-  - 
+  - SeekerShot
+  - Colliders_Top_Bottom
+  - BulletPowerUpYellow
   - 
   - 
   - 

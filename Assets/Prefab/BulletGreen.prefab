@@ -30,11 +30,11 @@ GameObject:
   - 23: {fileID: 2371138}
   - 54: {fileID: 5472394}
   - 114: {fileID: 11479296}
-  - 82: {fileID: 8247728}
   - 198: {fileID: 19871106}
   - 199: {fileID: 19986358}
   - 108: {fileID: 10843408}
   - 96: {fileID: 9661496}
+  - 114: {fileID: 11449604}
   m_Layer: 10
   m_Name: BulletGreen
   m_TagString: Bullet
@@ -113,75 +113,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!82 &8247728
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 162948}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
 --- !u!96 &9661496
 TrailRenderer:
   m_ObjectHideFlags: 1
@@ -259,6 +190,18 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
+--- !u!114 &11449604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214acbb8779d74e519feda19aa91a28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
 --- !u!114 &11479296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac60159c2d117ba4a8ef67856cef610f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 5
+  force: 400
   speed: 5
   bulletCollissionExplosion: {fileID: 100000, guid: 6ea62d4e8979f4cb8ad6c56646a6af9f,
     type: 2}

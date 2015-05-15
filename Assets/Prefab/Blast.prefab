@@ -42,6 +42,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 458680}
+  - 114: {fileID: 11433970}
+  - 114: {fileID: 11463484}
   m_Layer: 0
   m_Name: Blast
   m_TagString: Untagged
@@ -117,6 +119,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 458680}
   m_RootOrder: 0
+--- !u!114 &11433970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 182548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214acbb8779d74e519feda19aa91a28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 3c16fd0f2f10144d195a4e1257900122, type: 3}
+--- !u!114 &11463484
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 182548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214acbb8779d74e519feda19aa91a28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: d8261fe86f45e4bef83a1e5a16522c74, type: 3}
 --- !u!198 &19811956
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -1,41 +1,69 @@
 using UnityEngine;
 using System.Collections;
 
-public class ToiletScript : MonoBehaviour {
-
-	Vector3 target; 
+public class ToiletScript : MonoBehaviour 
+{
 	public Vector3 scale;
 	public AudioClip explosion;
 	public bool isDying = false;
 	public GameObject blastEffect;
 	public GameObject blastEffectSmall;
+	public float speed;
+	float xRotationSpeed;
+	float yRotationSpeed;
+	float zRotationSpeed;
+	bool atRight;
 
 	// Use this for initialization
 	void Start () 
 	{
-		this.transform.Rotate (new Vector3(Random.Range(0,360), Random.Range(0,360), Random.Range(0,360)));
-		this.target = new Vector3(0.0f,Random.Range(-5.0f, 5.0f),0.0f);
+		// Save if at right
+		atRight = Camera.main.WorldToScreenPoint (transform.root.gameObject.transform.position).x > Screen.width / 2;
+
+		// Set rotation speed
+		xRotationSpeed = Random.Range(0, 2.0f);
+		yRotationSpeed = Random.Range(0, 2.0f);
+		zRotationSpeed = Random.Range(0, 2.0f);
+
+		// Scale
 		this.transform.localScale = scale * Random.Range(1.1f, 1.5f);
+		
+		// Speed
+		transform.root.gameObject.GetComponent<Rigidbody>().AddForce (new Vector3(((atRight) ? -1 : 1) * (speed * (1 / (1-(1-Time.timeScale)))), 0, 0));
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		this.transform.position = Vector3.MoveTowards (this.transform.position, target, 0.05f); 
-		this.transform.Rotate (0.5f,-0.5f,0.2f);
+		// Rotate Asteroid
+		this.transform.Rotate (xRotationSpeed * Time.timeScale, yRotationSpeed * Time.timeScale, zRotationSpeed * Time.timeScale);
 
+		// Dying Animation
 		if(isDying)
 		{
 			AnimateDeath();
 		}
 	}
-	
+
 	void AnimateDeath()
 	{
-		float scaleSpeed = 0.02f;
-		this.transform.localScale -= new Vector3(scaleSpeed, scaleSpeed, scaleSpeed);
+		// Move to mid
+		bool atRight = Camera.main.WorldToScreenPoint (transform.root.gameObject.transform.position).x > Screen.width / 2;
+		transform.transform.LookAt(new Vector3(0, transform.position.y, 0));
+		transform.Translate( 	(((atRight) ? -0.1f: -0.1f)*Time.timeScale), 0 ,0);
+
+		// Scale Down
+		float scaleSpeed = 0.2f  * Time.timeScale;
+		float scaleX;
+		float scaleY;
+		float scaleZ;
+		scaleX = (transform.localScale.x > 0) ? transform.localScale.x * scaleSpeed : transform.localScale.x;
+		scaleY = (transform.localScale.y > 0) ? transform.localScale.y * scaleSpeed : transform.localScale.y;
+		scaleZ = (transform.localScale.z > 0) ? transform.localScale.z * scaleSpeed : transform.localScale.z;
+		
+		transform.localScale -= new Vector3(scaleX, scaleY, scaleZ);
 	
-		if(this.transform.localScale.x < 0.0f)
+		if (transform.localScale.x < 0.1f)
 		{
 			Destroy ( transform.root.gameObject );
 		}

@@ -78,8 +78,9 @@ GameObject:
   - 4: {fileID: 468834}
   - 114: {fileID: 11453822}
   - 135: {fileID: 13515322}
+  - 114: {fileID: 11416962}
   m_Layer: 11
-  m_Name: ElectroMineSmall
+  m_Name: ElectroMineLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,6 +268,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 468834}
   m_RootOrder: 3
+--- !u!114 &11416962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee070b861e31b4bff901e7b17baf6eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip1: {fileID: 8300000, guid: d907137e8f70023458013a08264a363c, type: 3}
+  audioClip2: {fileID: 8300000, guid: b96ddd0b29ed644ce9e81d54a2a87b75, type: 3}
+  audioClip3: {fileID: 0}
+  audioClip4: {fileID: 0}
+  audioClip5: {fileID: 0}
 --- !u!114 &11453822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -280,8 +297,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gObj_Rotator: {fileID: 181230}
   mineLevel: 1
-  paralyzeSound: {fileID: 8300000, guid: d907137e8f70023458013a08264a363c, type: 3}
-  explosionSound: {fileID: 8300000, guid: b96ddd0b29ed644ce9e81d54a2a87b75, type: 3}
   PfxParalysedBlast: {fileID: 19839884}
   PfxBubbles: {fileID: 19802346}
   PfxRayStripes: {fileID: 19860068}

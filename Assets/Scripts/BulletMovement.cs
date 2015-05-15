@@ -3,13 +3,15 @@ using System.Collections;
 
 public class BulletMovement : MonoBehaviour {
 	public float force;
-	public float speed = 5; 
+	public float speed; 
 	private PlayerControl player;	
 	public GameObject bulletCollissionExplosion;
 
 	// Use this for initialization
-	void Start () {
-		this.transform.GetComponent<Rigidbody>().AddForce (new Vector3(-(force * speed),0,0));
+	void Start () 
+	{
+		// Wuut... virkede kun hvis den var her to gange i træk :S
+		transform.root.gameObject.GetComponent<Rigidbody>().AddForce(	-(force * (speed * (1 / (1-(1-Time.timeScale))))),0 , 0);
 	}
 	
 	// Update is called once per frame

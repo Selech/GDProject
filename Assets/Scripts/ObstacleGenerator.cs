@@ -3,14 +3,14 @@ using System.Collections;
 
 public class ObstacleGenerator : MonoBehaviour {
 	
-	int leftCount;
-	int rightCount;
+	float leftCount;
+	float rightCount;
 	
-	int lowerRandomNum = 60;
-	int upperRandomNum = 90;
+	float lowerRandomNum = 60;
+	float upperRandomNum = 90;
 	
 	float ySpawnDistFromMid = 4.5f;
-	float xSpawnDistFromMid = 9.0f;
+	float xSpawnDistFromMid = 10.0f;
 	
 	public GameObject asteroid;
 	public GameObject toilet;
@@ -26,16 +26,16 @@ public class ObstacleGenerator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		leftCount--;
-		rightCount--;
+		leftCount -= Time.timeScale;
+		rightCount -= Time.timeScale;
 		
-		if (leftCount == 0)
+		if (leftCount < 0)
 		{
 			SpawnObstacle(xSpawnDistFromMid);
 			leftCount = Random.Range (lowerRandomNum, upperRandomNum);
 		}
 
-		if (rightCount == 0) 
+		if (rightCount < 0) 
 		{
 			SpawnObstacle(-xSpawnDistFromMid);
 			rightCount = Random.Range (lowerRandomNum, upperRandomNum);

@@ -3,7 +3,6 @@ using System.Collections;
 
 public class SatelliteScript : MonoBehaviour {
 
-	Vector3 target;
 	public Vector3 scale;
 	public AudioClip explosion;
 	public bool isDying = false;
@@ -14,24 +13,37 @@ public class SatelliteScript : MonoBehaviour {
 	public GameObject powerUpPurple;
 	public GameObject powerUpYellow;
 
+	public float speed;
+	float xRotationSpeed;
+	float yRotationSpeed;
+	float zRotationSpeed;
+	bool atRight;
 
 	// Use this for initialization
 	void Start () 
 	{
+		// Save if at right
+		atRight = Camera.main.WorldToScreenPoint (transform.root.gameObject.transform.position).x > Screen.width / 2;
+
 		this.transform.localScale = scale;
-		this.target = new Vector3(0.0f,Random.Range(-5.0f, 5.0f),0.0f);
+
+		// Set rotation speed
+		xRotationSpeed = Random.Range(0, 1.5f);
+		yRotationSpeed = Random.Range(0, 1.5f);
+		zRotationSpeed = Random.Range(0, 1.5f);
+		
+		// Speed
+		transform.root.gameObject.GetComponent<Rigidbody>().AddForce (new Vector3(((atRight) ? -1 : 1) * (speed * (1 / (1-(1-Time.timeScale)))), 0, 0));
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		this.transform.position = Vector3.MoveTowards (this.transform.position, target, 0.05f); 
-		this.transform.Rotate (1f,1f,1f);
+		// Rotate Asteroid
+		this.transform.Rotate (xRotationSpeed * Time.timeScale, yRotationSpeed * Time.timeScale, zRotationSpeed * Time.timeScale);
 
-		if(isDying)
-		{
-			AnimateDeath();
-		}
+		// Death Animation
+		if(isDying) AnimateDeath();
 	}
 	
 	void AnimateDeath()
@@ -78,7 +90,7 @@ public class SatelliteScript : MonoBehaviour {
 			bool leftOfMiddle = Camera.main.WorldToScreenPoint(transform.position).x > Screen.width / 2;
 
 			// Spawn Random PowerUp
-			int ranNum = Random.Range(1, 4);
+			int ranNum = Random.Range(1, 5);
 			GameObject gObj = null;
 
 			if (ranNum == 1)
