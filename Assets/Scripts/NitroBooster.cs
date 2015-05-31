@@ -16,8 +16,8 @@ public class NitroBooster : MonoBehaviour {
 	private Image nitroBar;
 	private AudioSource sound;
 	
-	private int fillLeft = 1;
-	private int fillRight = 1;
+//	private int fillLeft = 1;
+//	private int fillRight = 1;
 
 	private float nitroLoss = 0.05f;
 

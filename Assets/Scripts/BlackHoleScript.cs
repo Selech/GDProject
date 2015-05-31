@@ -205,7 +205,7 @@ public class BlackHoleScript : MonoBehaviour {
 		{
 			other.gameObject.GetComponent<SatelliteScript>().isDying = true; 
 		}
-		else if (namz == "PowerUpRandom(Clone)")
+		else if (namz == "PowerUpRandom(Clone)" || namz == "PowerUpYellow(Clone)" || namz == "PowerUpBlue(Clone)" || namz == "PowerUpPurple(Clone)")
 		{
 			other.gameObject.GetComponent<PowerUpRandomScript>().isDying = true; 
 		}

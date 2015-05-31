@@ -48,7 +48,20 @@ public class PowerUpRandomScript : MonoBehaviour {
 	
 		if(this.transform.localScale.x < 0.0f)
 		{
+			detachParticleSystem();
 			Destroy ( transform.root.gameObject );
+		}
+	}
+
+	void detachParticleSystem ()
+	{
+		Transform trsf = transform.FindChild("Particle System");
+		if(trsf != null)
+		{
+			ParticleSystem pfx = trsf.gameObject.GetComponent<ParticleSystem>();
+			pfx.loop = false;
+			pfx.startLifetime = 0.1f;
+			pfx.transform.parent = null;
 		}
 	}
 
@@ -82,6 +95,7 @@ public class PowerUpRandomScript : MonoBehaviour {
 			//AudioSource.PlayClipAtPoint (explosion, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
 			// Destroy Colliders
+			detachParticleSystem();
 			Destroy(this.gameObject);
 
 			// DESTROY BULLET

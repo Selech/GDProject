@@ -34,7 +34,7 @@ GameObject:
   - 199: {fileID: 19986358}
   - 108: {fileID: 10843408}
   - 96: {fileID: 9661496}
-  - 114: {fileID: 11449604}
+  - 114: {fileID: 11457964}
   m_Layer: 10
   m_Name: BulletGreen
   m_TagString: Bullet
@@ -190,7 +190,7 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
---- !u!114 &11449604
+--- !u!114 &11457964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -198,10 +198,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 162948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 214acbb8779d74e519feda19aa91a28e, type: 3}
+  m_Script: {fileID: 11500000, guid: ee070b861e31b4bff901e7b17baf6eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
+  audioClip1: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
+  audioClip2: {fileID: 8300000, guid: 292f80aa13b144e85a95aea589c44887, type: 3}
+  audioClip3: {fileID: 0}
+  audioClip4: {fileID: 0}
+  audioClip5: {fileID: 0}
 --- !u!114 &11479296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -217,6 +221,7 @@ MonoBehaviour:
   speed: 5
   bulletCollissionExplosion: {fileID: 100000, guid: 6ea62d4e8979f4cb8ad6c56646a6af9f,
     type: 2}
+  sfxHit: {fileID: 0}
 --- !u!135 &13593580
 SphereCollider:
   m_ObjectHideFlags: 1

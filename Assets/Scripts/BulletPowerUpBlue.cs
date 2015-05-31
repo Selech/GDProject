@@ -36,6 +36,13 @@ public class BulletPowerUpBlue: MonoBehaviour
 		ship2 = GameObject.Find ("Ship2");
 	}
 
+	public int getShootCooldown (int currentShotLevel)
+	{
+		if (currentShotLevel == 2) return 45;
+		else if (currentShotLevel == 3) return 30;
+		return 60;
+	}
+
 	// Use this for initialization
 	public void SpawnBullets (int shotLevel, PlayerControl pControl) 
 	{

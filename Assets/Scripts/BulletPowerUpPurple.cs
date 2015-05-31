@@ -32,6 +32,13 @@ public class BulletPowerUpPurple : MonoBehaviour
 		sfxChargingShot.pitch = Time.timeScale;
 	}
 
+	public int getShootCooldown (int currentShotLevel)
+	{
+		if (currentShotLevel == 2) return 80;
+		else if (currentShotLevel == 3) return 50;
+		return 140;
+	}
+
 	// Use this for initialization
 	void Start () 
 	{

@@ -15,6 +15,9 @@ public class ObstacleGenerator : MonoBehaviour {
 	public GameObject asteroid;
 	public GameObject toilet;
 	public GameObject satellite;
+	public GameObject powerUpBlue;
+	public GameObject powerUpPurple;
+	public GameObject powerUpYellow;
 	
 	// Use this for initialization
 	void Start () 
@@ -47,6 +50,12 @@ public class ObstacleGenerator : MonoBehaviour {
 		GameObject obstacle = null;
 
 		if (Random.value > 0.5) 
+		{
+			int randomNum = Random.Range(1,4);
+			GameObject powerUp = (randomNum == 1) ? powerUpYellow : (randomNum == 2) ? powerUpBlue : powerUpPurple; 
+			obstacle = (GameObject)Instantiate (powerUp, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
+		}
+		else if (Random.value > 0.2) 
 		{
 			obstacle = (GameObject)Instantiate (satellite, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
 		}  

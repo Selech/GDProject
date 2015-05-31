@@ -65,7 +65,7 @@ public class ElectroMineScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		// Rotation of Particle Effect
+		// Rotation of Part icle Effect
 		gObj_Rotator.transform.Rotate (Vector3.back, gObj_RotateSpeed * Time.deltaTime);
 
 		// Destroy when time runs out

@@ -30,6 +30,14 @@ public class BulletPowerupYellowMovement: MonoBehaviour
 		else if (mineLevel == 3) 	scr.playSound3();
 	}
 	
+	public int getShootCooldown (int currentShotLevel)
+	{
+		// Then return cooldown
+		if (currentShotLevel == 2) return 45;
+		else if (currentShotLevel == 3) return 30;
+		return 60;
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{

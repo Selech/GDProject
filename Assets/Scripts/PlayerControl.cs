@@ -16,6 +16,9 @@ public class PlayerControl : MonoBehaviour
 	public KeyCode shootBullet;
 	public KeyCode shootSecondaryBullet;
 	public KeyCode shootDoubleBullets;
+	private float secondaryShootCD = 0;
+
+	private bool showReloadingReady;
 
 	public GameObject NuzzleFireGun;
 	public GameObject NuzzleFirePowerUpYellow;
@@ -42,11 +45,12 @@ public class PlayerControl : MonoBehaviour
 	public int numCollectedBluePowerups = 0;
 	public int numCollectedYellowPowerups = 0;
 	public int numCollectedPurplePowerups = 0;
+	public GameObject gObjPowerUpLevelText;
 
-	public Text txtCollectedPowerups;
-	public Text txtCollectedBluePowerups;	
-	public Text txtCollectedYellowPowerups;
-	public Text txtCollectedPurplePowerups;
+//	public Text txtCollectedPowerups;
+//	public Text txtCollectedBluePowerups;	
+//	public Text txtCollectedYellowPowerups;
+//	public Text txtCollectedPurplePowerups;
 	public Text txtOpponentScore;
 
 	public GameObject assJetWhite;
@@ -111,11 +115,43 @@ public class PlayerControl : MonoBehaviour
 			physicsControl();
 			flightSound();
 			checkShooting();
-
+			lowerShootCooldown();
 		}
 		else
 		{
 			AnimateDeath();
+		}
+	}
+
+	void showReloadEffect ()
+	{
+		if(currentShotType == "PowerUpYellow") 
+		{
+			transform.FindChild ("ReloadYellow").gameObject.SetActive(true);
+			transform.FindChild ("ReloadYellow").gameObject.GetComponent<Reloading> ().reset(); 
+		}
+		else if(currentShotType == "PowerUpBlue") 
+		{
+			transform.FindChild ("ReloadBlue").gameObject.SetActive(true);
+			transform.FindChild ("ReloadBlue").gameObject.GetComponent<Reloading> ().reset();
+		}
+		else if(currentShotType == "PowerUpPurple")
+		{
+			transform.FindChild ("ReloadPurple").gameObject.SetActive(true);
+			transform.FindChild ("ReloadPurple").gameObject.GetComponent<Reloading> ().reset();
+		}
+	}
+
+	void lowerShootCooldown ()
+	{
+		//if(atRight == false) print (secondaryShootCD);
+		if(secondaryShootCD > 0 ) {
+			secondaryShootCD -= Time.timeScale;
+		}
+		if(secondaryShootCD < 20 && showReloadingReady == true) 
+		{
+			showReloadEffect();
+			showReloadingReady = false;
 		}
 	}
 
@@ -294,6 +330,33 @@ public class PlayerControl : MonoBehaviour
 				currentShotLevel++;
 			}
 		}
+
+		// Show Pfx and text about the level of the powerup
+		GameObject gObj = Instantiate(gObjPowerUpLevelText, transform.position, new Quaternion()) as GameObject;
+		if(shotType == "PowerUpYellow")
+		   	(gObj.transform.FindChild("yellow") as Transform).gameObject.GetComponent<ParticleSystem>().Play();
+		else if (shotType == "PowerUpBlue")
+			(gObj.transform.FindChild("blue") as Transform).gameObject.GetComponent<ParticleSystem>().Play();
+		else if (shotType == "PowerUpPurple")
+			(gObj.transform.FindChild("purple") as Transform).gameObject.GetComponent<ParticleSystem>().Play();
+		(gObj.transform.FindChild("text") as Transform).gameObject.GetComponent<TextMesh>().text = "lvl "+currentShotLevel;
+	}
+
+	void calculateAmazingnessOfReadySignal (ParticleSystem particleSystem)
+	{
+		particleSystem.loop = true;
+		particleSystem.Play();
+
+		if (currentShotLevel == 1){
+			particleSystem.startSpeed = 0.7f;
+			particleSystem.startLifetime = .4f;
+		} else if (currentShotLevel == 2){
+			particleSystem.startSpeed = 1.0f;
+			particleSystem.startLifetime = .65f;
+		} else if (currentShotLevel == 3){
+			particleSystem.startSpeed = 1.3f;
+			particleSystem.startLifetime = .9f;
+		}
 	}
 
 	private void CollisionWithPowerUp(Collision other, string name)
@@ -303,25 +366,52 @@ public class PlayerControl : MonoBehaviour
 		if (name == "PowerUpBlue" || ranNum == 1)
 		{
 			hideJetasses();
+			hideSecondaryShotReadySignals();
 			assJetBlue.SetActive(true);
+
+			// Show Ready Signal of Blue
+			calculateAmazingnessOfReadySignal(transform.FindChild("ReloadBlue").FindChild("pfxReady").gameObject.GetComponent<ParticleSystem>());
+			calculateAmazingnessOfReadySignal(transform.FindChild("ReloadBlue").FindChild("pfxReady2").gameObject.GetComponent<ParticleSystem>());
+
+			// Pfx Ring
 			Instantiate(absorbEffectBlue, transform.position, new Quaternion());
 			AudioSource.PlayClipAtPoint (absorbEffectBlue_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+
+			// Improve Power Up
 			ImprovePowerUpShot("PowerUpBlue");
 		}
 		else if (name == "PowerUpYellow" || ranNum == 2)
 		{
 			hideJetasses();
+			hideSecondaryShotReadySignals();
 			assJetYellow.SetActive(true);
+
+			// Show Ready Signal of Blue
+			calculateAmazingnessOfReadySignal(transform.FindChild("ReloadYellow").FindChild("pfxReady").gameObject.GetComponent<ParticleSystem>());
+			calculateAmazingnessOfReadySignal(transform.FindChild("ReloadYellow").FindChild("pfxReady2").gameObject.GetComponent<ParticleSystem>());
+
+			// Pfx Ring
 			Instantiate(absorbEffectYellow, transform.position, new Quaternion());
 			AudioSource.PlayClipAtPoint (absorbEffectYellow_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+
+			// Improve PowerUp
 			ImprovePowerUpShot("PowerUpYellow");
 		}
 		else if (name == "PowerUpPurple" || ranNum == 3)
 		{
 			hideJetasses();
+			hideSecondaryShotReadySignals();
 			assJetPurple.SetActive(true);
+			
+			// Show Ready Signal of Blue
+			calculateAmazingnessOfReadySignal(transform.FindChild("ReloadPurple").FindChild("pfxReady").gameObject.GetComponent<ParticleSystem>());
+			calculateAmazingnessOfReadySignal(transform.FindChild("ReloadPurple").FindChild("pfxReady2").gameObject.GetComponent<ParticleSystem>());
+
+			// Pfx Ring
 			Instantiate(absorbEffectPurple, transform.position, new Quaternion());
 			AudioSource.PlayClipAtPoint (absorbEffectPurple_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+
+			// Improve PowerUp
 			ImprovePowerUpShot("PowerUpPurple");
 		}
 	}
@@ -332,6 +422,17 @@ public class PlayerControl : MonoBehaviour
 		assJetWhite.SetActive(false);
 		assJetYellow.SetActive(false);
 		assJetPurple.SetActive(false);
+	}
+
+	private void hideSecondaryShotReadySignals()
+	{
+		// Hide ready signal
+		transform.FindChild("ReloadBlue").FindChild("pfxReady").gameObject.GetComponent<ParticleSystem>().loop = false;
+		transform.FindChild("ReloadBlue").FindChild("pfxReady2").gameObject.GetComponent<ParticleSystem>().loop = false;
+		transform.FindChild("ReloadYellow").FindChild("pfxReady").gameObject.GetComponent<ParticleSystem>().loop = false;
+		transform.FindChild("ReloadYellow").FindChild("pfxReady2").gameObject.GetComponent<ParticleSystem>().loop = false;
+		transform.FindChild("ReloadPurple").FindChild("pfxReady").gameObject.GetComponent<ParticleSystem>().loop = false;
+		transform.FindChild("ReloadPurple").FindChild("pfxReady2").gameObject.GetComponent<ParticleSystem>().loop = false;
 	}
 
 	public void asteroidsControl()
@@ -381,11 +482,11 @@ public class PlayerControl : MonoBehaviour
 
 	public void checkShooting()
 	{
-			//Single bullet
+		//Single bullet
 		if(Input.GetKeyDown(shootBullet))
 		{
 			// Shot Sound
-			AudioSource.PlayClipAtPoint (shot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+			//AudioSource.PlayClipAtPoint (shot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 			
 			// NuzzleFire
 			Vector3 pos = ship.transform.position - (new Vector3(0.5f + spawnPointFrontX, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.5f, 0f));
@@ -402,27 +503,41 @@ public class PlayerControl : MonoBehaviour
 		// Secondary Bullet
 		if(Input.GetKeyDown(shootSecondaryBullet))
 		{
-			if (currentShotType == "PowerUpBlue")
+			if(secondaryShootCD <= 0)
 			{
-				// Bullet on the right side of the ship
-				GameObject gObj = Instantiate(bulletPowerUpBlue, transform.position, new Quaternion()) as GameObject;
-				gObj.GetComponent<BulletPowerUpBlue>().SpawnBullets(currentShotLevel, this);
-			}
-			else if (currentShotType == "PowerUpYellow")
-			{
-				// Bullet on the right side of the ship
-				Vector3 position = ship.transform.position - (new Vector3((float)ship.transform.rotation.y, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f));
-				Instantiate(bulletPowerUpYellow, position, new Quaternion());
-				bulletPowerUpYellow.GetComponent<BulletPowerupYellowMovement>().playerScript = this;
-				
-				// NuzzleFire
-				ShowNuzzleFireParticles(NuzzleFirePowerUpYellow);
-			}
-			else if (currentShotType == "PowerUpPurple")
-			{
-				// NuzzleFire
-				GameObject gObj = Instantiate(bulletPowerUpPurple, transform.root.gameObject.transform.position, new Quaternion()) as GameObject;
-				gObj.GetComponent<BulletPowerUpPurple>().playerScript = this;
+				showReloadingReady = true;
+
+				// Hide ready signal
+				hideSecondaryShotReadySignals();
+
+				if (currentShotType == "PowerUpBlue")
+				{
+					// Bullet on the right side of the ship
+					GameObject gObj = Instantiate(bulletPowerUpBlue, transform.position, new Quaternion()) as GameObject;
+					gObj.GetComponent<BulletPowerUpBlue>().SpawnBullets(currentShotLevel, this);
+					secondaryShootCD = gObj.GetComponent<BulletPowerUpBlue>().getShootCooldown(currentShotLevel);
+					
+					// NuzzleFire
+					ShowNuzzleFireParticles(NuzzleFirePowerUpBlue);
+				}
+				else if (currentShotType == "PowerUpYellow")
+				{
+					// Bullet on the right side of the ship
+					Vector3 position = ship.transform.position - (new Vector3((float)ship.transform.rotation.y, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.3f, 0f));
+					Instantiate(bulletPowerUpYellow, position, new Quaternion());
+					bulletPowerUpYellow.GetComponent<BulletPowerupYellowMovement>().playerScript = this;
+					secondaryShootCD = bulletPowerUpYellow.GetComponent<BulletPowerupYellowMovement>().getShootCooldown(currentShotLevel);
+
+					// NuzzleFire
+					ShowNuzzleFireParticles(NuzzleFirePowerUpYellow);
+				}
+				else if (currentShotType == "PowerUpPurple")
+				{
+					// NuzzleFire
+					GameObject gObj = Instantiate(bulletPowerUpPurple, transform.root.gameObject.transform.position, new Quaternion()) as GameObject;
+					gObj.GetComponent<BulletPowerUpPurple>().playerScript = this;
+					secondaryShootCD = gObj.GetComponent<BulletPowerUpPurple>().getShootCooldown(currentShotLevel);
+				}
 			}
 		}
 		
@@ -449,9 +564,12 @@ public class PlayerControl : MonoBehaviour
 	{
 		// Left Nuzzle Fire
 		ParticleSystem psLeft = gObj.transform.FindChild("left").GetComponent<ParticleSystem>();
-		psLeft.Clear();
-		psLeft.Play();
-		
+		if(psLeft != null)
+		{
+			psLeft.Clear();
+			psLeft.Play();
+		}
+
 		// Right Nuzzle Fire
 		ParticleSystem psRight = gObj.transform.FindChild("right").GetComponent<ParticleSystem>();
 		psRight.Clear();

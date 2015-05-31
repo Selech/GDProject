@@ -10,17 +10,24 @@ public class Script_SlowMotionSound_triggered : MonoBehaviour
 	public AudioClip audioClip4;
 	public AudioClip audioClip5;
 
-	public void playSound1() { playSound(audioClip1); }
-	public void playSound2() { playSound(audioClip2); }
-	public void playSound3() { playSound(audioClip3); }
-	public void playSound4() { playSound(audioClip4); }
-	public void playSound5() { playSound(audioClip5); }
+	public void playSound1(bool detach = false) { playSound(audioClip1, detach); }
+	public void playSound2(bool detach = false) { playSound(audioClip2, detach); }
+	public void playSound3(bool detach = false) { playSound(audioClip3, detach); }
+	public void playSound4(bool detach = false) { playSound(audioClip4, detach); }
+	public void playSound5(bool detach = false) { playSound(audioClip5, detach); }
 
-	private void playSound(AudioClip audioClip)
-	{
+	bool detached = false;
+
+	private void playSound(AudioClip audioClip, bool detach)
+	{	
+		if (detach)
+		{
+			transform.parent = null;
+		}
+
 		audioSource = transform.gameObject.AddComponent<AudioSource>();
 		audioSource.clip = audioClip;
-		audioSource.Play();
+		audioSource.Play ();
 	}
 
 	void Update () 
@@ -28,6 +35,11 @@ public class Script_SlowMotionSound_triggered : MonoBehaviour
 		if (audioSource != null)
 		{
 			audioSource.pitch = Time.timeScale;
+		}
+
+		if (detached == true)
+		{
+
 		}
 	}
 }
