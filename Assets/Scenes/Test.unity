@@ -18784,6 +18784,7 @@ GameObject:
   - 114: {fileID: 720402182}
   - 54: {fileID: 720402181}
   - 82: {fileID: 720402183}
+  - 114: {fileID: 720402184}
   m_Layer: 12
   m_Name: Ship2
   m_TagString: Player
@@ -18867,7 +18868,6 @@ MonoBehaviour:
   bullet: {fileID: 100490, guid: 8b86e80efffbf7b4ea4e20a8d9a4ca96, type: 2}
   doubleBullet: {fileID: 0}
   VictoryScreen: {fileID: 1730623921}
-  shot: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
   isDying: 0
   isBeingSuckedIntoBlackHole: 0
   numCollectedPowerups: 0
@@ -18886,6 +18886,7 @@ MonoBehaviour:
   bulletPowerUpYellow: {fileID: 162948, guid: a7f63bcf53915b047bbe74e7b2c8a155, type: 2}
   bulletPowerUpBlue: {fileID: 108634, guid: 4618752de8ec64025ad84a1397c04da7, type: 2}
   bulletPowerUpPurple: {fileID: 116700, guid: 88526c8034f444efe8d70dc95572fa82, type: 2}
+  bulletHit_mp3: {fileID: 8300000, guid: 292f80aa13b144e85a95aea589c44887, type: 3}
   absorbEffectBlue: {fileID: 107504, guid: eb7e7c69a7f6a43ee80165eaf70e5b9a, type: 2}
   absorbEffectYellow: {fileID: 107504, guid: 5ab6c5f6d42e547059bfca1dd204fda4, type: 2}
   absorbEffectPurple: {fileID: 107504, guid: 0646607fbb4f14a858069e2ab375b097, type: 2}
@@ -18966,6 +18967,22 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &720402184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 720402179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee070b861e31b4bff901e7b17baf6eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip1: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
+  audioClip2: {fileID: 8300000, guid: 292f80aa13b144e85a95aea589c44887, type: 3}
+  audioClip3: {fileID: 8300000, guid: 3ecb2a1574687481fbf9d24c0721e21f, type: 3}
+  audioClip4: {fileID: 8300000, guid: 8a82d88d7f5c04e1c9c03c87ee62c1c7, type: 3}
+  audioClip5: {fileID: 8300000, guid: f441c050d9d0748baa72eb411bac5538, type: 3}
 --- !u!1001 &723451315
 Prefab:
   m_ObjectHideFlags: 0
@@ -24911,6 +24928,7 @@ GameObject:
   - 114: {fileID: 900077285}
   - 54: {fileID: 900077287}
   - 82: {fileID: 900077288}
+  - 114: {fileID: 900077289}
   m_Layer: 12
   m_Name: Ship
   m_TagString: Player
@@ -24937,8 +24955,8 @@ MonoBehaviour:
   right: 119
   speed: 10
   shootBulletSpeed: 5
-  shootBullet: 49
-  shootSecondaryBullet: 50
+  shootBullet: 304
+  shootSecondaryBullet: 306
   shootDoubleBullets: 51
   NuzzleFireGun: {fileID: 1454937356}
   NuzzleFirePowerUpYellow: {fileID: 723451317}
@@ -24951,7 +24969,6 @@ MonoBehaviour:
   bullet: {fileID: 162948, guid: db93a111ebaee4d398711be5221d1856, type: 2}
   doubleBullet: {fileID: 100000, guid: ff27e7c7b17ff864c923af8afd5290c6, type: 2}
   VictoryScreen: {fileID: 1730623921}
-  shot: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
   isDying: 0
   isBeingSuckedIntoBlackHole: 0
   numCollectedPowerups: 0
@@ -24970,6 +24987,7 @@ MonoBehaviour:
   bulletPowerUpYellow: {fileID: 162948, guid: a7f63bcf53915b047bbe74e7b2c8a155, type: 2}
   bulletPowerUpBlue: {fileID: 108634, guid: 4618752de8ec64025ad84a1397c04da7, type: 2}
   bulletPowerUpPurple: {fileID: 116700, guid: 88526c8034f444efe8d70dc95572fa82, type: 2}
+  bulletHit_mp3: {fileID: 8300000, guid: 292f80aa13b144e85a95aea589c44887, type: 3}
   absorbEffectBlue: {fileID: 107504, guid: eb7e7c69a7f6a43ee80165eaf70e5b9a, type: 2}
   absorbEffectYellow: {fileID: 107504, guid: 5ab6c5f6d42e547059bfca1dd204fda4, type: 2}
   absorbEffectPurple: {fileID: 107504, guid: 0646607fbb4f14a858069e2ab375b097, type: 2}
@@ -25096,6 +25114,22 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &900077289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 900077284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee070b861e31b4bff901e7b17baf6eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip1: {fileID: 8300000, guid: acbc6f00e9e3b424b8ad466f958c21a1, type: 3}
+  audioClip2: {fileID: 8300000, guid: 292f80aa13b144e85a95aea589c44887, type: 3}
+  audioClip3: {fileID: 8300000, guid: 3ecb2a1574687481fbf9d24c0721e21f, type: 3}
+  audioClip4: {fileID: 8300000, guid: 8a82d88d7f5c04e1c9c03c87ee62c1c7, type: 3}
+  audioClip5: {fileID: 8300000, guid: f441c050d9d0748baa72eb411bac5538, type: 3}
 --- !u!1 &924766228
 GameObject:
   m_ObjectHideFlags: 0

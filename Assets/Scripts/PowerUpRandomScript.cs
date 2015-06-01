@@ -12,8 +12,10 @@ public class PowerUpRandomScript : MonoBehaviour {
 
 	public Text greenScore;
 	public Text redScore;
-
+	public GameObject pfxBlast;
 	public GameObject powerUp;
+
+	bool dead = false;
 
 	// Use this for initialization
 	void Start () 
@@ -24,16 +26,22 @@ public class PowerUpRandomScript : MonoBehaviour {
 	public void pushAway(float force)
 	{
 		// (speed * (1 / (1-(1-Time.timeScale))))
-		GetComponent<Rigidbody>().AddForce (force, 0, 0);
+		if(dead == false)
+		{
+			GetComponent<Rigidbody>().AddForce (force, 0, 0);
+		}
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		bool atRight = Camera.main.WorldToScreenPoint(transform.position).x > Screen.width / 2;
-		GetComponent<Rigidbody>().AddForce ( (atRight)?-2.0f:2.0f,0,0);
-
-		this.transform.Rotate (1f,1f,1f);
+		if(dead == false)
+		{
+			bool atRight = Camera.main.WorldToScreenPoint(transform.position).x > Screen.width / 2;
+			GetComponent<Rigidbody>().AddForce ( (atRight)?-2.0f:2.0f,0,0);
+			
+			this.transform.Rotate (1f,1f,1f);
+		}
 
 		if(isDying)
 		{
@@ -70,39 +78,22 @@ public class PowerUpRandomScript : MonoBehaviour {
 		// Push Player backwards
 		string nameOfHit = other.collider.gameObject.tag;
 
-		// Count number of powerups
-//		if (other.gameObject.tag == "Player") 
-//		{
-//			if(other.gameObject.name == "Ship")
-//			{
-//				BlackHoleScript.greenScoreNum++;
-//				BlackHoleScript.greenScore.text = BlackHoleScript.greenScoreNum + "";
-//			}
-//			else
-//			{
-//				BlackHoleScript.redScoreNum++;
-//				BlackHoleScript.redScore.text = BlackHoleScript.redScoreNum + "";
-//			}
-//		}
+		// DESTROY BULLET
+		if(nameOfHit == "Bullet")
+		{
+			dead = true;
+			Instantiate(pfxBlast, transform.localPosition, transform.rotation);
+			
+			// Remove bullet
+			Destroy(other.collider.gameObject);
+		}
 
 		// Explode Asteroide
 		if (nameOfHit == "Bullet" || other.gameObject.tag == "Player")
 		{
-			// Explosion Effect
-			//Instantiate(blastEffect, transform.position, new Quaternion());
-				
-			// Play Sound
-			//AudioSource.PlayClipAtPoint (explosion, GameObject.Find("Main Camera").GetComponent<Transform>().position);
-
 			// Destroy Colliders
 			detachParticleSystem();
-			Destroy(this.gameObject);
-
-			// DESTROY BULLET
-			if(nameOfHit == "Bullet")
-			{
-				Destroy(other.collider.gameObject);
-			}
+			Destroy(transform.root.gameObject);
 		}
 	}
 }

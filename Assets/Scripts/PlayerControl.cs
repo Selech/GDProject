@@ -37,7 +37,6 @@ public class PlayerControl : MonoBehaviour
 	private bool isMoving;
 	private bool isSpeedingUp;
 	private AudioSource audioSrc;
-	public AudioClip shot;
 	public bool isDying = false;
 	public bool isBeingSuckedIntoBlackHole = false;
 
@@ -64,6 +63,7 @@ public class PlayerControl : MonoBehaviour
 	public GameObject bulletPowerUpYellow;
 	public GameObject bulletPowerUpBlue;
 	public GameObject bulletPowerUpPurple;
+	public AudioClip bulletHit_mp3;
 	
 	public GameObject absorbEffectBlue;
 	public GameObject absorbEffectYellow;
@@ -283,6 +283,16 @@ public class PlayerControl : MonoBehaviour
 
 		CollisionWithPowerUp(other, name);
 		CollisionWithBlackHole(other, name);
+		CollisionWithBullet(other, name);
+	}
+
+	void CollisionWithBullet (Collision other, string nameOfCollider)
+	{
+		if (nameOfCollider == "BulletGreen" || nameOfCollider == "BulletRed")
+		{
+			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
+			scr.playSound2();
+		}
 	}
 
 	private void CollisionWithBlackHole(Collision other, string nameOfCollider)
@@ -375,7 +385,10 @@ public class PlayerControl : MonoBehaviour
 
 			// Pfx Ring
 			Instantiate(absorbEffectBlue, transform.position, new Quaternion());
-			AudioSource.PlayClipAtPoint (absorbEffectBlue_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+			// Sound
+			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
+			scr.playSound3();
+			//AudioSource.PlayClipAtPoint (absorbEffectBlue_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
 			// Improve Power Up
 			ImprovePowerUpShot("PowerUpBlue");
@@ -392,7 +405,9 @@ public class PlayerControl : MonoBehaviour
 
 			// Pfx Ring
 			Instantiate(absorbEffectYellow, transform.position, new Quaternion());
-			AudioSource.PlayClipAtPoint (absorbEffectYellow_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
+			scr.playSound5();
+			//AudioSource.PlayClipAtPoint (absorbEffectYellow_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
 			// Improve PowerUp
 			ImprovePowerUpShot("PowerUpYellow");
@@ -409,7 +424,9 @@ public class PlayerControl : MonoBehaviour
 
 			// Pfx Ring
 			Instantiate(absorbEffectPurple, transform.position, new Quaternion());
-			AudioSource.PlayClipAtPoint (absorbEffectPurple_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
+			scr.playSound4();
+			//AudioSource.PlayClipAtPoint (absorbEffectPurple_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
 			// Improve PowerUp
 			ImprovePowerUpShot("PowerUpPurple");
@@ -487,6 +504,8 @@ public class PlayerControl : MonoBehaviour
 		{
 			// Shot Sound
 			//AudioSource.PlayClipAtPoint (shot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+//			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
+//			scr.playSound1();
 			
 			// NuzzleFire
 			Vector3 pos = ship.transform.position - (new Vector3(0.5f + spawnPointFrontX, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.5f, 0f));

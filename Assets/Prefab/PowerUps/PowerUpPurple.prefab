@@ -31,7 +31,7 @@ GameObject:
   - 136: {fileID: 13687102}
   - 114: {fileID: 11494980}
   m_Layer: 0
-  m_Name: PowerUpBlue
+  m_Name: PowerUpPurple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,7 +102,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 935c323d5195d48bdb0e8370c72c45a1, type: 2}
+  - {fileID: 2100000, guid: e4a18385e2ac14e6cac6bfba8136835d, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -164,7 +164,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 2
-  m_Color: {r: .492647052, g: .811054826, b: 1, a: 1}
+  m_Color: {r: .895841777, g: .41911763, b: 1, a: 1}
   m_Intensity: 3
   m_Range: 15
   m_SpotAngle: 30
@@ -235,7 +235,7 @@ ParticleSystem:
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: 1
+      scalar: .5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -392,7 +392,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4294954878
+        rgba: 4294929380
       minMaxState: 0
     startSize:
       scalar: .200000003
@@ -451,7 +451,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     gravityModifier: 0
-    inheritVelocity: -5
+    inheritVelocity: -.5
     maxNumParticles: 1000
   ShapeModule:
     serializedVersion: 2
@@ -588,10 +588,10 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 4294954878
+          rgba: 4294929380
         key1:
           serializedVersion: 2
-          rgba: 16764798
+          rgba: 16739300
         key2:
           serializedVersion: 2
           rgba: 16739300
