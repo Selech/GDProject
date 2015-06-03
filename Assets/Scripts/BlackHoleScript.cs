@@ -271,7 +271,8 @@ public class BlackHoleScript : MonoBehaviour {
 
 	public void deathByLasor(GameObject loser)
 	{
-		instanceOfDeathExplosion = Instantiate(deathExplosion, loser.transform.position, new Quaternion()) as GameObject;
+		Vector3 vec = new Vector3 (loser.transform.position.x, loser.transform.position.y, loser.transform.position.z + 2);
+		instanceOfDeathExplosion = Instantiate(deathExplosion, vec, new Quaternion()) as GameObject;
 		instanceOfDeathExplosion.transform.localScale = new Vector3(4f, 4f, 4f);
 	}
 }

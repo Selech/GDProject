@@ -11991,7 +11991,7 @@ MonoBehaviour:
   minSpeed: .5
   maxSpeed: 10
   minRotationSpeed: 90
-  maxRotationSpeed: 1250
+  maxRotationSpeed: 5000
   fadeWaitTime: .5
   fadeTime: 2
   useGravity: 0
@@ -32141,10 +32141,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  minSpeed: 3
+  minSpeed: .5
   maxSpeed: 10
   minRotationSpeed: 90
-  maxRotationSpeed: 360
+  maxRotationSpeed: 5000
   fadeWaitTime: .5
   fadeTime: 2
   useGravity: 0
@@ -34334,7 +34334,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 9
 --- !u!1 &1177596566
 GameObject:
   m_ObjectHideFlags: 0
@@ -39224,7 +39224,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22464116, guid: 31eceffd26dbb4890b29380c195da481, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 22464116, guid: 31eceffd26dbb4890b29380c195da481, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -46740,7 +46740,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22453992, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 22453992, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}
       propertyPath: m_AnchoredPosition.x
