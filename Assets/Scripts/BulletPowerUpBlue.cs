@@ -34,13 +34,17 @@ public class BulletPowerUpBlue: MonoBehaviour
 		// Player references
 		ship = GameObject.Find ("Ship");
 		ship2 = GameObject.Find ("Ship2");
+
+		// Play Shoot sound
+		Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered>();
+		if(scr != null) scr.playSound1();
 	}
 
 	public int getShootCooldown (int currentShotLevel)
 	{
-		if (currentShotLevel == 2) return 45;
-		else if (currentShotLevel == 3) return 30;
-		return 60;
+		if (currentShotLevel == 2) return 65;
+		else if (currentShotLevel == 3) return 80;
+		return 50;
 	}
 
 	// Use this for initialization

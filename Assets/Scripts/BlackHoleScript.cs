@@ -41,6 +41,7 @@ public class BlackHoleScript : MonoBehaviour {
 
 		// Save reference to Flight Sound Audio Source
 		audioSrc = GetComponent<AudioSource>();
+		audioSrc.volume = 0.2f;
 
 		// Dont suck at start..
 		pfxSuckingLeft.enableEmission = false;
