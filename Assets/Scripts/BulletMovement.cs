@@ -50,7 +50,7 @@ public class BulletMovement : MonoBehaviour {
 		if (target.gameObject.tag == "Player")
 		{
 			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered>();
-			scr.playSound2(true);
+			if(scr!=null)scr.playSound2(true);
 
 			target.gameObject.GetComponent<Rigidbody>().AddForce (((target.gameObject.name=="Ship")?600:-600),0,0);
 			Instantiate(bulletCollissionExplosion, transform.position, new Quaternion());

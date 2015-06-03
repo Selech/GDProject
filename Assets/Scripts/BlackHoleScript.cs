@@ -19,7 +19,6 @@ public class BlackHoleScript : MonoBehaviour {
 	public Text redScore;
 	
 	private float slowMoDist = 1.3f;
-	public AudioClip slurp;
 	private AudioSource audioSrc;
 
 	bool isUltraSlowMotion = false;
@@ -219,7 +218,7 @@ public class BlackHoleScript : MonoBehaviour {
 	{
 		// Play Shoot sound
 		Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered>();
-		scr.playSound1();
+		scr.playSound1(false, 0.3f);
 
 		// Name of collider
 		string namz = other.gameObject.name;

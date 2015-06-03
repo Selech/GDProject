@@ -89,6 +89,7 @@ public class PlayerControl : MonoBehaviour
 
 		// Save reference to Flight Sound Audio Source
 		audioSrc = GetComponent<AudioSource>();
+		audioSrc.volume = 0.4f;
 	}
 
 	void UpdateScores()
@@ -364,6 +365,7 @@ public class PlayerControl : MonoBehaviour
 	private void CollisionWithPowerUp(Collision other, string name)
 	{
 		int ranNum = (name == "PowerUpRandom") ? Random.Range(1, 4) : 0;
+		float volumeOfAbsorb = 0.2f;
 
 		if (name == "PowerUpBlue" || ranNum == 1)
 		{
@@ -379,7 +381,7 @@ public class PlayerControl : MonoBehaviour
 			Instantiate(absorbEffectBlue, transform.position, new Quaternion());
 			// Sound
 			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
-			scr.playSound3();
+			scr.playSound3(false, volumeOfAbsorb);
 			//AudioSource.PlayClipAtPoint (absorbEffectBlue_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
 			// Improve Power Up
@@ -398,7 +400,7 @@ public class PlayerControl : MonoBehaviour
 			// Pfx Ring
 			Instantiate(absorbEffectYellow, transform.position, new Quaternion());
 			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
-			scr.playSound5();
+			scr.playSound5(false, volumeOfAbsorb);
 			//AudioSource.PlayClipAtPoint (absorbEffectYellow_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
 			// Improve PowerUp
@@ -417,7 +419,7 @@ public class PlayerControl : MonoBehaviour
 			// Pfx Ring
 			Instantiate(absorbEffectPurple, transform.position, new Quaternion());
 			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
-			scr.playSound4();
+			scr.playSound4(false, volumeOfAbsorb);
 			//AudioSource.PlayClipAtPoint (absorbEffectPurple_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
 			// Improve PowerUp

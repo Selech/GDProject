@@ -78,6 +78,8 @@ public class ElectroMineScript : MonoBehaviour {
 		{
 			lifeTime -= Time.timeScale;
 		}
+
+		if(mineLevel == 3) traverseVeritcally();
 	}
 
 	void traverseVeritcally()

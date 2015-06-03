@@ -24994,8 +24994,8 @@ MonoBehaviour:
   ship: {fileID: 1108805593}
   spawnPointFront: {fileID: 1366158315}
   spawnPointFrontX: 0
-  currentShotLevel: 1
-  currentShotType: PowerUpPurple
+  currentShotLevel: 2
+  currentShotType: PowerUpYellow
   bullet: {fileID: 162948, guid: db93a111ebaee4d398711be5221d1856, type: 2}
   doubleBullet: {fileID: 100000, guid: ff27e7c7b17ff864c923af8afd5290c6, type: 2}
   VictoryScreen: {fileID: 1730623921}
@@ -36699,6 +36699,47 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1299700857}
+--- !u!1 &1304363989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1304363991}
+  - 114: {fileID: 1304363990}
+  m_Layer: 0
+  m_Name: Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1304363990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1304363989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214acbb8779d74e519feda19aa91a28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: f4237648f4e7945baa2176ef2f6e0d5a, type: 3}
+  volume: .400000006
+--- !u!4 &1304363991
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1304363989}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.35744166, y: .225712314, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
 --- !u!1 &1307639944
 GameObject:
   m_ObjectHideFlags: 0
@@ -55807,7 +55848,6 @@ MonoBehaviour:
   redScoreNum: 0
   greenScore: {fileID: 300390169}
   redScore: {fileID: 31171624}
-  slurp: {fileID: 8300000, guid: db01e8cb4becc41ee9cf579a7a1b15a1, type: 3}
 --- !u!82 &2087730257
 AudioSource:
   m_ObjectHideFlags: 0
