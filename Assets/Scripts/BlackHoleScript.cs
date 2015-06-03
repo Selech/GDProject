@@ -6,10 +6,12 @@ public class BlackHoleScript : MonoBehaviour {
 
 	public GameObject playerLeft;
 	public GameObject playerRight;
+	public GameObject VictoryScreen;
 
 	public ParticleSystem pfxSuckingLeft;
 	public ParticleSystem pfxSuckingRight;
-	
+	public GameObject deathExplosion;
+	public GameObject instanceOfDeathExplosion;
 
 	public int greenScoreNum = 0;
 	public int redScoreNum = 0;
@@ -22,7 +24,9 @@ public class BlackHoleScript : MonoBehaviour {
 
 	bool isUltraSlowMotion = false;
 	bool isDeathZooming = false;
-	GameObject playerDying = null;
+	GameObject loserToZoomTo = null;
+	Vector3 loserPosition;
+	int zoomTime = 90;
 
 	float originalOrthographicZoom = 5;
 	float limitOrthoGraphicZoom = 2;
@@ -52,19 +56,36 @@ public class BlackHoleScript : MonoBehaviour {
 	{
 		CheckForSlowmotion();
 		CheckForDeathZooming();
+		CheckForDeathExplosion();
+	}
+
+	void CheckForDeathExplosion ()
+	{
+		if(instanceOfDeathExplosion !=null)
+		{
+			if(zoomTime>0)
+			{
+				if(instanceOfDeathExplosion.GetComponent<ExplosionMat>()._alpha < 1) instanceOfDeathExplosion.GetComponent<ExplosionMat>()._alpha += 0.05f;
+				Vector3.Lerp(instanceOfDeathExplosion.transform.localScale, new Vector3(6,6,6),  0.5f * Time.timeScale);
+			}
+			else
+			{
+				if(instanceOfDeathExplosion.GetComponent<ExplosionMat>()._alpha > 0) instanceOfDeathExplosion.GetComponent<ExplosionMat>()._alpha -= 0.1f;
+				Vector3.Lerp(instanceOfDeathExplosion.transform.localScale, new Vector3(0,0,0),  0.5f * Time.timeScale);
+			}
+		}
 	}
 
 	void CheckForDeathZooming ()
 	{
 		// Focus Camera on Ship
-		if (isDeathZooming == true && playerDying != null)
+		if (isDeathZooming == true && loserPosition != null)
 		{
 			// Focus Camera on Ship
 			if(Camera.main.orthographicSize > limitOrthoGraphicZoom)
 			{
 				currentDifIn = currentDifIn / zoomSpeed; 
 				Camera.main.orthographicSize -= currentDifIn * Time.timeScale;
-
 			}
 			else
 			{
@@ -72,10 +93,15 @@ public class BlackHoleScript : MonoBehaviour {
 			}
 
 			// Zoom to correct X and Y
-			Vector3 playerPos = new Vector3 (playerDying.transform.position.x, playerDying.transform.position.y, -20);
-			Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, playerPos, 0.2f * Time.timeScale);
+			Vector3 playerPos = new Vector3 (loserPosition.x, loserPosition.y, -20);
+			Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, playerPos, 0.5f * Time.timeScale);
 
-			//ZTween.use(Camera.main.transform.gameObject).moveTo(new Vector3(playerDying.transform.position.x, playerDying.transform.position.y, -20), 0.2f, Easing.expoOut);
+			if(zoomTime > 0){zoomTime--;}
+			else
+			{
+				isDeathZooming = false;
+				showWinScreen();
+			}
 		}
 		else
 		{
@@ -93,6 +119,24 @@ public class BlackHoleScript : MonoBehaviour {
 			// Zoom to correct X and Y
 			Vector3 pos = new Vector3 (0, 0, -20);
 			Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, pos, 0.2f * Time.timeScale);
+		}
+	}
+
+	void showWinScreen ()
+	{
+		VictoryScreen.SetActive(true);
+
+		if(loserToZoomToName == "Ship")
+		{
+			VictoryScreen.transform.Find("pfxRed").gameObject.SetActive(true);
+			VictoryScreen.transform.Find("Image (RED in MIddle)").gameObject.SetActive(true);
+			VictoryScreen.transform.Find("Text (Red is Victorious)").gameObject.SetActive(true);
+		}
+		else
+		{
+			VictoryScreen.transform.Find("pfxGreen").gameObject.SetActive(true);
+			VictoryScreen.transform.Find("Image (Green in MIddle)").gameObject.SetActive(true);
+			VictoryScreen.transform.Find("Text (Green is Victorious)").gameObject.SetActive(true);
 		}
 	}
 
@@ -184,18 +228,12 @@ public class BlackHoleScript : MonoBehaviour {
 		if (namz == "Ship") 
 		{ 
 			other.gameObject.GetComponent<PlayerControl>().isDying = true;
-			isUltraSlowMotion = true;
-			isDeathZooming = true;
-			playerDying = other.gameObject;
-			Destroy(playerRight);
+			doTheEnd(other.gameObject, other.gameObject.transform.position);
 		}
 		else if (namz == "Ship2")
 		{
 			other.gameObject.GetComponent<PlayerControl>().isDying = true;
-			isUltraSlowMotion = true;
-			isDeathZooming = true;
-			playerDying = other.gameObject;
-			Destroy(playerLeft);
+			doTheEnd(other.gameObject, other.gameObject.transform.position);
 		}
 		else if(namz == "Asteroid(Clone)" || namz == "Asteroid(Clone)(Clone)") 
 		{
@@ -217,5 +255,23 @@ public class BlackHoleScript : MonoBehaviour {
 		{
 			Destroy(other.gameObject);
 		}
+	}
+
+	string loserToZoomToName;
+
+	public void doTheEnd(GameObject loser, Vector3 loserPos)
+	{
+		isUltraSlowMotion = true;
+		isDeathZooming = true;
+		loserToZoomTo = loser;
+		loserToZoomToName = loser.name;
+		loserPosition = loserPos;
+		Destroy((loser.name=="Ship") ? playerRight : playerLeft);
+	}
+
+	public void deathByLasor(GameObject loser)
+	{
+		instanceOfDeathExplosion = Instantiate(deathExplosion, loser.transform.position, new Quaternion()) as GameObject;
+		instanceOfDeathExplosion.transform.localScale = new Vector3(4f, 4f, 4f);
 	}
 }

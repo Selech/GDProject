@@ -127,8 +127,12 @@ public class BulletPowerUpPurple : MonoBehaviour
 				if(atRight == false) pfxHit.transform.Rotate(new Vector3(0,0,Random.Range(130, 180)));
 				
 				// Shake screen and push player back
-				opponent.GetComponent<Rigidbody>().AddForce (((opponent.name=="Ship") ? pushBackForce : -pushBackForce),0,0);
-				Camera.main.GetComponent<Animation>().Play("AsteroidsShake");
+				opponent.transform.FindChild("Ship").gameObject.GetComponent<MeshExploder>().Explode();
+				Destroy(opponent.gameObject);
+				GameObject.Find("TheBlackhole").GetComponent<BlackHoleScript>().doTheEnd(opponent.gameObject, opponent.gameObject.transform.position);
+				GameObject.Find("TheBlackhole").GetComponent<BlackHoleScript>().deathByLasor(opponent.gameObject);
+				//opponent.GetComponent<Rigidbody>().AddForce (((opponent.name=="Ship") ? pushBackForce : -pushBackForce),0,0);
+				//Camera.main.GetComponent<Animation>().Play("AsteroidsShake");
 			}
 			else 
 			{	

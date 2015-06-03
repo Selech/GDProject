@@ -77,10 +77,13 @@ public class PlayerControl : MonoBehaviour
 	public ParticleSystem PfxParalysed;
 
 	bool atRight;
-
+	
 	// Use this for initialization
 	void Start () 
 	{
+//		transform.FindChild ("Ship").gameObject.GetComponent<ClickOrTapToExplode>().StartExplosion();
+//		Destroy(transform.root.gameObject);
+
 		// At right?
 		atRight = Camera.main.WorldToScreenPoint (transform.root.gameObject.transform.position).x > Screen.width / 2;
 
@@ -168,52 +171,41 @@ public class PlayerControl : MonoBehaviour
 		if(ship.transform.localScale.x < 0.0f)
 		{
 			Destroy(GameObject.Find(ship.transform.parent.gameObject.name));
-			VictoryScreen.SetActive(true);
-
-			if(ship.transform.parent.gameObject.name == "Ship")
-			{
-				VictoryScreen.transform.Find("pfxRed").gameObject.SetActive(true);
-				VictoryScreen.transform.Find("Image (RED in MIddle)").gameObject.SetActive(true);
-				VictoryScreen.transform.Find("Text (Red is Victorious)").gameObject.SetActive(true);
-			}
-			else
-			{
-				VictoryScreen.transform.Find("pfxGreen").gameObject.SetActive(true);
-				VictoryScreen.transform.Find("Image (Green in MIddle)").gameObject.SetActive(true);
-				VictoryScreen.transform.Find("Text (Green is Victorious)").gameObject.SetActive(true);
-			}
 		}
 	}
 
 	public void flightSound()
 	{
-		if(isMoving)
+		if(audioSrc != null)
 		{
-			if(isSpeedingUp == false)
+			if(isMoving)
 			{
-				audioSrc.time = 0;
-				isSpeedingUp = true;
+				if(isSpeedingUp == false)
+				{
+					audioSrc.time = 0;
+					isSpeedingUp = true;
+				}
+				
+				if (audioSrc.time == 0)
+				{
+					audioSrc.Play();
+				}
+				else if (audioSrc.time > 1.405f)
+				{
+					audioSrc.time = 0.85f;
+				}
 			}
-
-			if (audioSrc.time == 0)
+			else if (audioSrc.time != 0 && audioSrc.time < 1.4f)
 			{
+				isSpeedingUp = false;
+				audioSrc.time = 1.4f;
 				audioSrc.Play();
 			}
-			else if (audioSrc.time > 1.405f)
+			
+			if (audioSrc.time == 2.548f)
 			{
-				audioSrc.time = 0.85f;
+				audioSrc.time = 0;
 			}
-		}
-		else if (audioSrc.time != 0 && audioSrc.time < 1.4f)
-		{
-			isSpeedingUp = false;
-			audioSrc.time = 1.4f;
-			audioSrc.Play();
-		}
-
-		if (audioSrc.time == 2.548f)
-		{
-			audioSrc.time = 0;
 		}
 	}
 

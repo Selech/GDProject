@@ -92,7 +92,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scale: {x: 0, y: 0, z: 0}
-  explosion: {fileID: 8300000, guid: 3c16fd0f2f10144d195a4e1257900122, type: 3}
   isDying: 0
   blastEffect: {fileID: 182548, guid: 939a703f01d9a4610afb9a587caa3f44, type: 2}
   blastEffectSmall: {fileID: 128368, guid: 61c9294f893d149bc90eb3b0e8b1dac8, type: 2}
