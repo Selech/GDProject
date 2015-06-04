@@ -23,7 +23,6 @@ public class BlackHoleScript : MonoBehaviour {
 
 	bool isUltraSlowMotion = false;
 	bool isDeathZooming = false;
-	GameObject loserToZoomTo = null;
 	Vector3 loserPosition;
 	int zoomTime = 90;
 
@@ -79,7 +78,7 @@ public class BlackHoleScript : MonoBehaviour {
 	void CheckForDeathZooming ()
 	{
 		// Focus Camera on Ship
-		if (isDeathZooming == true && loserPosition != null)
+		if (isDeathZooming == true)
 		{
 			// Focus Camera on Ship
 			if(Camera.main.orthographicSize > limitOrthoGraphicZoom)
@@ -263,7 +262,6 @@ public class BlackHoleScript : MonoBehaviour {
 	{
 		isUltraSlowMotion = true;
 		isDeathZooming = true;
-		loserToZoomTo = loser;
 		loserToZoomToName = loser.name;
 		loserPosition = loserPos;
 		Destroy((loser.name=="Ship") ? playerRight : playerLeft);

@@ -49,24 +49,30 @@ public class ObstacleGenerator : MonoBehaviour {
 	{
 		GameObject obstacle = null;
 
-		if (Random.value > 0.5) 
+		if (Random.value > 0.5f) 
 		{
-			int randomNum = Random.Range(1,4);
-			GameObject powerUp = (randomNum == 1) ? powerUpYellow : (randomNum == 2) ? powerUpBlue : powerUpPurple; 
-			obstacle = (GameObject)Instantiate (powerUp, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
+			if (Random.value > 0.5f) 
+			{
+				int randomNum = Random.Range(1,4);
+				GameObject powerUp = (randomNum == 1) ? powerUpYellow : (randomNum == 2) ? powerUpBlue : powerUpPurple; 
+				obstacle = (GameObject)Instantiate (powerUp, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
+			}
+			else if (Random.value > 0.9f) 
+			{
+				obstacle = (GameObject)Instantiate (satellite, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
+			} 
 		}
-		else if (Random.value > 0.2) 
+
+
+		if (Random.value > 0.5f)
 		{
-			obstacle = (GameObject)Instantiate (satellite, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
-		}  
-		else if (Random.value > 0.5) 
+			obstacle = (GameObject)Instantiate (toilet, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
+			//obstacle.transform.localScale = new Vector3(0.003f, 0.003f, 0.003f);
+		}
+		else if (Random.value > 0.5f)
 		{
 			obstacle = (GameObject)Instantiate (asteroid, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion (0, 0, 0.7f, 0.7f));
 			obstacle.GetComponentInChildren<AsteroidScript> ().scale = new Vector3 (0.5f, 0.5f, 0.5f);
-		}
-		else
-		{
-			obstacle = (GameObject)Instantiate (toilet, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
 		}
 	}
 }

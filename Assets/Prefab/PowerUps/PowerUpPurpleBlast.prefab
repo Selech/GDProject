@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 456500}
   - 198: {fileID: 19869106}
   - 199: {fileID: 19941652}
+  - 114: {fileID: 11466544}
   m_Layer: 0
   m_Name: PowerUpPurpleBlast
   m_TagString: Untagged
@@ -29,6 +30,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11466544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214acbb8779d74e519feda19aa91a28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: c784d56e818574c26a445c13949d6166, type: 3}
+  volume: .400000006
 --- !u!198 &19869106
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -28,9 +28,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187076}
-  m_LocalRotation: {x: .286491752, y: .68259722, z: -.260181606, w: -.619910598}
-  m_LocalPosition: {x: 7.17563248, y: -1.18504262, z: 0}
-  m_LocalScale: {x: .234999999, y: .592999995, z: .0680000037}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -64,7 +64,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187076}
-  m_Mesh: {fileID: 4300000, guid: 44dfa74bf25f92946bbaabac89f42636, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 44dfa74bf25f92946bbaabac89f42636, type: 3}
 --- !u!54 &5464152
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b16afce144577e46a124062431e5b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: {x: .234999999, y: .592999995, z: .0680000037}
+  scale: {x: .400000006, y: .5, z: .400000006}
   explosion: {fileID: 8300000, guid: 3c16fd0f2f10144d195a4e1257900122, type: 3}
   isDying: 0
   blastEffect: {fileID: 182548, guid: 939a703f01d9a4610afb9a587caa3f44, type: 2}
@@ -107,8 +107,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .5
-  m_Center: {x: -.13956596, y: -.0298312567, z: .0388979912}
+  m_Radius: .560000002
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &19825276
 ParticleSystem:
   m_ObjectHideFlags: 1

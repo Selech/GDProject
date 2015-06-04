@@ -14,10 +14,6 @@ public class BulletMovement : MonoBehaviour {
 	{
 		// Wuut... virkede kun hvis den var her to gange i træk :S
 		transform.root.gameObject.GetComponent<Rigidbody>().AddForce(	-(force * (speed * (1 / (1-(1-Time.timeScale))))),0 , 0);
-
-		// Spil lyd
-		Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered>();
-		scr.playSound1();
 	}
 	
 	// Update is called once per frame

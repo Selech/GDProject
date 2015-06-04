@@ -334,10 +334,10 @@ public class MeshExploder : MonoBehaviour {
 				var shader = i.shader;
 				var replacement = Fade.GetReplacementFor(shader);
 				if (replacement == null || !replacement.name.StartsWith("Transparent/")) {
-					Debug.LogWarning("Couldn't find an explicitly transparent version of shader" +
-						" '" + shader.name + "' so fading may not work. If the shader does" +
-						" support transparency then this warning can be avoided by enabling" +
-						" the 'Shaders Already Handle Transparency' option.");
+//					Debug.LogWarning("Couldn't find an explicitly transparent version of shader" +
+//						" '" + shader.name + "' so fading may not work. If the shader does" +
+//						" support transparency then this warning can be avoided by enabling" +
+//						" the 'Shaders Already Handle Transparency' option.");
 				}
 			}
 		}

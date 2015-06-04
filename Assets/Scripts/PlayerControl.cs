@@ -15,10 +15,16 @@ public class PlayerControl : MonoBehaviour
 	public float shootBulletSpeed;
 	public KeyCode shootBullet;
 	public KeyCode shootSecondaryBullet;
+	public KeyCode useSpecialAbility;
 	public KeyCode shootDoubleBullets;
 	private float secondaryShootCD = 0;
 	private float primaryShootCD = 0;
 	private float primaryShootCDReset = 25;
+	private float specialAbilityCD = 0;
+	private float specialAbility1_CDReset = 300;
+	private float specialAbility1_Duration = 0;
+	private float specialAbility1_DurationReset = 100;
+	public int currentAbility;
 
 	private bool showReloadingReady;
 
@@ -121,7 +127,7 @@ public class PlayerControl : MonoBehaviour
 			physicsControl();
 			flightSound();
 			checkShooting();
-			lowerShootCooldown();
+			lowerCooldowns();
 		}
 		else
 		{
@@ -148,9 +154,14 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	void lowerShootCooldown ()
+	void lowerCooldowns ()
 	{
-		//if(atRight == false) print (secondaryShootCD);
+		// Normal Shot
+		if (primaryShootCD > 0 ) {
+			primaryShootCD -= Time.timeScale;
+		}
+
+		// Secondary Shot
 		if(secondaryShootCD > 0 ) {
 			secondaryShootCD -= Time.timeScale;
 		}
@@ -160,8 +171,9 @@ public class PlayerControl : MonoBehaviour
 			showReloadingReady = false;
 		}
 
-		if (primaryShootCD > 0 ) {
-			primaryShootCD -= Time.timeScale;
+		// Special Ability
+		if (specialAbilityCD > 0 ) {
+			specialAbilityCD -= Time.timeScale;
 		}
 	}
 
@@ -326,7 +338,7 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	private void ImprovePowerUpShot(string shotType)
+	private void ImprovePowerUpShot(string shotType, bool pfx = true)
 	{
 		// Change Powerup Type if not the current + reset level
 		if (currentShotType != shotType)
@@ -344,15 +356,18 @@ public class PlayerControl : MonoBehaviour
 			}
 		}
 
-		// Show Pfx and text about the level of the powerup
-		GameObject gObj = Instantiate(gObjPowerUpLevelText, transform.position, new Quaternion()) as GameObject;
-		if(shotType == "PowerUpYellow")
-		   	(gObj.transform.FindChild("yellow") as Transform).gameObject.GetComponent<ParticleSystem>().Play();
-		else if (shotType == "PowerUpBlue")
-			(gObj.transform.FindChild("blue") as Transform).gameObject.GetComponent<ParticleSystem>().Play();
-		else if (shotType == "PowerUpPurple")
-			(gObj.transform.FindChild("purple") as Transform).gameObject.GetComponent<ParticleSystem>().Play();
-		(gObj.transform.FindChild("text") as Transform).gameObject.GetComponent<TextMesh>().text = "lvl "+currentShotLevel;
+		if(pfx == true)
+		{
+			// Show Pfx and text about the level of the powerup
+			GameObject gObj = Instantiate(gObjPowerUpLevelText, transform.position, new Quaternion()) as GameObject;
+			if(shotType == "PowerUpYellow")
+				(gObj.transform.FindChild("yellow") as Transform).gameObject.GetComponent<ParticleSystem>().Play();
+			else if (shotType == "PowerUpBlue")
+				(gObj.transform.FindChild("blue") as Transform).gameObject.GetComponent<ParticleSystem>().Play();
+			else if (shotType == "PowerUpPurple")
+				(gObj.transform.FindChild("purple") as Transform).gameObject.GetComponent<ParticleSystem>().Play();
+			(gObj.transform.FindChild("text") as Transform).gameObject.GetComponent<TextMesh>().text = "lvl "+currentShotLevel;
+		}
 	}
 
 	void calculateAmazingnessOfReadySignal (ParticleSystem particleSystem)
@@ -374,7 +389,8 @@ public class PlayerControl : MonoBehaviour
 
 	private void CollisionWithPowerUp(Collision other, string name)
 	{
-		int ranNum = (name == "PowerUpRandom") ? Random.Range(1, 4) : 0;
+		bool isRandom = (name == "PowerUpRandom") ? true : false;
+		int ranNum = (isRandom) ? Random.Range(1, 4) : 0;
 		float volumeOfAbsorb = 0.4f;
 
 		if (name == "PowerUpBlue" || ranNum == 1)
@@ -395,6 +411,14 @@ public class PlayerControl : MonoBehaviour
 			//AudioSource.PlayClipAtPoint (absorbEffectBlue_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
 			// Improve Power Up
+			if(isRandom){
+				if (Random.value >= 0.5){
+					ImprovePowerUpShot("PowerUpBlue", false);
+					ImprovePowerUpShot("PowerUpBlue", false);
+				} else {
+					ImprovePowerUpShot("PowerUpBlue", false);
+				}
+			}
 			ImprovePowerUpShot("PowerUpBlue");
 		}
 		else if (name == "PowerUpYellow" || ranNum == 2)
@@ -414,6 +438,14 @@ public class PlayerControl : MonoBehaviour
 			//AudioSource.PlayClipAtPoint (absorbEffectYellow_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
 			// Improve PowerUp
+			if(isRandom){
+				if (Random.value >= 0.5){
+					ImprovePowerUpShot("PowerUpYellow", false);
+					ImprovePowerUpShot("PowerUpYellow", false);
+				} else {
+					ImprovePowerUpShot("PowerUpYellow", false);
+				}
+			}
 			ImprovePowerUpShot("PowerUpYellow");
 		}
 		else if (name == "PowerUpPurple" || ranNum == 3)
@@ -433,6 +465,14 @@ public class PlayerControl : MonoBehaviour
 			//AudioSource.PlayClipAtPoint (absorbEffectPurple_mp3, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
 			// Improve PowerUp
+			if(isRandom){
+				if (Random.value >= 0.5){
+					ImprovePowerUpShot("PowerUpPurple", false);
+					ImprovePowerUpShot("PowerUpPurple", false);
+				} else {
+					ImprovePowerUpShot("PowerUpPurple", false);
+				}
+			}
 			ImprovePowerUpShot("PowerUpPurple");
 		}
 	}
@@ -514,6 +554,10 @@ public class PlayerControl : MonoBehaviour
 	//			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
 	//			scr.playSound1();
 				
+				// Spil lyd
+				Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered>();
+				scr.playSound1();
+				
 				// NuzzleFire
 				Vector3 pos = ship.transform.position - (new Vector3(0.5f + spawnPointFrontX, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.5f, 0f));
 				GameObject bul = Instantiate(bullet, pos, new Quaternion()) as GameObject;
@@ -567,7 +611,51 @@ public class PlayerControl : MonoBehaviour
 				}
 			}
 		}
-		
+
+		// Use Special Ability
+		if (Input.GetKeyDown(useSpecialAbility))
+		{
+			if(currentAbility == 1)
+			{
+				GameObject rdySignal = transform.root.gameObject.transform.Find("AbilityNitro").FindChild("PowerUpReady").gameObject;
+				GameObject nitro = transform.root.gameObject.transform.Find("AbilityNitro").FindChild("PfxBoostNitro").gameObject;
+				if(specialAbilityCD <= 0)
+				{
+					specialAbilityCD = specialAbility1_CDReset;
+					specialAbility1_Duration = specialAbility1_DurationReset;
+					
+					if(rdySignal != null) rdySignal.SetActive(false);
+					if(nitro != null) nitro.SetActive(true);
+					
+					Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
+					scr.playSound6(true, 0.4f);
+				}
+			}
+		}
+
+		if(currentAbility == 1)
+		{
+			if (specialAbility1_Duration > 0) {
+				if (transform.root.gameObject != null)
+				{
+					transform.root.gameObject.GetComponent<Rigidbody>().velocity = new Vector3((atRight) ? 1	 : -1,0,0);
+				}
+				specialAbility1_Duration -= Time.timeScale;
+			}
+			if(specialAbility1_Duration <= 0)
+			{
+				GameObject rdySignal = transform.root.gameObject.transform.Find("AbilityNitro").FindChild("PowerUpReady").gameObject;
+				GameObject nitro = transform.root.gameObject.transform.Find("AbilityNitro").FindChild("PfxBoostNitro").gameObject;
+				if(nitro != null) nitro.SetActive(false);
+				if(specialAbilityCD <= 0)
+				{
+					if(rdySignal != null) rdySignal.SetActive(true);
+				}
+			}
+		}
+
+
+
 		//Double bullet
 		if(Input.GetKeyDown(shootDoubleBullets))
 		{

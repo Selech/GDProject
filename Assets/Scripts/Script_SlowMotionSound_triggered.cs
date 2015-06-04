@@ -9,12 +9,14 @@ public class Script_SlowMotionSound_triggered : MonoBehaviour
 	public AudioClip audioClip3;
 	public AudioClip audioClip4;
 	public AudioClip audioClip5;
+	public AudioClip audioClip6;
 
 	public void playSound1(bool detach = false, float volume = 1f) { playSound(audioClip1, detach, volume); }
 	public void playSound2(bool detach = false, float volume = 1f) { playSound(audioClip2, detach, volume); }
 	public void playSound3(bool detach = false, float volume = 1f) { playSound(audioClip3, detach, volume); }
 	public void playSound4(bool detach = false, float volume = 1f) { playSound(audioClip4, detach, volume); }
 	public void playSound5(bool detach = false, float volume = 1f) { playSound(audioClip5, detach, volume); }
+	public void playSound6(bool detach = false, float volume = 1f) { playSound(audioClip6, detach, volume); }
 
 	bool detached = false;
 

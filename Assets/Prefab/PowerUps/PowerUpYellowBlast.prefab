@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 404708}
   - 198: {fileID: 19876212}
   - 199: {fileID: 19968054}
+  - 114: {fileID: 11490696}
   m_Layer: 0
   m_Name: PowerUpYellowBlast
   m_TagString: Untagged
@@ -29,6 +30,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11490696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214acbb8779d74e519feda19aa91a28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 62f44345d3cfe4fbe9ff9d35bb8ee09f, type: 3}
+  volume: .400000006
 --- !u!198 &19876212
 ParticleSystem:
   m_ObjectHideFlags: 1

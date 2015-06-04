@@ -90,29 +90,31 @@ public class SatelliteScript : MonoBehaviour {
 			bool leftOfMiddle = Camera.main.WorldToScreenPoint(transform.position).x > Screen.width / 2;
 
 			// Spawn Random PowerUp
-			int ranNum = Random.Range(1, 5);
-			GameObject gObj = null;
-
-			if (ranNum == 1)
-			{
-				gObj = Instantiate(powerUpRandom, transform.position, new Quaternion()) as GameObject;
-				gObj.GetComponent<PowerUpRandomScript>().pushAway(	(leftOfMiddle)?400:-400 );
-			}
-			else if (ranNum == 2)
-			{
-				gObj = Instantiate(powerUpBlue, transform.position, new Quaternion()) as GameObject;
-				gObj.GetComponent<PowerUpRandomScript>().pushAway(	(leftOfMiddle)?400:-400 );
-			}
-			else if (ranNum == 3)
-			{
-				gObj = Instantiate(powerUpYellow, transform.position, new Quaternion()) as GameObject;
-				gObj.GetComponent<PowerUpRandomScript>().pushAway(	(leftOfMiddle)?400:-400 );
-			}
-			else if (ranNum == 4)
-			{
-				gObj = Instantiate(powerUpPurple, transform.position, new Quaternion()) as GameObject;
-				gObj.GetComponent<PowerUpRandomScript>().pushAway(	(leftOfMiddle)?400:-400 );
-			}
+			GameObject gObj = Instantiate(powerUpRandom, transform.position, new Quaternion()) as GameObject;
+			gObj.GetComponent<PowerUpRandomScript>().pushAway(	(leftOfMiddle)?100:-100 );
+//			int ranNum = Random.Range(1, 5);
+//			GameObject gObj = null;
+//
+//			if (ranNum == 1)
+//			{
+//				gObj = Instantiate(powerUpRandom, transform.position, new Quaternion()) as GameObject;
+//				gObj.GetComponent<PowerUpRandomScript>().pushAway(	(leftOfMiddle)?400:-400 );
+//			}
+//			else if (ranNum == 2)
+//			{
+//				gObj = Instantiate(powerUpBlue, transform.position, new Quaternion()) as GameObject;
+//				gObj.GetComponent<PowerUpRandomScript>().pushAway(	(leftOfMiddle)?400:-400 );
+//			}
+//			else if (ranNum == 3)
+//			{
+//				gObj = Instantiate(powerUpYellow, transform.position, new Quaternion()) as GameObject;
+//				gObj.GetComponent<PowerUpRandomScript>().pushAway(	(leftOfMiddle)?400:-400 );
+//			}
+//			else if (ranNum == 4)
+//			{
+//				gObj = Instantiate(powerUpPurple, transform.position, new Quaternion()) as GameObject;
+//				gObj.GetComponent<PowerUpRandomScript>().pushAway(	(leftOfMiddle)?400:-400 );
+//			}
 		}
 	}
 }
