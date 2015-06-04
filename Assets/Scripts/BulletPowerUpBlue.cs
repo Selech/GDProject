@@ -57,8 +57,9 @@ public class BulletPowerUpBlue: MonoBehaviour
 
 		// Shot level 1
 		shootAngle = 5;
-		pushRecoil = 200;
-		pushOpponent = 250;
+		pushRecoil = 100;
+		pushOpponent = 200;
+		countDownNum = Mathf.RoundToInt (Random.Range (75.0f, 125.0f));
 		if(replica == false)
 		{
 			Invoke("DoAttack", interval * 1); 
@@ -74,8 +75,9 @@ public class BulletPowerUpBlue: MonoBehaviour
 				Invoke("DoAttack", interval * 4);
 			}
 			shootAngle = 10;
-			pushRecoil = 75;
-			pushOpponent = 200;
+			pushRecoil = 150;
+			pushOpponent = 225;
+			countDownNum = Mathf.RoundToInt (Random.Range (75.0f, 175.0f));
 		}
 		// Shot level 3
 		else if (shotLevel == 3)
@@ -88,8 +90,9 @@ public class BulletPowerUpBlue: MonoBehaviour
 				Invoke("DoAttack", interval * 6); 
 			}
 			shootAngle = 20;
-			pushRecoil = 50;
-			pushOpponent = 150;
+			pushRecoil = 150;
+			pushOpponent = 250;
+			countDownNum = Mathf.RoundToInt (Random.Range (75.0f, 225.0f));
 		}
 		
 		// Position
@@ -181,7 +184,6 @@ public class BulletPowerUpBlue: MonoBehaviour
 	void initializeCountDown ()
 	{
 		isCountingDown = true;
-		countDownNum = Mathf.RoundToInt (Random.Range (100.0f, 250.0f));
 	}
 	
 	void OnCollisionEnter(Collision target)

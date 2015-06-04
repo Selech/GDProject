@@ -11597,7 +11597,7 @@ MonoBehaviour:
   m_Text: '
 
 
-    - Click to Retry -'
+    - Press button continue -'
 --- !u!222 &489810518
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24987,15 +24987,15 @@ MonoBehaviour:
   shootBulletSpeed: 5
   shootBullet: 113
   shootSecondaryBullet: 119
-  shootDoubleBullets: 101
+  shootDoubleBullets: 0
   NuzzleFireGun: {fileID: 1454937356}
   NuzzleFirePowerUpYellow: {fileID: 723451317}
   NuzzleFirePowerUpBlue: {fileID: 1088357648}
   ship: {fileID: 1108805593}
   spawnPointFront: {fileID: 1366158315}
   spawnPointFrontX: 0
-  currentShotLevel: 0
-  currentShotType: 
+  currentShotLevel: 3
+  currentShotType: PowerUpBlue
   bullet: {fileID: 162948, guid: db93a111ebaee4d398711be5221d1856, type: 2}
   doubleBullet: {fileID: 100000, guid: ff27e7c7b17ff864c923af8afd5290c6, type: 2}
   VictoryScreen: {fileID: 1730623921}
@@ -29733,7 +29733,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 10
 --- !u!1001 &1045251931
 Prefab:
   m_ObjectHideFlags: 0
@@ -36727,7 +36727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: f4237648f4e7945baa2176ef2f6e0d5a, type: 3}
-  volume: .400000006
+  volume: .5
 --- !u!4 &1304363991
 Transform:
   m_ObjectHideFlags: 0
@@ -39340,6 +39340,10 @@ Prefab:
       value: '0
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 22445722, guid: 31eceffd26dbb4890b29380c195da481, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31eceffd26dbb4890b29380c195da481, type: 2}
@@ -46899,6 +46903,22 @@ RectTransform:
   m_PrefabParentObject: {fileID: 22453992, guid: 0e1781e28103a4fe0b754c9e8ffcee63,
     type: 2}
   m_PrefabInternal: {fileID: 1730623920}
+--- !u!114 &1730623923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1730623921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74c578fc7b7604389b95257a56938cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qButton: 113
+  wButton: 119
+  jButton: 106
+  kButton: 107
+  startButton: 13
 --- !u!1 &1744628455
 GameObject:
   m_ObjectHideFlags: 0

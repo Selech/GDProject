@@ -17,6 +17,8 @@ public class PlayerControl : MonoBehaviour
 	public KeyCode shootSecondaryBullet;
 	public KeyCode shootDoubleBullets;
 	private float secondaryShootCD = 0;
+	private float primaryShootCD = 0;
+	private float primaryShootCDReset = 25;
 
 	private bool showReloadingReady;
 
@@ -157,6 +159,10 @@ public class PlayerControl : MonoBehaviour
 			showReloadEffect();
 			showReloadingReady = false;
 		}
+
+		if (primaryShootCD > 0 ) {
+			primaryShootCD -= Time.timeScale;
+		}
 	}
 
 	void AnimateDeath()
@@ -296,15 +302,7 @@ public class PlayerControl : MonoBehaviour
 			{
 				isBeingSuckedIntoBlackHole = true;
 
-				if (this.name.Replace("(Clone)", "") == "Ship")
-				{
-					LocalDB.Player2_Score = LocalDB.Player2_Score + 1;
-				}
-				else
-				{
-					LocalDB.Player1_Score = LocalDB.Player1_Score + 1;
-				}
-
+				IncreaseScore();
 				UpdateScores();
 			}
 
@@ -313,6 +311,18 @@ public class PlayerControl : MonoBehaviour
 			this.assJetWhiteDots.SetActive(false);
 			this.assJetWhiteLineA.SetActive(false);
 			this.assJetWhiteLineB.SetActive(false);
+		}
+	}
+
+	public void IncreaseScore ()
+	{
+		if (this.name.Replace("(Clone)", "") == "Ship")
+		{
+			LocalDB.Player2_Score = LocalDB.Player2_Score + 1;
+		}
+		else
+		{
+			LocalDB.Player1_Score = LocalDB.Player1_Score + 1;
 		}
 	}
 
@@ -365,7 +375,7 @@ public class PlayerControl : MonoBehaviour
 	private void CollisionWithPowerUp(Collision other, string name)
 	{
 		int ranNum = (name == "PowerUpRandom") ? Random.Range(1, 4) : 0;
-		float volumeOfAbsorb = 0.2f;
+		float volumeOfAbsorb = 0.4f;
 
 		if (name == "PowerUpBlue" || ranNum == 1)
 		{
@@ -496,21 +506,25 @@ public class PlayerControl : MonoBehaviour
 		//Single bullet
 		if(Input.GetKeyDown(shootBullet))
 		{
-			// Shot Sound
-			//AudioSource.PlayClipAtPoint (shot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
-//			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
-//			scr.playSound1();
-			
-			// NuzzleFire
-			Vector3 pos = ship.transform.position - (new Vector3(0.5f + spawnPointFrontX, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.5f, 0f));
-			GameObject bul = Instantiate(bullet, pos, new Quaternion()) as GameObject;
-			BulletMovement bMov = bul.GetComponent<BulletMovement>();
-			if(bMov != null) bMov.force = shootBulletSpeed;
-			ShowNuzzleFireParticles(NuzzleFireGun);
-			
-			// Push back
-			float xForce = ((name=="Ship")?100:-100) * (1 / (1-(1-Time.timeScale)));
-			GetComponent<Rigidbody>().AddForce (xForce, 0, 0);
+			if (primaryShootCD <= 0)
+			{
+				primaryShootCD = primaryShootCDReset;
+				// Shot Sound
+				//AudioSource.PlayClipAtPoint (shot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+	//			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
+	//			scr.playSound1();
+				
+				// NuzzleFire
+				Vector3 pos = ship.transform.position - (new Vector3(0.5f + spawnPointFrontX, (ship.transform.position.y - spawnPointFront.transform.position.y) * 0.5f, 0f));
+				GameObject bul = Instantiate(bullet, pos, new Quaternion()) as GameObject;
+				BulletMovement bMov = bul.GetComponent<BulletMovement>();
+				if(bMov != null) bMov.force = shootBulletSpeed;
+				ShowNuzzleFireParticles(NuzzleFireGun);
+				
+				// Push back
+				float xForce = ((name=="Ship")?100:-100) * (1 / (1-(1-Time.timeScale)));
+				GetComponent<Rigidbody>().AddForce (xForce, 0, 0);
+			}
 		}
 		
 		// Secondary Bullet

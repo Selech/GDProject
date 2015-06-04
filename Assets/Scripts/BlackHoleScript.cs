@@ -41,7 +41,7 @@ public class BlackHoleScript : MonoBehaviour {
 
 		// Save reference to Flight Sound Audio Source
 		audioSrc = GetComponent<AudioSource>();
-		audioSrc.volume = 0.2f;
+		audioSrc.volume = 0.5f;
 
 		// Dont suck at start..
 		pfxSuckingLeft.enableEmission = false;
@@ -274,5 +274,6 @@ public class BlackHoleScript : MonoBehaviour {
 		Vector3 vec = new Vector3 (loser.transform.position.x, loser.transform.position.y, loser.transform.position.z + 2);
 		instanceOfDeathExplosion = Instantiate(deathExplosion, vec, new Quaternion()) as GameObject;
 		instanceOfDeathExplosion.transform.localScale = new Vector3(4f, 4f, 4f);
+		loser.GetComponent<PlayerControl>().IncreaseScore();
 	}
 }
