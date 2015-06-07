@@ -8,9 +8,16 @@ public class Script_Victory_Screen : MonoBehaviour {
 	public KeyCode jButton;
 	public KeyCode kButton;
 	public KeyCode startButton;
+	public GameObject blackholeLine;
 
 	void Start()
 	{
+
+	}
+
+	void OnEnable()
+	{
+		blackholeLine.GetComponent<MeshRenderer>().enabled = false;
 	}
 
 	// Update is called once per frame

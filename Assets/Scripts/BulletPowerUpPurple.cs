@@ -123,8 +123,8 @@ public class BulletPowerUpPurple : MonoBehaviour
 				GameObject gObj = (Instantiate((atRight) ? bulletPowerUpPurpleBeamLeft : bulletPowerUpPurpleBeamRight, new Vector3(oppoPos.x + ((atRight) ? -(8.5f) : (8.5f)), position.y + 1.0f, 0), new Quaternion())) as GameObject;
 				gObj.GetComponent<ParticleSystem>().Play();
 				gObj.GetComponent<ParticleSystem>().Emit(150);
-				GameObject pfxHit = Instantiate(bulletPowerUpPurpleHit, oppoPos, new Quaternion()) as GameObject;
-				if(atRight == false) pfxHit.transform.Rotate(new Vector3(0,0,Random.Range(130, 180)));
+//				GameObject pfxHit = Instantiate(bulletPowerUpPurpleHit, oppoPos, new Quaternion()) as GameObject;
+//				if(atRight == false) pfxHit.transform.Rotate(new Vector3(0,0,Random.Range(130, 180)));
 				
 				// Shake screen and push player back
 				opponent.transform.FindChild("Ship").gameObject.GetComponent<MeshExploder>().Explode();

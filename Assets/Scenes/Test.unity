@@ -12093,7 +12093,7 @@ MonoBehaviour:
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: ee219ca34fbb04e67a871af337629565, type: 3}
-    m_FontSize: 30
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -12129,7 +12129,7 @@ RectTransform:
   m_RootOrder: 7
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -23}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &489810520
@@ -13703,7 +13703,7 @@ RectTransform:
   m_RootOrder: 6
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -9}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &563616487
@@ -23440,8 +23440,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0, y: .5}
   m_AnchorMax: {x: 1, y: .5}
-  m_AnchoredPosition: {x: -3.05175781e-05, y: -20}
-  m_SizeDelta: {x: 293, y: 100}
+  m_AnchoredPosition: {x: 0, y: -20}
+  m_SizeDelta: {x: 318, y: 89}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &775411842
 MonoBehaviour:
@@ -28574,8 +28574,8 @@ MonoBehaviour:
   ship: {fileID: 1108805593}
   spawnPointFront: {fileID: 1366158315}
   spawnPointFrontX: 0
-  currentShotLevel: 3
-  currentShotType: PowerUpPurple
+  currentShotLevel: 0
+  currentShotType: 
   bullet: {fileID: 162948, guid: db93a111ebaee4d398711be5221d1856, type: 2}
   doubleBullet: {fileID: 100000, guid: ff27e7c7b17ff864c923af8afd5290c6, type: 2}
   VictoryScreen: {fileID: 1730623921}
@@ -31259,48 +31259,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &1021069350
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: a1b0310b6a552544ba6b1015721a7d67, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -4.90612602
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a1b0310b6a552544ba6b1015721a7d67, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: .763913453
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a1b0310b6a552544ba6b1015721a7d67, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -.67848593
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a1b0310b6a552544ba6b1015721a7d67, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a1b0310b6a552544ba6b1015721a7d67, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a1b0310b6a552544ba6b1015721a7d67, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a1b0310b6a552544ba6b1015721a7d67, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: a1b0310b6a552544ba6b1015721a7d67, type: 2}
-      propertyPath: m_RootOrder
-      value: 19
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: a1b0310b6a552544ba6b1015721a7d67, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1027039422
 GameObject:
   m_ObjectHideFlags: 0
@@ -53145,7 +53103,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22453992, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 22453992, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -53299,6 +53257,14 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: -1.62920685e-07
       objectReference: {fileID: 0}
+    - target: {fileID: 11486194, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 22447548, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e1781e28103a4fe0b754c9e8ffcee63, type: 2}
   m_IsPrefabParent: 0
@@ -53327,6 +53293,7 @@ MonoBehaviour:
   jButton: 106
   kButton: 107
   startButton: 13
+  blackholeLine: {fileID: 2087730251}
 --- !u!1 &1744628455
 GameObject:
   m_ObjectHideFlags: 0
@@ -66039,8 +66006,8 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: .5}
   m_AnchorMax: {x: 1, y: .5}
-  m_AnchoredPosition: {x: -3.05175781e-05, y: -20}
-  m_SizeDelta: {x: 293, y: 100}
+  m_AnchoredPosition: {x: 0, y: -20}
+  m_SizeDelta: {x: 318, y: 89}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &2020054146
 MonoBehaviour:

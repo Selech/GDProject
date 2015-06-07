@@ -63,19 +63,17 @@ public class ObstacleGenerator : MonoBehaviour {
 	{
 		GameObject obstacle = null;
 
-		if (Random.value > 0.7f) 
+		if (Random.value > 0.5f) 
 		{
-			if (Random.value > 0.5f) 
-			{
-				int randomNum = Random.Range(1,4);
-				GameObject powerUp = powerUpPurple; // (randomNum == 1) ? powerUpYellow : (randomNum == 2) ? powerUpBlue : powerUpPurple; 
-				obstacle = (GameObject)Instantiate (powerUp, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
-			}
-			else if (Random.value > 0.9f) 
-			{
-				obstacle = (GameObject)Instantiate (satellite, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
-			} 
+			int randomNum = Random.Range(1,4);
+			GameObject powerUp = (randomNum == 1) ? powerUpYellow : (randomNum == 2) ? powerUpBlue : powerUpPurple; //powerUpPurple; // (randomNum == 1) ? powerUpYellow : (randomNum == 2) ? powerUpBlue : powerUpPurple; 
+			obstacle = (GameObject)Instantiate (powerUp, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
 		}
+
+		if (Random.value > 0.87f) 
+		{
+			obstacle = (GameObject)Instantiate (satellite, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
+		} 
 
 
 		if (Random.value > 0.5f)
