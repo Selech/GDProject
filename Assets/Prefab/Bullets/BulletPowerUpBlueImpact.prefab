@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: c4949e086fb4746b195d553bccd69b84, type: 3}
+  volume: .5
 --- !u!198 &19850816
 ParticleSystem:
   m_ObjectHideFlags: 1

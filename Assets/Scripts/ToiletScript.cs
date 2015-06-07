@@ -4,7 +4,6 @@ using System.Collections;
 public class ToiletScript : MonoBehaviour 
 {
 	public Vector3 scale;
-	public AudioClip explosion;
 	public bool isDying = false;
 	public GameObject blastEffect;
 	public GameObject blastEffectSmall;
@@ -35,6 +34,12 @@ public class ToiletScript : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		// Remove is game is over
+		if(ObstacleGenerator.isRoundWon)
+		{
+			Destroy(transform.root.gameObject);
+		}
+
 		// Rotate Asteroid
 		this.transform.Rotate (xRotationSpeed * Time.timeScale, yRotationSpeed * Time.timeScale, zRotationSpeed * Time.timeScale);
 
@@ -87,9 +92,6 @@ public class ToiletScript : MonoBehaviour
 			
 			// Explosion Effect
 			Instantiate(blastEffectSmall, transform.position, new Quaternion());
-
-			// Play Sound
-			AudioSource.PlayClipAtPoint (explosion, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 
 			// Destroy Colliders
 			Destroy(this.gameObject);

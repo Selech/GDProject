@@ -19,6 +19,11 @@ public class BulletMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		// Remove is game is over
+		if(ObstacleGenerator.isRoundWon)
+		{
+			Destroy(transform.root.gameObject);
+		}
 	}
 
 	void OnCollisionEnter(Collision target)

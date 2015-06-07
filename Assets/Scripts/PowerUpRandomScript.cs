@@ -35,6 +35,12 @@ public class PowerUpRandomScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		// Remove is game is over
+		if(ObstacleGenerator.isRoundWon)
+		{
+			Destroy(transform.root.gameObject);
+		}
+
 		if(dead == false)
 		{
 			bool atRight = Camera.main.WorldToScreenPoint(transform.position).x > Screen.width / 2;

@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ObstacleGenerator : MonoBehaviour {
-	
+
+	public static bool isOpenened;
+	public static bool isRoundWon;
+
 	float leftCount;
 	float rightCount;
 	
@@ -10,8 +13,11 @@ public class ObstacleGenerator : MonoBehaviour {
 	float upperRandomNum = 90;
 	
 	float ySpawnDistFromMid = 4.5f;
-	float xSpawnDistFromMid = 10.0f;
+	float xSpawnDistFromMid = 11.0f;
 	
+	public GameObject playerLeft;
+	public GameObject playerRight;
+
 	public GameObject asteroid;
 	public GameObject toilet;
 	public GameObject satellite;
@@ -22,6 +28,7 @@ public class ObstacleGenerator : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		isRoundWon = false;
 		leftCount = Random.Range (lowerRandomNum, upperRandomNum);
 		rightCount = Random.Range (lowerRandomNum, upperRandomNum);
 	}
@@ -29,19 +36,26 @@ public class ObstacleGenerator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		leftCount -= Time.timeScale;
-		rightCount -= Time.timeScale;
-		
-		if (leftCount < 0)
+		if(playerLeft != null && playerRight != null)
 		{
-			SpawnObstacle(xSpawnDistFromMid);
-			leftCount = Random.Range (lowerRandomNum, upperRandomNum);
+			leftCount -= Time.timeScale;
+			rightCount -= Time.timeScale;
+			
+			if (leftCount < 0)
+			{
+				SpawnObstacle(xSpawnDistFromMid);
+				leftCount = Random.Range (lowerRandomNum, upperRandomNum);
+			}
+			
+			if (rightCount < 0) 
+			{
+				SpawnObstacle(-xSpawnDistFromMid);
+				rightCount = Random.Range (lowerRandomNum, upperRandomNum);
+			}
 		}
-
-		if (rightCount < 0) 
+		else
 		{
-			SpawnObstacle(-xSpawnDistFromMid);
-			rightCount = Random.Range (lowerRandomNum, upperRandomNum);
+			isRoundWon = true;
 		}
 	}
 	
@@ -49,12 +63,12 @@ public class ObstacleGenerator : MonoBehaviour {
 	{
 		GameObject obstacle = null;
 
-		if (Random.value > 0.5f) 
+		if (Random.value > 0.7f) 
 		{
 			if (Random.value > 0.5f) 
 			{
 				int randomNum = Random.Range(1,4);
-				GameObject powerUp = (randomNum == 1) ? powerUpYellow : (randomNum == 2) ? powerUpBlue : powerUpPurple; 
+				GameObject powerUp = powerUpPurple; // (randomNum == 1) ? powerUpYellow : (randomNum == 2) ? powerUpBlue : powerUpPurple; 
 				obstacle = (GameObject)Instantiate (powerUp, new Vector3 (xPos, Random.Range (-ySpawnDistFromMid, ySpawnDistFromMid), 0), new Quaternion ());
 			}
 			else if (Random.value > 0.9f) 

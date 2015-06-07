@@ -13,8 +13,6 @@ public class BlackHoleScript : MonoBehaviour {
 	public GameObject deathExplosion;
 	public GameObject instanceOfDeathExplosion;
 
-	public int greenScoreNum = 0;
-	public int redScoreNum = 0;
 	public Text greenScore;
 	public Text redScore;
 	
@@ -26,7 +24,7 @@ public class BlackHoleScript : MonoBehaviour {
 	Vector3 loserPosition;
 	int zoomTime = 90;
 
-	float originalOrthographicZoom = 5;
+	public float originalOrthographicZoom;
 	float limitOrthoGraphicZoom = 2;
 	float zoomSpeed = 1.2f;
 	float currentDifIn;
@@ -35,6 +33,9 @@ public class BlackHoleScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		// Start the music
+		GameObject.Find("Music").GetComponent<Script_DontDestroyOnLoad>().startTheMusic();
+
 		// Set zoom difference
 		currentDifIn = currentDifOut = 5;
 
@@ -104,9 +105,11 @@ public class BlackHoleScript : MonoBehaviour {
 		}
 		else
 		{
-			// Focus Camera on Ship
+			// Focus on center
 			if(Camera.main.orthographicSize < originalOrthographicZoom)
 			{
+				if(audioSrc.volume > 0f) audioSrc.volume -= 0.01f;
+
 				currentDifOut = currentDifOut / zoomSpeed; 
 				Camera.main.orthographicSize += currentDifOut * Time.timeScale;
 			}
@@ -123,19 +126,38 @@ public class BlackHoleScript : MonoBehaviour {
 
 	void showWinScreen ()
 	{
-		VictoryScreen.SetActive(true);
+		// Dont suck 
+		pfxSuckingLeft.enableEmission = false;
+		pfxSuckingRight.enableEmission = false;
 
-		if(loserToZoomToName == "Ship")
+		// Check if end
+		int player1score = PlayerControl.Player1Score; 
+		int player2score = PlayerControl.Player2Score;
+		int curRound = player1score + player2score;
+		
+		// Someone won
+		if(player1score == 5 || player2score == 5)
 		{
-			VictoryScreen.transform.Find("pfxRed").gameObject.SetActive(true);
-			VictoryScreen.transform.Find("Image (RED in MIddle)").gameObject.SetActive(true);
-			VictoryScreen.transform.Find("Text (Red is Victorious)").gameObject.SetActive(true);
+			GameObject.Find("Music").GetComponent<Script_DontDestroyOnLoad>().stopTheMusic();
+			Application.LoadLevel("Winner");
 		}
 		else
 		{
-			VictoryScreen.transform.Find("pfxGreen").gameObject.SetActive(true);
-			VictoryScreen.transform.Find("Image (Green in MIddle)").gameObject.SetActive(true);
-			VictoryScreen.transform.Find("Text (Green is Victorious)").gameObject.SetActive(true);
+			// Else show round victory screen
+			VictoryScreen.SetActive(true);
+			
+			if(loserToZoomToName == "Ship")
+			{
+				VictoryScreen.transform.Find("pfxRed").gameObject.SetActive(true);
+				VictoryScreen.transform.Find("Image (RED in MIddle)").gameObject.SetActive(true);
+				VictoryScreen.transform.Find("Text (Red is Victorious)").gameObject.SetActive(true);
+			}
+			else
+			{
+				VictoryScreen.transform.Find("pfxGreen").gameObject.SetActive(true);
+				VictoryScreen.transform.Find("Image (Green in MIddle)").gameObject.SetActive(true);
+				VictoryScreen.transform.Find("Text (Green is Victorious)").gameObject.SetActive(true);
+			}
 		}
 	}
 
@@ -145,23 +167,31 @@ public class BlackHoleScript : MonoBehaviour {
 	void CheckForSlowmotion()
 	{
 		// Ulta slowmotion (Set if player is dead)
-		if(isUltraSlowMotion)
+		if(playerLeft != null || playerRight != null)
 		{
-			Time.timeScale = 0.1F;
+			if(isUltraSlowMotion)
+			{
+				Time.timeScale = 0.1F;
+			}
 		}
-
+		
+		//Vector3.Lerp(transform.root.gameObject.transform.localScale, new Vector3(1f, 10f, 5.05f), 1);
 		// Slowmotion if close to black hole
 		if(playerLeft != null && playerRight != null)
 		{
 			if(playerLeft.activeSelf && playerRight.activeSelf)
 			{
-				ZTween.use(transform.root.gameObject).scaleTo(new Vector3(1f, 10f, 0.05f), 0.01f, Easing.elasticIn);
-
 				bool isSuckedOnLeft = (playerLeft.transform.position.x - this.transform.position.x > -slowMoDist);
 				bool isSuckedOnRight = (playerRight.transform.position.x - this.transform.position.x < slowMoDist);
 				
 				if (isSuckedOnLeft || isSuckedOnRight) 
 				{
+					if (transform.root.gameObject.transform.localScale.z < 0.2f)
+					{
+						Vector3 vec = transform.root.gameObject.transform.localScale;
+						transform.root.gameObject.transform.localScale = new Vector3(vec.x, vec.y, vec.z + 0.005f);
+					}
+
 					// Slow down time
 					Time.timeScale = 0.3F;
 
@@ -183,8 +213,9 @@ public class BlackHoleScript : MonoBehaviour {
 					// Play Vacuum Cleaner sound
 					VacuumCleanerSound(true);
 
-					// Scales an object
-					ZTween.use(transform.root.gameObject).scaleTo(new Vector3(1f, 10f, 0.25f), 0.2f, Easing.elasticOut);
+
+					//Vector3.Lerp(transform.root.gameObject.transform.localScale, new Vector3(1f, 10f, 0.05f), 1);
+					//ZTween.use(transform.root.gameObject).scaleTo(new Vector3(1f, 10f, 0.25f), 0.2f, Easing.elasticOut);
 				} 
 				else 
 				{
@@ -195,6 +226,13 @@ public class BlackHoleScript : MonoBehaviour {
 					VacuumCleanerSound(false);
 
 					Time.timeScale = 1.0F;
+
+					// Scales an object
+					if (transform.root.gameObject.transform.localScale.z > 0.05f)
+					{
+						Vector3 vec = transform.root.gameObject.transform.localScale;
+						transform.root.gameObject.transform.localScale = new Vector3(vec.x, vec.y, vec.z - 0.005f);
+					}
 				}
 				Time.fixedDeltaTime = 0.02F * Time.timeScale;
 			}

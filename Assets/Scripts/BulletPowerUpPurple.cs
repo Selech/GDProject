@@ -27,11 +27,6 @@ public class BulletPowerUpPurple : MonoBehaviour
 	bool firstShoot = true;
 	int shotLevel;
 
-	void Update()
-	{
-		sfxChargingShot.pitch = Time.timeScale;
-	}
-
 	public int getShootCooldown (int currentShotLevel)
 	{
 		if (currentShotLevel == 2) return 80;
@@ -42,8 +37,9 @@ public class BulletPowerUpPurple : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		// Play Sound
-		sfxChargingShot.Play();
+		// Play Charge'n'shoot
+		Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
+		scr.playSound1();
 
 		// Find references
 		ship = GameObject.Find("Ship");
@@ -81,6 +77,10 @@ public class BulletPowerUpPurple : MonoBehaviour
 
 	public void DoAttack()
 	{
+		// Short beam sound
+		Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
+		scr.playSound2();
+
 		// Player references
 		GameObject opponent = (atRight) ? ship : ship2;
 
@@ -109,7 +109,7 @@ public class BulletPowerUpPurple : MonoBehaviour
 				gObj.GetComponent<ParticleSystem>().Play();
 
 				// Sound
-				AudioSource.PlayClipAtPoint (sfxShot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
+				//AudioSource.PlayClipAtPoint (sfxShot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
 				
 				// Beam Across (Shown in front of ship and towards edge)
 				ParticleSystem gObj2 = (Instantiate(bulletPowerUpPurpleBeamAcross, new Vector3(position.x + ((atRight) ? (8.5f) : -(8.5f)), position.y + 1.0f, 0), new Quaternion())) as ParticleSystem;

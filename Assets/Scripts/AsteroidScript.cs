@@ -1,4 +1,4 @@
-using UnityEngine;
+	using UnityEngine;
 using System.Collections;
 
 public class AsteroidScript : MonoBehaviour {
@@ -24,7 +24,10 @@ public class AsteroidScript : MonoBehaviour {
 		atRight = Camera.main.WorldToScreenPoint (transform.root.gameObject.transform.position).x > Screen.width / 2;
 		
 		// Wuut... virkede kun hvis den var her to gange i træk :S
-		transform.root.gameObject.GetComponent<Rigidbody>().AddForce (new Vector3(((atRight) ? -1 : 1) * (speed * (1 / (1-(1-Time.timeScale)))), 0, 0));
+		if(transform.root.gameObject != null)
+		{
+			transform.root.gameObject.GetComponent<Rigidbody>().AddForce (new Vector3(((atRight) ? -1 : 1) * (speed * (1 / (1-(1-Time.timeScale)))), 0, 0));
+		}
 
 		// Rotation Speed
 		xRotationSpeed = Random.Range(0, 2.0f);
@@ -35,6 +38,12 @@ public class AsteroidScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		// Remove is game is over
+		if(ObstacleGenerator.isRoundWon)
+		{
+			Destroy(transform.root.gameObject);
+		}
+
 		// Rotate Asteroid
 		this.transform.Rotate (xRotationSpeed * Time.timeScale, yRotationSpeed * Time.timeScale, zRotationSpeed * Time.timeScale);
 

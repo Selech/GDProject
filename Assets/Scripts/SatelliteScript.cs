@@ -4,7 +4,6 @@ using System.Collections;
 public class SatelliteScript : MonoBehaviour {
 
 	public Vector3 scale;
-	public AudioClip explosion;
 	public bool isDying = false;
 	public GameObject blastEffect;
 
@@ -39,6 +38,12 @@ public class SatelliteScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		// Remove is game is over
+		if(ObstacleGenerator.isRoundWon)
+		{
+			Destroy(transform.root.gameObject);
+		}
+
 		// Rotate Asteroid
 		this.transform.Rotate (xRotationSpeed * Time.timeScale, yRotationSpeed * Time.timeScale, zRotationSpeed * Time.timeScale);
 
@@ -75,12 +80,6 @@ public class SatelliteScript : MonoBehaviour {
 			// Explosion Effect
 			Instantiate(blastEffect, transform.position, new Quaternion());
 				
-			// Play Sound
-			AudioSource.PlayClipAtPoint (explosion, GameObject.Find("Main Camera").GetComponent<Transform>().position);
-
-			// Destroy Colliders
-			Destroy(this.gameObject);
-
 			// DESTROY BULLET
 			if(nameOfHit == "Bullet")
 			{
@@ -92,6 +91,10 @@ public class SatelliteScript : MonoBehaviour {
 			// Spawn Random PowerUp
 			GameObject gObj = Instantiate(powerUpRandom, transform.position, new Quaternion()) as GameObject;
 			gObj.GetComponent<PowerUpRandomScript>().pushAway(	(leftOfMiddle)?100:-100 );
+
+			// Destroy Colliders
+			Destroy(transform.root.gameObject);
+
 //			int ranNum = Random.Range(1, 5);
 //			GameObject gObj = null;
 //

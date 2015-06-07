@@ -24,7 +24,7 @@ TagManager:
   - SeekerShot
   - Colliders_Top_Bottom
   - BulletPowerUpYellow
-  - 
+  - SpaceShipBlocker
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: GOD DAMN UI
+    uniqueID: 4289213285
     locked: 0

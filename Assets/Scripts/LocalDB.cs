@@ -16,6 +16,7 @@ public class LocalDB : MonoBehaviour
 		{
 			Player1_Score = 0;
 			Player2_Score = 0;
+			PlayerDead = 0;
 
 			SessionStarted = true;
 		}
@@ -38,5 +39,11 @@ public class LocalDB : MonoBehaviour
 	{
 		get { return PlayerPrefs.GetInt("Player2_Score"); }
 		set { PlayerPrefs.SetInt("Player2_Score", value); }
+	}
+
+	public static int PlayerDead
+	{
+		get { return PlayerPrefs.GetInt("PlayerDead"); }
+		set { PlayerPrefs.SetInt("PlayerDead", value); }
 	}
 }

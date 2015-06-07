@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour 
 {
+	public static int Player1Score { get; set; }
+	public static int Player2Score { get; set; }
+
 	public int PlayerNumber;
 	public GameObject opponent;
 
@@ -19,7 +22,7 @@ public class PlayerControl : MonoBehaviour
 	public KeyCode shootDoubleBullets;
 	private float secondaryShootCD = 0;
 	private float primaryShootCD = 0;
-	private float primaryShootCDReset = 25;
+	private float primaryShootCDReset = 15;
 	private float specialAbilityCD = 0;
 	private float specialAbility1_CDReset = 300;
 	private float specialAbility1_Duration = 0;
@@ -104,11 +107,11 @@ public class PlayerControl : MonoBehaviour
 	{
 		if (this.name.Replace("(Clone)", "") == "Ship")
 		{
-			txtOpponentScore.text = LocalDB.Player1_Score.ToString();
+			txtOpponentScore.text = Player1Score.ToString();
 		}
 		else
 		{
-			txtOpponentScore.text = LocalDB.Player2_Score.ToString();
+			txtOpponentScore.text = Player2Score.ToString();
 		}
 	}
 	
@@ -119,7 +122,7 @@ public class PlayerControl : MonoBehaviour
 		UpdateScores();
 
 		// Drag towards Black Hole
-		transform.position = Vector3.MoveTowards (transform.position, new Vector3 (0, 0, 0), 0.005f); 
+		transform.position = Vector3.MoveTowards (transform.position, new Vector3 (0, 0, 0), 0.005f * Time.timeScale); 
 
 		// Physics when not being sucked into blackhole
 		if(isDying == false)
@@ -179,6 +182,9 @@ public class PlayerControl : MonoBehaviour
 
 	void AnimateDeath()
 	{
+		// Turn off nitro signal
+		transform.root.gameObject.transform.Find("AbilityNitro").gameObject.SetActive(false);
+
 		// Shrink
 		float scaleSpeed = 0.02f;
 		ship.transform.localScale -= new Vector3((scaleSpeed*1.2f) * Time.timeScale, (scaleSpeed*0.8f) * Time.timeScale, (scaleSpeed) * Time.timeScale);
@@ -331,10 +337,14 @@ public class PlayerControl : MonoBehaviour
 		if (this.name.Replace("(Clone)", "") == "Ship")
 		{
 			LocalDB.Player2_Score = LocalDB.Player2_Score + 1;
+			LocalDB.PlayerDead = 2;
+			Player2Score = Player2Score + 1;
 		}
 		else
 		{
 			LocalDB.Player1_Score = LocalDB.Player1_Score + 1;
+			LocalDB.PlayerDead = 1;
+			Player1Score = Player1Score + 1;
 		}
 	}
 
@@ -355,7 +365,7 @@ public class PlayerControl : MonoBehaviour
 				currentShotLevel++;
 			}
 		}
-
+		print ("pfx: "+pfx);
 		if(pfx == true)
 		{
 			// Show Pfx and text about the level of the powerup
@@ -496,51 +506,6 @@ public class PlayerControl : MonoBehaviour
 		transform.FindChild("ReloadPurple").FindChild("pfxReady2").gameObject.GetComponent<ParticleSystem>().loop = false;
 	}
 
-	public void asteroidsControl()
-	{
-		if (Input.GetKey (up)) 
-		{
-			Vector3 direction = ship.transform.position - spawnPointFront.transform.position;
-			GetComponent<Rigidbody>().AddForce(-direction*1.5f,ForceMode.Force);
-		}
-		
-		if (Input.GetKey (down)) 
-		{
-			Vector3 direction = ship.transform.position - spawnPointFront.transform.position;
-			GetComponent<Rigidbody>().AddForce(direction, ForceMode.Force);
-		}
-		
-		if (Input.GetKey (left)) 
-		{
-			if (PlayerNumber == 1 && (spawnPointFront.transform.position.y - ship.transform.position.y > -1)){
-				spawnPointFront.transform.Translate (new Vector3 (-0.12f, 0, 0));
-				ship.transform.Rotate (Vector3.back * 5);
-				ship.transform.Rotate (0,3f,0);
-			}
-			
-			if(PlayerNumber == 2 && (spawnPointFront.transform.position.y - ship.transform.position.y < 1) ){
-				spawnPointFront.transform.Translate(new Vector3(0.12f,0,0));
-				ship.transform.Rotate (Vector3.back * 5);
-				ship.transform.Rotate (0,-3f,0);
-			}
-		}
-		
-		if (Input.GetKey (right) ) {
-			if(PlayerNumber == 1 && (spawnPointFront.transform.position.y - ship.transform.position.y < 1)){
-				spawnPointFront.transform.Translate(new Vector3(0.12f,0,0));
-				ship.transform.Rotate(-Vector3.back * 5);
-				ship.transform.Rotate (0,-3f,0);
-				
-			}
-			
-			if(PlayerNumber == 2 && (spawnPointFront.transform.position.y - ship.transform.position.y > -1)){
-				spawnPointFront.transform.Translate(new Vector3(-0.12f,0,0));
-				ship.transform.Rotate(-Vector3.back * 5);
-				ship.transform.Rotate (0,3f,0);
-			}
-		}
-	}
-
 	public void checkShooting()
 	{
 		//Single bullet
@@ -549,10 +514,6 @@ public class PlayerControl : MonoBehaviour
 			if (primaryShootCD <= 0)
 			{
 				primaryShootCD = primaryShootCDReset;
-				// Shot Sound
-				//AudioSource.PlayClipAtPoint (shot, GameObject.Find("Main Camera").GetComponent<Transform>().position);
-	//			Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered> ();
-	//			scr.playSound1();
 				
 				// Spil lyd
 				Script_SlowMotionSound_triggered scr = transform.root.gameObject.GetComponent<Script_SlowMotionSound_triggered>();
@@ -653,8 +614,6 @@ public class PlayerControl : MonoBehaviour
 				}
 			}
 		}
-
-
 
 		//Double bullet
 		if(Input.GetKeyDown(shootDoubleBullets))

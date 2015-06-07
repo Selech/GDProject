@@ -9,6 +9,10 @@ public class Script_Victory_Screen : MonoBehaviour {
 	public KeyCode kButton;
 	public KeyCode startButton;
 
+	void Start()
+	{
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -23,5 +27,11 @@ public class Script_Victory_Screen : MonoBehaviour {
 			Application.LoadLevel ("Test");
 		}
 		#endif
+
+
+		if(Time.timeScale < 1)
+		{
+			Time.timeScale += 0.02f;
+		}
 	}
 }
