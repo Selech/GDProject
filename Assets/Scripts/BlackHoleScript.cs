@@ -136,13 +136,13 @@ public class BlackHoleScript : MonoBehaviour {
 		int curRound = player1score + player2score;
 		
 		// Someone won
-		if(player1score == 5 || player2score == 5)
-		{
-			GameObject.Find("Music").GetComponent<Script_DontDestroyOnLoad>().stopTheMusic();
-			Application.LoadLevel("Winner");
-		}
-		else
-		{
+//		if(player1score == 5 || player2score == 5)
+//		{
+//			GameObject.Find("Music").GetComponent<Script_DontDestroyOnLoad>().stopTheMusic();
+//			Application.LoadLevel("Winner");
+//		}
+//		else
+//		{
 			// Else show round victory screen
 			VictoryScreen.SetActive(true);
 			
@@ -158,7 +158,7 @@ public class BlackHoleScript : MonoBehaviour {
 				VictoryScreen.transform.Find("Image (Green in MIddle)").gameObject.SetActive(true);
 				VictoryScreen.transform.Find("Text (Green is Victorious)").gameObject.SetActive(true);
 			}
-		}
+//		}
 	}
 
 	/**
@@ -307,6 +307,7 @@ public class BlackHoleScript : MonoBehaviour {
 
 	public void deathByLasor(GameObject loser)
 	{
+		Time.timeScale = 0.1f;
 		Vector3 vec = new Vector3 (loser.transform.position.x, loser.transform.position.y, loser.transform.position.z + 2);
 		instanceOfDeathExplosion = Instantiate(deathExplosion, vec, new Quaternion()) as GameObject;
 		instanceOfDeathExplosion.transform.localScale = new Vector3(4f, 4f, 4f);

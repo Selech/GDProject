@@ -25,12 +25,35 @@ public class ObstacleGenerator : MonoBehaviour {
 	public GameObject powerUpPurple;
 	public GameObject powerUpYellow;
 	
+	public GameObject pfxPointsGivenGreen;
+	public GameObject pfxPointsGivenRed;
+	
 	// Use this for initialization
 	void Start () 
 	{
 		isRoundWon = false;
 		leftCount = Random.Range (lowerRandomNum, upperRandomNum);
 		rightCount = Random.Range (lowerRandomNum, upperRandomNum);
+
+		// Show Points increasing PFX 
+		if(LocalDB.PlayerDead != 0)
+		{
+			// Show it
+			GameObject pfx = (LocalDB.PlayerDead == 1) ? pfxPointsGivenGreen : pfxPointsGivenRed;
+			pfx.SetActive(true);
+			
+			// Position it
+			float xPosition = 8.55f;
+			float yPosition = 4.45f;
+			if(LocalDB.PlayerDead == 1)
+			{
+				pfx.transform.position = new Vector3(-xPosition, yPosition, pfxPointsGivenRed.transform.position.z);
+			}
+			else
+			{
+				pfx.transform.position = new Vector3(xPosition, yPosition, pfxPointsGivenRed.transform.position.z);
+			}
+		}
 	}
 	
 	// Update is called once per frame

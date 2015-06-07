@@ -61,25 +61,6 @@ public class Script_UI_VS : MonoBehaviour
 			shipsPositioned = true;
 			ship.transform.position = new Vector3(-4, ship.transform.position.y, ship.transform.position.z);
 			ship2.transform.position = new Vector3(4, ship2.transform.position.y, ship.transform.position.z);
-
-			if(LocalDB.PlayerDead != 0)
-			{
-				// Show it
-				GameObject pfx = (LocalDB.PlayerDead == 1) ? pfxPointsGivenGreen : pfxPointsGivenRed;
-				pfx.SetActive(true);
-
-				// Position it
-				float xPosition = 8.55f;
-				float yPosition = 4.45f;
-				if(LocalDB.PlayerDead == 1)
-				{
-					pfx.transform.position = new Vector3(-xPosition, yPosition, pfxPointsGivenRed.transform.position.z);
-				}
-				else
-				{
-					pfx.transform.position = new Vector3(xPosition, yPosition, pfxPointsGivenRed.transform.position.z);
-				}
-			}
 		}
 
 		if (countDown < 0)

@@ -20647,7 +20647,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 720402179}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3abc0304c40bc4cbe9a94332283afc2b, type: 3}
   m_Name: 
@@ -28550,7 +28550,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 900077284}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3abc0304c40bc4cbe9a94332283afc2b, type: 3}
   m_Name: 
@@ -44814,7 +44814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1379186759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45090,7 +45090,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 199886, guid: 31eceffd26dbb4890b29380c195da481, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22445722, guid: 31eceffd26dbb4890b29380c195da481, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -45288,6 +45288,8 @@ MonoBehaviour:
   powerUpBlue: {fileID: 160354, guid: b82b0652b8ee4402188fb4179b8b4713, type: 2}
   powerUpPurple: {fileID: 160354, guid: b003acbfb642441c19363f836c3d6a89, type: 2}
   powerUpYellow: {fileID: 160354, guid: 3b25b395fcea14270bdc9addd7c22fb8, type: 2}
+  pfxPointsGivenGreen: {fileID: 1960659527}
+  pfxPointsGivenRed: {fileID: 1109542319}
 --- !u!114 &1414978766
 MonoBehaviour:
   m_ObjectHideFlags: 0
